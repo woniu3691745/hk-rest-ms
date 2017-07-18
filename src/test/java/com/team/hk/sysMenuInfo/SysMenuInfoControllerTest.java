@@ -71,6 +71,7 @@ public class SysMenuInfoControllerTest {
         sysMenuInfo.setIcon("123");
         sysMenuInfo.setName("123");
         sysMenuInfo.setPath("123");
+        sysMenuInfo.setRole("admin, user");
         sysMenuInfo.setCreater("lll");
         sysMenuInfo.setModify("llll");
 

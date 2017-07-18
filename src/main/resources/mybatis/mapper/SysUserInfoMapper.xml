@@ -11,6 +11,7 @@
         USER_PHONE AS userPhone,
         USER_SEX AS userSex,
         USER_ADDRESS AS userAddress,
+        USER_ROLE AS userRole,
         CREATER AS creater,
         CREATE_DATE_TIME AS createDateTime,
         MODIFY AS modify,
@@ -66,6 +67,7 @@
         UPDATE HK_SYS_USER_INFO_T
           SET USER_NAME = #{userName},
               USER_PASSWORD = #{userPassword},
+              USER_ROLE = #{userRole},
               USER_PHONE = #{userPhone},
               USER_SEX = #{userSex},
               USER_ADDRESS = #{userAddress},
@@ -79,6 +81,7 @@
         INSERT into HK_SYS_USER_INFO_T(
                 USER_NAME,
                 USER_PASSWORD,
+                USER_ROLE,
                 USER_PHONE,
                 USER_SEX,
                 USER_ADDRESS,
@@ -92,6 +95,7 @@
             (
                #{userName},
                #{userPassword},
+               #{userRole},
                #{userPhone},
                #{userSex},
                #{userAddress},

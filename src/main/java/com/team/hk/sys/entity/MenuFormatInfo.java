@@ -18,6 +18,8 @@ public class MenuFormatInfo implements Serializable {
     private String name;
     private String icon;
     private Long parent;
+    private String[] role;
+
     private List<MenuFormatInfo> children;
 
     public Long getId() {
@@ -84,18 +86,12 @@ public class MenuFormatInfo implements Serializable {
         this.children = children;
     }
 
-    @Override
-    public String toString() {
-        return "MenuFormat{" +
-                "id=" + id +
-                ", path='" + path + '\'' +
-                ", component='" + component + '\'' +
-                ", redirect='" + redirect + '\'' +
-                ", name='" + name + '\'' +
-                ", icon='" + icon + '\'' +
-                ", parent=" + parent +
-                ", children=" + children +
-                '}';
+    public String[] getRole() {
+        return role;
+    }
+
+    public void setRole(String[] role) {
+        this.role = role;
     }
 
     public MenuFormatInfo() {

@@ -19,6 +19,7 @@ public class SysMenuInfo extends CommonEntity {
     private String name;
     private String icon;
     private Long parent;
+    private String role;
     private int type;
 
     private List<MenuFormatInfo> children;
@@ -95,6 +96,14 @@ public class SysMenuInfo extends CommonEntity {
         this.type = type;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "SysMenuInfo{" +
@@ -105,6 +114,7 @@ public class SysMenuInfo extends CommonEntity {
                 ", name='" + name + '\'' +
                 ", icon='" + icon + '\'' +
                 ", parent=" + parent +
+                ", role='" + role + '\'' +
                 ", type=" + type +
                 ", children=" + children +
                 '}';

@@ -52,6 +52,7 @@ public class SysMenuInfoControllerImpl implements SysMenuInfoController {
                 menuFormat.setPath(i.getPath());
                 menuFormat.setName(i.getName());
                 menuFormat.setIcon(i.getIcon());
+                menuFormat.setRole(i.getRole().split(","));
                 menuFormat.setComponent(i.getComponent());
                 menuFormat.setRedirect(i.getRedirect());
             }
@@ -72,6 +73,7 @@ public class SysMenuInfoControllerImpl implements SysMenuInfoController {
                         menuChildrenFormat.setParent(parentInfo.getId());
                         menuChildrenFormat.setComponent(base.getComponent());
                         menuChildrenFormat.setIcon(base.getIcon());
+                        menuChildrenFormat.setRole(base.getRole().split(","));
                         menuChildrenFormat.setRedirect("");
                         menuChildrenFormat.setChildren(new ArrayList<>());
                         listChildrenInfo.add(menuChildrenFormat);

@@ -71,6 +71,7 @@ public class SysUserInfoControllerTest {
         sysUserInfo.setUserPhone(13478824245L);
         sysUserInfo.setUserAddress("beijiang");
         sysUserInfo.setUserSex(1);
+        sysUserInfo.setUserRole("admin, user");
         sysUserInfo.setCreater("ldl");
         sysUserInfo.setModify("xiaoming");
 
@@ -94,6 +95,7 @@ public class SysUserInfoControllerTest {
         SysUserInfo sysUserInfo = new SysUserInfo();
         sysUserInfo.setUserName("lidongliang1");
         sysUserInfo.setUserPassword("a");
+        sysUserInfo.setUserRole("admin, user");
         sysUserInfo.setUserPhone(13478824245L);
         sysUserInfo.setUserAddress("beijiang1");
         sysUserInfo.setUserSex(1);

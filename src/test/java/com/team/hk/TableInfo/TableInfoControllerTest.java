@@ -154,4 +154,5 @@ public class TableInfoControllerTest {
 
         assertEquals(200, status);
     }
+
 }

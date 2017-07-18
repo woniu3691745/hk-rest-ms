@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.team.hk.menuInfo.mapper.MenuInfoMapper">
+
+    <!-- 基本字段 -->
+    <sql id="Base_Column_List">
+        DISHES_ID AS dishesId,
+        MENU_ID AS menuId,
+        STORE_ID AS storeId,
+        DISHES_NAME AS dishesName,
+        DISHES_PRICE AS dishesPrice,
+        DISHES_DISCOUNT_PRICE AS dishesDiscountPrice,
+        DISHES_DESCRIPTION AS dishesDescription,
+        DISHES_CATEGORY AS dishesCategory,
+        DISHES_IMG AS dishesImg,
+        DISHES_WATER_STATUS AS dishesWaterStatus,
+        IS_VEGETARIAN AS isVegetarian,
+        STOCK AS stock,
+        OVERPLUS_STOCK AS overplusStock,
+        CREATER AS creater,
+        CREATE_DATE_TIME AS createDateTime,
+        MODIFY AS modify,
+        UPDATE_DATE_TIME AS updateDateTime,
+        STATUS AS status
+    </sql>
+
+    <!-- 查询 -->
+    <select id="listByPage" parameterType="MenuInfo" resultType="MenuInfo">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM HK_MENU_INFO_T
+        <where>
+            <if test="dishesId != null">
+                DISHES_ID = #{dishesId}
+            </if>
+        </where>
+        ORDER BY UPDATE_DATE_TIME DESC
+        <if test="pageNo != null and pageSize != null">
+            LIMIT #{pageNo}, #{pageSize}
+        </if>
+    </select>
+
+    <!-- 总数 -->
+    <select id="listCountByPage" parameterType="MenuInfo" resultType="int">
+        SELECT
+        count(*)
+        FROM HK_MENU_INFO_T
+        <where>
+            <if test="dishesId != null">
+                DISHES_ID = #{dishesId}
+            </if>
+        </where>
+        <if test="pageNo != null and pageSize != null">
+            LIMIT #{pageNo}, #{pageSize}
+        </if>
+    </select>
+
+    <!-- 查询（无分页）-->
+    <select id="list" parameterType="MenuInfo" resultType="MenuInfo">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM HK_MENU_INFO_T
+        <where>
+            <if test="dishesId != null">
+                DISHES_ID = #{dishesId}
+            </if>
+        </where>
+    </select>
+
+    <!-- 更新 -->
+    <update id="update" parameterType="MenuInfo">
+        UPDATE HK_MENU_INFO_T
+          SET MENU_ID = #{menuId},
+              STORE_ID = #{storeId},
+              DISHES_NAME = #{dishesName},
+              DISHES_PRICE = #{dishesPrice},
+              DISHES_DISCOUNT_PRICE = #{dishesDiscountPrice},
+              DISHES_DESCRIPTION = #{dishesDescription},
+              DISHES_CATEGORY = #{dishesCategory},
+              DISHES_IMG = #{dishesImg},
+              DISHES_WATER_STATUS = #{dishesWaterStatus},
+              IS_VEGETARIAN = #{isVegetarian},
+              STOCK = #{stock},
+              OVERPLUS_STOCK = #{overplusStock},
+              MODIFY = #{modify},
+              UPDATE_DATE_TIME = now()
+           WHERE DISHES_ID = #{dishesId};
+    </update>
+
+    <!-- 增加 -->
+    <insert id="add" parameterType="MenuInfo" useGeneratedKeys="true" keyProperty="dishesId">
+        INSERT into HK_MENU_INFO_T(
+                MENU_ID,
+                STORE_ID,
+                DISHES_NAME,
+                DISHES_PRICE,
+                DISHES_DISCOUNT_PRICE,
+                DISHES_DESCRIPTION,
+                DISHES_CATEGORY,
+                DISHES_IMG,
+                DISHES_WATER_STATUS,
+                IS_VEGETARIAN,
+                STOCK,
+                OVERPLUS_STOCK,
+                CREATER,
+                CREATE_DATE_TIME,
+                MODIFY,
+                UPDATE_DATE_TIME,
+                STATUS
+            )
+            VALUES
+            (
+               #{menuId},
+               #{storeId},
+               #{dishesName},
+               #{dishesPrice},
+               #{dishesDiscountPrice},
+               #{dishesDescription},
+               #{dishesCategory},
+               #{dishesImg},
+               #{dishesWaterStatus},
+               #{isVegetarian},
+               #{stock},
+               #{overplusStock},
+               #{creater},
+               now(),
+               #{modify},
+               now(),
+               #{status}
+            )
+    </insert>
+
+    <!-- 删除 -->
+    <delete id="deleteById" parameterType="Long">
+        DELETE FROM HK_MENU_INFO_T WHERE DISHES_ID = #{0}
+    </delete>
+
+    <!-- 删除全部-->
+    <delete id="deleteByIds" parameterType="java.util.List">
+        DELETE FROM HK_MENU_INFO_T WHERE DISHES_ID in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+</mapper>

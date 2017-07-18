@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.team.hk.orderInfo.mapper.OrderDishInfoMapper">
+
+    <!-- 基本字段 -->
+    <sql id="Base_Column_List">
+        ID AS id,
+        ORDER_ID AS orderId,
+        DISHES_ID AS dishesId,
+        MENU_ID AS menuId,
+        DISHES_NAME AS dishesName,
+        DISHES_PRICE AS dishesPrice,
+        DISHES_DISCOUNT_PRICE AS dishesDiscountPrice,
+        AMOUNT AS amount,
+        CREATER AS creater,
+        CREATE_DATE_TIME AS createDateTime,
+        MODIFY AS modify,
+        UPDATE_DATE_TIME AS updateDateTime,
+        STATUS AS status
+    </sql>
+
+    <!-- 查询-->
+    <select id="list" parameterType="Long" resultType="OrderDishInfo">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM HK_ORDER_DISH_INFO_T
+        <where>
+            <if test="#{0} != null">
+                ORDER_ID = #{0}
+            </if>
+        </where>
+    </select>
+
+    <!-- 增加 -->
+    <insert id="add" parameterType="List" useGeneratedKeys="true" keyProperty="id">
+        INSERT into HK_ORDER_DISH_INFO_T(
+        ORDER_ID,
+        DISHES_ID,
+        MENU_ID,
+        DISHES_NAME,
+        DISHES_PRICE,
+        DISHES_DISCOUNT_PRICE,
+        AMOUNT,
+        CREATER,
+        CREATE_DATE_TIME,
+        MODIFY,
+        UPDATE_DATE_TIME,
+        STATUS
+        )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.orderId},
+            #{item.dishesId},
+            #{item.menuId},
+            #{item.dishesName},
+            #{item.dishesPrice},
+            #{item.dishesDiscountPrice},
+            #{item.amount},
+            #{item.creater},
+            now(),
+            #{item.modify},
+            now(),
+            #{item.status}
+            )
+        </foreach>
+    </insert>
+
+    <!-- 更新 -->
+    <update id="update" parameterType="OrderDishInfo">
+        UPDATE HK_ORDER_DISH_INFO_T
+        SET ORDER_ID = #{orderId},
+        DISHES_ID = #{dishesId},
+        MENU_ID = #{menuId},
+        DISHES_NAME = #{dishesName},
+        DISHES_PRICE = #{dishesPrice},
+        DISHES_DISCOUNT_PRICE = #{dishesDiscountPrice},
+        AMOUNT = #{amount},
+        MODIFY = #{modify},
+        UPDATE_DATE_TIME = now()
+        WHERE ID = #{id};
+    </update>
+
+    <!-- 删除 -->
+    <delete id="deleteById" parameterType="Long">
+        DELETE FROM HK_ORDER_DISH_INFO_T WHERE ID = #{0}
+    </delete>
+
+    <!-- 删除全部 -->
+    <delete id="deleteByIds" parameterType="java.util.List">
+        DELETE FROM HK_ORDER_DISH_INFO_T WHERE ID in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <!-- 伴随订单删除全部 -->
+    <delete id="deleteByIdsForOrder" parameterType="java.util.List">
+        DELETE FROM HK_ORDER_DISH_INFO_T WHERE ORDER_ID in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.team.hk.storeInfo.mapper.StoreInfoMapper">
+
+    <!-- 基本字段 -->
+    <sql id="Base_Column_List">
+        STORE_ID AS storeId,
+        USER_ID AS userId,
+        STORE_NAME AS storeName,
+        STORE_PHONE AS storePhone,
+        STORE_ADDRESS AS storeAddress,
+        STORE_ADMIN AS storeAdmin,
+        STORE_DESCRIPTION AS storeDescription,
+        STORE_STATUS AS storeStatus,
+        STORE_LOGO AS storeLogo,
+        STORE_NOTICE AS storeNotice,
+        STORE_IMG AS storeImg,
+        STORE_TYPE AS storeType,
+        SEAT_COST AS seatCost,
+        SERVICE_COST AS serviceCost,
+        STORE_BUSINESS_AM_START_HOURS AS storeBusinessAmStartHours,
+        STORE_BUSINESS_AM_END_HOURS AS storeBusinessAmEndHours,
+        STORE_BUSINESS_PM_START_HOURS AS storeBusinessPmStartHours,
+        STORE_BUSINESS_PM_END_HOURS AS storeBusinessPmEndHours,
+        STORE_BUSINESS_DAY AS storeBusinessDay,
+        CREATER AS creater,
+        CREATE_DATE_TIME AS createDateTime,
+        MODIFY AS modify,
+        UPDATE_DATE_TIME AS updateDateTime,
+        STATUS AS status
+    </sql>
+
+    <!-- 查询 -->
+    <select id="listByPage" parameterType="StoreInfo" resultType="StoreInfo">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM HK_STORE_INFO_T
+        <where>
+            <if test="storeId != null">
+                STORE_ID = #{storeId}
+            </if>
+        </where>
+        ORDER BY UPDATE_DATE_TIME DESC
+        <if test="pageNo != null and pageSize != null">
+            LIMIT #{pageNo}, #{pageSize}
+        </if>
+    </select>
+
+    <!-- 总数 -->
+    <select id="listCountByPage" parameterType="StoreInfo" resultType="int">
+        SELECT
+        count(*)
+        FROM HK_STORE_INFO_T
+        <where>
+            <if test="storeId != null">
+                STORE_ID = #{storeId}
+            </if>
+        </where>
+        <if test="pageNo != null and pageSize != null">
+            LIMIT #{pageNo}, #{pageSize}
+        </if>
+    </select>
+
+    <!-- 查询（无分页）-->
+    <select id="list" parameterType="StoreInfo" resultType="StoreInfo">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM HK_STORE_INFO_T
+        <where>
+            <if test="storeId != null">
+                STORE_ID = #{storeId}
+            </if>
+        </where>
+    </select>
+
+
+    <!-- 更新 -->
+    <update id="update" parameterType="MenuInfo">
+        UPDATE HK_STORE_INFO_T
+          SET USER_ID = #{userId},
+              STORE_NAME = #{storeName},
+              STORE_PHONE = #{storePhone},
+              STORE_ADDRESS = #{storeAddress},
+              STORE_ADMIN = #{storeAdmin},
+              STORE_DESCRIPTION = #{storeDescription},
+              STORE_STATUS = #{storeStatus},
+              STORE_LOGO = #{storeLogo},
+              STORE_NOTICE = #{storeNotice},
+              STORE_IMG = #{storeImg},
+              STORE_TYPE = #{storeType},
+              SEAT_COST = #{seatCost},
+              SERVICE_COST = #{serviceCost},
+              STORE_BUSINESS_AM_START_HOURS = #{storeBusinessAmStartHours},
+              STORE_BUSINESS_AM_END_HOURS = #{storeBusinessAmEndHours},
+              STORE_BUSINESS_PM_START_HOURS = #{storeBusinessPmStartHours},
+              STORE_BUSINESS_PM_END_HOURS = #{storeBusinessPmEndHours},
+              STORE_BUSINESS_DAY = #{storeBusinessDay},
+              MODIFY = #{modify},
+              UPDATE_DATE_TIME = now()
+           WHERE STORE_ID = #{storeId};
+    </update>
+
+    <!-- 增加 -->
+    <insert id="add" parameterType="StoreInfo" useGeneratedKeys="true" keyProperty="storeId">
+        INSERT into HK_STORE_INFO_T(
+                USER_ID,
+                STORE_NAME,
+                STORE_PHONE,
+                STORE_ADDRESS,
+                STORE_ADMIN,
+                STORE_DESCRIPTION,
+                STORE_STATUS,
+                STORE_LOGO,
+                STORE_NOTICE,
+                STORE_IMG,
+                STORE_TYPE,
+                SEAT_COST,
+                SERVICE_COST,
+                STORE_BUSINESS_AM_START_HOURS,
+                STORE_BUSINESS_AM_END_HOURS,
+                STORE_BUSINESS_PM_START_HOURS,
+                STORE_BUSINESS_PM_END_HOURS,
+                STORE_BUSINESS_DAY,
+                CREATER,
+                CREATE_DATE_TIME,
+                MODIFY,
+                UPDATE_DATE_TIME,
+                STATUS
+            )
+            VALUES
+            (
+               #{userId},
+               #{storeName},
+               #{storePhone},
+               #{storeAddress},
+               #{storeAdmin},
+               #{storeDescription},
+               #{storeStatus},
+               #{storeLogo},
+               #{storeNotice},
+               #{storeImg},
+               #{storeType},
+               #{seatCost},
+               #{serviceCost},
+               #{storeBusinessAmStartHours},
+               #{storeBusinessAmEndHours},
+               #{storeBusinessPmStartHours},
+               #{storeBusinessPmEndHours},
+               #{storeBusinessDay},
+               #{creater},
+               now(),
+               #{modify},
+               now(),
+               #{status}
+            )
+    </insert>
+
+    <!-- 删除 -->
+    <delete id="deleteById" parameterType="Long">
+        DELETE FROM HK_STORE_INFO_T WHERE STORE_ID = #{0}
+    </delete>
+
+    <!-- 删除全部-->
+    <delete id="deleteByIds" parameterType="java.util.List">
+        DELETE FROM HK_STORE_INFO_T WHERE STORE_ID in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+</mapper>

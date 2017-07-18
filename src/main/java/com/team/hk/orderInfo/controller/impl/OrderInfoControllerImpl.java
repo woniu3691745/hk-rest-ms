@@ -33,7 +33,7 @@ public class OrderInfoControllerImpl implements OrderInfoController {
      * @return orderInfoInfo
      */
     @ResponseBody
-    @RequestMapping(value = "/getAll/{pageNo}/{pageSize}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAll/{pageNo}/{pageSize}", method = RequestMethod.POST)
     @Override
     public List<OrderInfo> getAllOrderInfoByPage(@RequestBody OrderInfo orderInfo, @PathVariable("pageNo") Long pageNo,
                                                  @PathVariable("pageSize") Long pageSize) {

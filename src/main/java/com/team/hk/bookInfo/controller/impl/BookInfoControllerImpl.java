@@ -33,7 +33,7 @@ public class BookInfoControllerImpl implements BookInfoController {
      * @return List<MenuInfo>
      */
     @ResponseBody
-    @RequestMapping(value = "/getAll/{pageNo}/{pageSize}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAll/{pageNo}/{pageSize}", method = RequestMethod.POST)
     @Override
     public List<BookInfo> getAllBookInfoByPage(@RequestBody BookInfo bookInfo, @PathVariable("pageNo") Long pageNo,
                                                @PathVariable("pageSize") Long pageSize) {

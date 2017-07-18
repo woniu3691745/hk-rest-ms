@@ -1,9 +1,11 @@
-package com.team.hk.menuInfo;
+package com.team.hk.sysUserInfo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.team.hk.menuInfo.entity.MenuInfo;
-import com.team.hk.menuInfo.service.MenuInfoService;
-import com.team.hk.orderInfo.entity.OrderInfo;
+import com.team.hk.storeInfo.service.StoreInfoService;
+import com.team.hk.sys.entity.SysMenuInfo;
+import com.team.hk.sys.entity.SysUserInfo;
+import com.team.hk.sys.server.SysUserInfoService;
+import com.team.hk.tableInfo.entity.TableInfo;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,19 +19,16 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static junit.framework.TestCase.assertEquals;
 
 /**
  * Created by lidongliang on 2017/7/4.
- * MenuInfo 单体测试
+ * SysMenuInfo 单体测试
  * 测试通过
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MenuInfoControllerTest {
+public class SysUserInfoControllerTest {
 
     private MockMvc mockMvc;
 
@@ -37,7 +36,7 @@ public class MenuInfoControllerTest {
     private WebApplicationContext webApplicationContext;
 
     @Autowired
-    private MenuInfoService menuInfoService;
+    private SysUserInfoService sysUserInfoService;
 
     @Before
     public void setUp() throws Exception {
@@ -45,16 +44,15 @@ public class MenuInfoControllerTest {
     }
 
     @Test
-    public void getAllMenuInfo() throws Exception {
+    public void getAllUserInfo() throws Exception {
 
-        MenuInfo menuInfo = new MenuInfo();
-        menuInfo.setDishesId(1L);
-        String url = "/api/menu/getAll/0/2";
+        SysUserInfo sysUserInfo = new SysUserInfo();
+        String url = "/api/sysUser/getAll/0/3";
 
         ObjectMapper mapper = new ObjectMapper();
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(url)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(menuInfo)))
+                .content(mapper.writeValueAsString(sysUserInfo)))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
         String content = mvcResult.getResponse().getContentAsString();
@@ -65,29 +63,23 @@ public class MenuInfoControllerTest {
     }
 
     @Test
-    public void addMenuInfo() throws Exception {
+    public void addUserInfo() throws Exception {
 
-        MenuInfo menuInfo = new MenuInfo();
-        menuInfo.setMenuId(10001L);
-        menuInfo.setStoreId(10002L);
-        menuInfo.setDishesPrice(20.35);
-        menuInfo.setDishesName("水煮肉");
-        menuInfo.setDishesDiscountPrice("0.8");
-        menuInfo.setDishesDescription("鱼水肉");
-        menuInfo.setDishesCategory(1);
-        menuInfo.setDishesImg(333L);
-        menuInfo.setDishesWaterStatus(1);
-        menuInfo.setIsVegetarian(1);
-        menuInfo.setStock(1);
-        menuInfo.setOverplusStock(1);
-        menuInfo.setCreater("lidl");
-        menuInfo.setModify("lidongliang");
-        String url = "/api/menu/add";
+        SysUserInfo sysUserInfo = new SysUserInfo();
+        sysUserInfo.setUserName("lidongliang");
+        sysUserInfo.setUserPassword("a");
+        sysUserInfo.setUserPhone(13478824245L);
+        sysUserInfo.setUserAddress("beijiang");
+        sysUserInfo.setUserSex(1);
+        sysUserInfo.setCreater("ldl");
+        sysUserInfo.setModify("xiaoming");
+
+        String url = "/api/sysUser/add";
 
         ObjectMapper mapper = new ObjectMapper();
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(url)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(menuInfo)))
+                .content(mapper.writeValueAsString(sysUserInfo)))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
         String content = mvcResult.getResponse().getContentAsString();
@@ -97,30 +89,52 @@ public class MenuInfoControllerTest {
     }
 
     @Test
-    public void deleteByIdMenuInfo() throws Exception {
+    public void updateStoreInfo() throws Exception {
 
-        String url = "/api/menu/delete/1";
+        SysUserInfo sysUserInfo = new SysUserInfo();
+        sysUserInfo.setUserName("lidongliang1");
+        sysUserInfo.setUserPassword("a");
+        sysUserInfo.setUserPhone(13478824245L);
+        sysUserInfo.setUserAddress("beijiang1");
+        sysUserInfo.setUserSex(1);
+        sysUserInfo.setCreater("ldl");
+        sysUserInfo.setModify("xiaoming");
+        sysUserInfo.setUserId(1L);
+
+        String url = "/api/sysUser/update";
+
+        ObjectMapper mapper = new ObjectMapper();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(sysUserInfo)))
+                .andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        String content = mvcResult.getResponse().getContentAsString();
+        System.out.println(content);
+
+        assertEquals(200, status);
+    }
+
+    @Test
+    public void deleteByIdUserInfo() throws Exception {
+
+        String url = "/api/sysUser/delete/2";
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete(url)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
         String content = mvcResult.getResponse().getContentAsString();
         System.out.println(content);
-
-        assertEquals(200, status);
-
     }
 
-
     @Test
-    public void deleteByIdsMenuInfo() throws Exception {
+    public void deleteByIdsUserInfo() throws Exception {
 
-        String url = "/api/menu/deleteAll";
-        ObjectMapper mapper = new ObjectMapper();
+        String url = "/api/sysUser/deleteAll";
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete(url)
                 .contentType(MediaType.APPLICATION_JSON)
-                .param("dishesId", "3")
-                .param("dishesId", "4"))
+                .param("userId", "3")
+                .param("userId", "5"))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
         String content = mvcResult.getResponse().getContentAsString();
@@ -128,38 +142,5 @@ public class MenuInfoControllerTest {
 
         assertEquals(200, status);
 
-    }
-
-    @Test
-    public void updateMenuInfo() throws Exception {
-
-        MenuInfo menuInfo = new MenuInfo();
-        menuInfo.setMenuId(2L);
-        menuInfo.setStoreId(10002L);
-        menuInfo.setDishesPrice(30.35);
-        menuInfo.setDishesName("水煮肉1");
-        menuInfo.setDishesDiscountPrice("0.8");
-        menuInfo.setDishesDescription("鱼水肉");
-        menuInfo.setDishesCategory(1);
-        menuInfo.setDishesImg(333L);
-        menuInfo.setDishesWaterStatus(1);
-        menuInfo.setIsVegetarian(1);
-        menuInfo.setStock(1);
-        menuInfo.setOverplusStock(1);
-        menuInfo.setCreater("lidl");
-        menuInfo.setModify("lidongliang");
-        menuInfo.setDishesId(2L);
-        String url = "/api/menu/update";
-
-        ObjectMapper mapper = new ObjectMapper();
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put(url)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(menuInfo)))
-                .andReturn();
-        int status = mvcResult.getResponse().getStatus();
-        String content = mvcResult.getResponse().getContentAsString();
-        System.out.println(content);
-
-        assertEquals(200, status);
     }
 }

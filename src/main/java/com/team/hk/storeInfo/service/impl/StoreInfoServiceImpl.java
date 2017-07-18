@@ -69,25 +69,21 @@ public class StoreInfoServiceImpl implements StoreInfoService {
 
     @Override
     public int addStoreInfoService(StoreInfo storeInfo) {
-        int i = storeInfoMapper.add(storeInfo);
-        return i;
+        return storeInfoMapper.add(storeInfo);
     }
 
     @Override
     public int updateStoreInfoService(StoreInfo storeInfo) {
-        int i = storeInfoMapper.update(storeInfo);
-        return i;
+        return storeInfoMapper.update(storeInfo);
     }
 
     @Override
     public int deleteStoreInfoByIdService(Long storeId) {
-        int i = storeInfoMapper.deleteById(storeId);
-        return i;
+        return storeInfoMapper.deleteById(storeId);
     }
 
     @Override
     public int deleteStoreInfoByIdsService(List<Long> storeId) {
-        int i = storeInfoMapper.deleteByIds(storeId);
-        return i;
+        return storeInfoMapper.deleteByIds(storeId);
     }
 }

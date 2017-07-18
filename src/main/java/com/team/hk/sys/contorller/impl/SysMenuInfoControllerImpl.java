@@ -92,7 +92,7 @@ public class SysMenuInfoControllerImpl implements SysMenuInfoController {
      * @return List<SysMenuInfo>
      */
     @ResponseBody
-    @RequestMapping(value = "/getAll/{pageNo}/{pageSize}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAll/{pageNo}/{pageSize}", method = RequestMethod.POST)
     @Override
     public List<SysMenuInfo> getAllSysMenuInfoByPage(@RequestBody SysMenuInfo sysMenuInfo, @PathVariable("pageNo") Long pageNo,
                                                      @PathVariable("pageSize") Long pageSize) {
@@ -160,7 +160,7 @@ public class SysMenuInfoControllerImpl implements SysMenuInfoController {
     }
 
     /**
-     * 删除多个桌子
+     * 删除多个系统菜单信息
      *
      * @param menuId 系统菜单ID
      * @return rowsAffected
@@ -168,7 +168,7 @@ public class SysMenuInfoControllerImpl implements SysMenuInfoController {
     @ResponseBody
     @RequestMapping(value = "/deleteAll", method = RequestMethod.DELETE)
     @Override
-    public int deleteSysMenuInfoByIds(List<Long> menuId) {
+    public int deleteSysMenuInfoByIds(@RequestParam("menuId") List<Long> menuId) {
         return sysMenuInfoService.deleteSysMenuInfoByIdsService(menuId);
     }
 }

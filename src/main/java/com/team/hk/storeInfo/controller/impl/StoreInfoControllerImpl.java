@@ -33,7 +33,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
      * @return List<MenuInfo>
      */
     @ResponseBody
-    @RequestMapping(value = "/getAll/{pageNo}/{pageSize}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAll/{pageNo}/{pageSize}", method = RequestMethod.POST)
     @Override
     public List<StoreInfo> getAllStoreInfoByPage(@RequestBody StoreInfo storeInfo, @PathVariable("pageNo") Long pageNo,
                                                  @PathVariable("pageSize") Long pageSize) {
@@ -58,8 +58,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     public List<StoreInfo> getAllStoreInfo(@PathVariable("storeId") Long storeId) {
         StoreInfo storeInfo = new StoreInfo();
         storeInfo.setStoreId(storeId);
-        List<StoreInfo> storeInfos = storeInfoService.getAllStoreInfoService(storeInfo);
-        return storeInfos;
+        return storeInfoService.getAllStoreInfoService(storeInfo);
     }
 
     /**
@@ -72,8 +71,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @Override
     public int addStoreInfo(@RequestBody StoreInfo storeInfo) {
-        int i = storeInfoService.addStoreInfoService(storeInfo);
-        return i;
+        return storeInfoService.addStoreInfoService(storeInfo);
     }
 
     /**
@@ -86,8 +84,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @Override
     public int updateStoreInfo(@RequestBody StoreInfo storeInfo) {
-        int i = storeInfoService.updateStoreInfoService(storeInfo);
-        return i;
+        return storeInfoService.updateStoreInfoService(storeInfo);
     }
 
 
@@ -101,8 +98,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     @RequestMapping(value = "/delete/{storeId}", method = RequestMethod.DELETE)
     @Override
     public int deleteStoreInfoById(@PathVariable("storeId") Long storeId) {
-        int i = storeInfoService.deleteStoreInfoByIdService(storeId);
-        return i;
+        return storeInfoService.deleteStoreInfoByIdService(storeId);
     }
 
     /**
@@ -115,7 +111,6 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     @RequestMapping(value = "/deleteAll", method = RequestMethod.DELETE)
     @Override
     public int deleteStoreInfoByIds(@RequestParam("storeId") List<Long> storeId) {
-        int i = storeInfoService.deleteStoreInfoByIdsService(storeId);
-        return i;
+        return storeInfoService.deleteStoreInfoByIdsService(storeId);
     }
 }

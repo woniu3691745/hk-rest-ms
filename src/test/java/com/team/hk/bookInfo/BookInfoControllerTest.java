@@ -54,7 +54,7 @@ public class BookInfoControllerTest {
         String url = "/api/book/getAll/0/2";
 
         ObjectMapper mapper = new ObjectMapper();
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url)
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(bookInfo)))
                 .andReturn();

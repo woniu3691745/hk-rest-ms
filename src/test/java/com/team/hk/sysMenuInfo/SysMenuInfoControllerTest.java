@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team.hk.storeInfo.entity.StoreInfo;
 import com.team.hk.storeInfo.service.StoreInfoService;
 import com.team.hk.sys.entity.SysMenuInfo;
+import com.team.hk.sys.entity.SysUserInfo;
+import com.team.hk.sys.server.SysMenuInfoService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +26,7 @@ import static junit.framework.TestCase.assertEquals;
 /**
  * Created by lidongliang on 2017/7/4.
  * SysMenuInfo 单体测试
+ * 测试通过
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -35,7 +38,7 @@ public class SysMenuInfoControllerTest {
     private WebApplicationContext webApplicationContext;
 
     @Autowired
-    private StoreInfoService storeInfoService;
+    private SysMenuInfoService sysMenuInfoService;
 
     @Before
     public void setUp() throws Exception {
@@ -43,7 +46,7 @@ public class SysMenuInfoControllerTest {
     }
 
     @Test
-    public void getAllStoreInfo() throws Exception {
+    public void getAllMenuInfo() throws Exception {
 
         SysMenuInfo sysMenuInfo = new SysMenuInfo();
         String url = "/api/sysMenu/getAll/0/3";
@@ -58,7 +61,85 @@ public class SysMenuInfoControllerTest {
         System.out.println(content);
 
         assertEquals(200, status);
-
     }
 
+    @Test
+    public void addMenuInfo() throws Exception {
+
+        SysMenuInfo sysMenuInfo = new SysMenuInfo();
+        sysMenuInfo.setComponent("123");
+        sysMenuInfo.setIcon("123");
+        sysMenuInfo.setName("123");
+        sysMenuInfo.setPath("123");
+        sysMenuInfo.setCreater("lll");
+        sysMenuInfo.setModify("llll");
+
+        String url = "/api/sysMenu/add";
+
+        ObjectMapper mapper = new ObjectMapper();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(sysMenuInfo)))
+                .andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        String content = mvcResult.getResponse().getContentAsString();
+        System.out.println(content);
+
+        assertEquals(200, status);
+    }
+
+    @Test
+    public void updateMenuInfo() throws Exception {
+
+        SysMenuInfo sysMenuInfo = new SysMenuInfo();
+        sysMenuInfo.setComponent("asd");
+        sysMenuInfo.setIcon("asd");
+        sysMenuInfo.setName("123");
+        sysMenuInfo.setPath("123");
+        sysMenuInfo.setCreater("lll");
+        sysMenuInfo.setModify("llll");
+        sysMenuInfo.setId(1006L);
+
+        String url = "/api/sysMenu/update";
+
+        ObjectMapper mapper = new ObjectMapper();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(sysMenuInfo)))
+                .andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        String content = mvcResult.getResponse().getContentAsString();
+        System.out.println(content);
+
+        assertEquals(200, status);
+    }
+
+    @Test
+    public void deleteByIdMenuInfo() throws Exception {
+
+        String url = "/api/sysMenu/delete/1006";
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete(url)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        String content = mvcResult.getResponse().getContentAsString();
+        System.out.println(content);
+    }
+
+    @Test
+    public void deleteByIdsMenuInfo() throws Exception {
+
+        String url = "/api/sysMenu/deleteAll";
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("id", "3")
+                .param("id", "5"))
+                .andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        String content = mvcResult.getResponse().getContentAsString();
+        System.out.println(content);
+
+        assertEquals(200, status);
+
+    }
 }

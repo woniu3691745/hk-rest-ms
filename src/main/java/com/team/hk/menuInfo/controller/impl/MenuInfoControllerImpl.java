@@ -33,7 +33,7 @@ public class MenuInfoControllerImpl implements MenuInfoController {
      * @return List<MenuInfo>
      */
     @ResponseBody
-    @RequestMapping(value = "/getAll/{pageNo}/{pageSize}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAll/{pageNo}/{pageSize}", method = RequestMethod.POST)
     @Override
     public List<MenuInfo> getAllMenuInfoByPage(@RequestBody MenuInfo menuInfo, @PathVariable("pageNo") Long pageNo,
                                                @PathVariable("pageSize") Long pageSize) {

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-07-18 14:09:57
+Date: 2017-07-18 16:35:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -218,7 +218,7 @@ CREATE TABLE `hk_sys_menu_info_t` (
   `UPDATE_DATE_TIME` datetime DEFAULT NULL,
   `STATUS` int(1) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1006 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1007 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of hk_sys_menu_info_t
@@ -228,6 +228,30 @@ INSERT INTO `hk_sys_menu_info_t` VALUES ('1002', '组件2', '/components', 'layo
 INSERT INTO `hk_sys_menu_info_t` VALUES ('1003', '子组件1', '/components-sub', 'layout/Layout-sub', '/components/index-sub', 'zujian-sub', '1', '1001', 'admin', '2017-07-16 16:26:48', 'admin', '2017-07-16 16:26:54', '0');
 INSERT INTO `hk_sys_menu_info_t` VALUES ('1004', '子组件2', '/components4', 'layout/Layout4', '/components/index4', 'zujian4', '1', '1002', 'admin', '2017-07-16 16:26:48', 'admin', '2017-07-16 16:26:54', '0');
 INSERT INTO `hk_sys_menu_info_t` VALUES ('1005', '子组件3', '/components', 'layout/Layout', '/components/index', 'zujian', '1', '1001', 'admin', '2017-07-16 16:26:48', 'admin', '2017-07-16 16:26:54', '0');
+
+-- ----------------------------
+-- Table structure for `hk_sys_user_info_t`
+-- ----------------------------
+DROP TABLE IF EXISTS `hk_sys_user_info_t`;
+CREATE TABLE `hk_sys_user_info_t` (
+  `USER_ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户编号',
+  `USER_NAME` varchar(16) DEFAULT NULL COMMENT '用户名字',
+  `USER_PASSWORD` varchar(16) DEFAULT NULL COMMENT '用户密码',
+  `USER_PHONE` bigint(11) DEFAULT NULL COMMENT '用户电话',
+  `USER_SEX` int(1) DEFAULT NULL COMMENT '用户性别',
+  `USER_ADDRESS` varchar(50) DEFAULT NULL COMMENT '用户地址',
+  `CREATER` varchar(16) DEFAULT NULL COMMENT '创建者',
+  `CREATE_DATE_TIME` datetime DEFAULT NULL COMMENT '创建时间',
+  `MODIFY` varchar(16) DEFAULT NULL COMMENT '修改者',
+  `UPDATE_DATE_TIME` datetime DEFAULT NULL COMMENT '修改时间',
+  `STATUS` int(1) DEFAULT NULL COMMENT '状态（0：不可用，1：可用）',
+  PRIMARY KEY (`USER_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of hk_sys_user_info_t
+-- ----------------------------
+INSERT INTO `hk_sys_user_info_t` VALUES ('4', 'lidongliang', 'a', '13478824245', '1', 'beijiang', 'ldl', '2017-07-18 15:57:03', 'xiaoming', '2017-07-18 15:57:03', '0');
 
 -- ----------------------------
 -- Table structure for `hk_table_info_t`
@@ -244,35 +268,13 @@ CREATE TABLE `hk_table_info_t` (
   `UPDATE_DATE_TIME` datetime DEFAULT NULL COMMENT '修改时间',
   `STATUS` int(1) DEFAULT NULL COMMENT '状态（0：不可用，1：可用）',
   PRIMARY KEY (`TABLE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of hk_table_info_t
 -- ----------------------------
 INSERT INTO `hk_table_info_t` VALUES ('1', '2', '0', 'a123eaa', null, '2017-07-18 13:24:34', 'xiaomin1g', '2017-07-18 13:30:22', '0');
-
--- ----------------------------
--- Table structure for `hk_user_info_t`
--- ----------------------------
-DROP TABLE IF EXISTS `hk_user_info_t`;
-CREATE TABLE `hk_user_info_t` (
-  `USER_ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户编号',
-  `USER_NAME` varchar(16) DEFAULT NULL COMMENT '用户名字',
-  `USER_PASSWORD` varchar(16) DEFAULT NULL COMMENT '用户密码',
-  `USER_PHONE` bigint(11) DEFAULT NULL COMMENT '用户电话',
-  `USER_SEX` int(1) DEFAULT NULL COMMENT '用户性别',
-  `USER_ADDRESS` varchar(50) DEFAULT NULL COMMENT '用户地址',
-  `CREATER` varchar(16) DEFAULT NULL COMMENT '创建者',
-  `CREATE_DATE_TIME` datetime DEFAULT NULL COMMENT '创建时间',
-  `MODIFY` varchar(16) DEFAULT NULL COMMENT '修改者',
-  `UPDATE_DATE_TIME` datetime DEFAULT NULL COMMENT '修改时间',
-  `STATUS` int(1) DEFAULT NULL COMMENT '状态（0：不可用，1：可用）',
-  PRIMARY KEY (`USER_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of hk_user_info_t
--- ----------------------------
+INSERT INTO `hk_table_info_t` VALUES ('5', '1', '0', 'aaa', 'lidongliang', '2017-07-18 15:49:26', 'xiaoming', '2017-07-18 15:49:26', '0');
 
 -- ----------------------------
 -- Table structure for `hk_user_store_info_t`

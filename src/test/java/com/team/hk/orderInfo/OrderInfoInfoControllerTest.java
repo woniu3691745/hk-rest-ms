@@ -51,7 +51,7 @@ public class OrderInfoInfoControllerTest {
         order.setStoreId(10L);
         String url = "/api/order/getAll/0/5";
         ObjectMapper mapper = new ObjectMapper();
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url)
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(order)))
                 .andReturn();

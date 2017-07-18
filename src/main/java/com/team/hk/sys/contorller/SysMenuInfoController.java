@@ -13,6 +13,7 @@ public interface SysMenuInfoController {
 
     /**
      * 获得系统菜单信息（通过分页）
+     *
      * @return List<SysMenuInfo>
      * >
      */
@@ -20,35 +21,40 @@ public interface SysMenuInfoController {
 
     /**
      * 获得系统菜单信息
+     *
      * @return List<SysMenuInfo>
      */
     List<SysMenuInfo> getAllSysMenuInfo(Long id);
 
     /**
      * 增加系统菜单
+     *
      * @param sysMenuInfo 系统菜单实体
-     * @return 1
+     * @return rowsAffected
      */
     int addSysMenuInfo(SysMenuInfo sysMenuInfo);
 
     /**
      * 修改系统菜单
+     *
      * @param sysMenuInfo 系统菜单实体
-     * @return 1
+     * @return rowsAffected
      */
     int updateSysMenuInfo(SysMenuInfo sysMenuInfo);
 
     /**
      * 删除一个系统菜单
+     *
      * @param id 系统菜单ID
-     * @return 1
+     * @return rowsAffected
      */
     int deleteSysMenuInfoById(Long id);
 
     /**
      * 删除多个系统菜单
+     *
      * @param id 系统菜单ID
-     * @return 1
+     * @return rowsAffected
      */
     int deleteSysMenuInfoByIds(List<Long> id);
 }

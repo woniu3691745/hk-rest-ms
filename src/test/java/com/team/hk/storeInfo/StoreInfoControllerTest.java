@@ -50,7 +50,7 @@ public class StoreInfoControllerTest {
         String url = "/api/store/getAll/0/2";
 
         ObjectMapper mapper = new ObjectMapper();
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url)
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(storeInfo)))
                 .andReturn();

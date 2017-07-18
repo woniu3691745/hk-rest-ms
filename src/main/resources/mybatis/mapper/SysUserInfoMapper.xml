@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.team.hk.sys.mapper.SysUserInfoMapper">
+
+    <!-- 基本字段 -->
+    <sql id="Base_Column_List">
+        USER_ID AS userId,
+        USER_NAME AS userName,
+        USER_PASSWORD AS userPassword,
+        USER_PHONE AS userPhone,
+        USER_SEX AS userSex,
+        USER_ADDRESS AS userAddress,
+        CREATER AS creater,
+        CREATE_DATE_TIME AS createDateTime,
+        MODIFY AS modify,
+        UPDATE_DATE_TIME AS updateDateTime,
+        STATUS AS status
+    </sql>
+
+    <!-- 查询 -->
+    <select id="listByPage" parameterType="SysUserInfo" resultType="SysUserInfo">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM HK_SYS_USER_INFO_T
+        <where>
+            <if test="userId != null">
+                USER_ID = #{userId}
+            </if>
+        </where>
+        ORDER BY UPDATE_DATE_TIME DESC
+        <if test="pageNo != null and pageSize != null">
+            LIMIT #{pageNo}, #{pageSize}
+        </if>
+    </select>
+
+    <!-- 总数 -->
+    <select id="listCountByPage" parameterType="SysUserInfo" resultType="int">
+        SELECT
+        count(*)
+        FROM HK_SYS_USER_INFO_T
+        <where>
+            <if test="userId != null">
+                USER_ID = #{userId}
+            </if>
+        </where>
+        <if test="pageNo != null and pageSize != null">
+            LIMIT #{pageNo}, #{pageSize}
+        </if>
+    </select>
+
+    <!-- 查询（无分页）-->
+    <select id="list" parameterType="SysUserInfo" resultType="SysUserInfo">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM HK_SYS_USER_INFO_T
+        <where>
+            <if test="userId != null">
+                USER_ID = #{userId}
+            </if>
+        </where>
+    </select>
+
+    <!-- 更新 -->
+    <update id="update" parameterType="SysUserInfo">
+        UPDATE HK_SYS_USER_INFO_T
+          SET USER_NAME = #{userName},
+              USER_PASSWORD = #{userPassword},
+              USER_PHONE = #{userPhone},
+              USER_SEX = #{userSex},
+              USER_ADDRESS = #{userAddress},
+              MODIFY = #{modify},
+              UPDATE_DATE_TIME = now()
+           WHERE USER_ID = #{userId}
+    </update>
+
+    <!-- 增加 -->
+    <insert id="add" parameterType="SysUserInfo" useGeneratedKeys="true" keyProperty="userId">
+        INSERT into HK_SYS_USER_INFO_T(
+                USER_NAME,
+                USER_PASSWORD,
+                USER_PHONE,
+                USER_SEX,
+                USER_ADDRESS,
+                CREATER,
+                CREATE_DATE_TIME,
+                MODIFY,
+                UPDATE_DATE_TIME,
+                STATUS
+            )
+            VALUES
+            (
+               #{userName},
+               #{userPassword},
+               #{userPhone},
+               #{userSex},
+               #{userAddress},
+               #{creater},
+               now(),
+               #{modify},
+               now(),
+               #{status}
+            )
+    </insert>
+
+    <!-- 删除 -->
+    <delete id="deleteById" parameterType="Long">
+        DELETE FROM HK_SYS_USER_INFO_T WHERE USER_ID = #{0}
+    </delete>
+
+    <!-- 删除全部-->
+    <delete id="deleteByIds" parameterType="java.util.List">
+        DELETE FROM HK_SYS_USER_INFO_T WHERE USER_ID in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+</mapper>

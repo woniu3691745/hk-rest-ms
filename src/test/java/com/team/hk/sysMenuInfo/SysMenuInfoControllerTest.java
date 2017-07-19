@@ -52,7 +52,7 @@ public class SysMenuInfoControllerTest {
         String url = "/api/sysMenu/getAll/0/3";
 
         ObjectMapper mapper = new ObjectMapper();
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url)
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(sysMenuInfo)))
                 .andReturn();

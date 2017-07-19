@@ -46,15 +46,13 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
     /**
      * 获得系统用户信息
      *
-     * @param userId 系统用户ID
+     * @param sysUserInfo 系统用户entity
      * @return List<SysUserInfo>
      */
     @ResponseBody
-    @RequestMapping(value = "/get/{UserId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get", method = RequestMethod.POST)
     @Override
-    public List<SysUserInfo> getAllSysUserInfo(@PathVariable("UserId") Long userId) {
-        SysUserInfo sysUserInfo = new SysUserInfo();
-        sysUserInfo.setUserId(userId);
+    public List<SysUserInfo> getAllSysUserInfo(@RequestBody SysUserInfo sysUserInfo) {
         return sysUserInfoService.getAllSysUserInfoService(sysUserInfo);
     }
 

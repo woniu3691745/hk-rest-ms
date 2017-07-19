@@ -63,6 +63,26 @@ public class SysUserInfoControllerTest {
     }
 
     @Test
+    public void getAllUserInfoByParams() throws Exception {
+
+        SysUserInfo sysUserInfo = new SysUserInfo();
+        sysUserInfo.setUserId(4L);
+        String url = "/api/sysUser/get";
+
+        ObjectMapper mapper = new ObjectMapper();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(sysUserInfo)))
+                .andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        String content = mvcResult.getResponse().getContentAsString();
+        System.out.println(content);
+
+        assertEquals(200, status);
+
+    }
+
+    @Test
     public void addUserInfo() throws Exception {
 
         SysUserInfo sysUserInfo = new SysUserInfo();

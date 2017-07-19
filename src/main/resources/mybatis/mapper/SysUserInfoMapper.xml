@@ -28,6 +28,12 @@
             <if test="userId != null">
                 USER_ID = #{userId}
             </if>
+            <if test="userName != null">
+                AND USER_NAME = #{userName}
+            </if>
+            <if test="userPassword != null">
+                AND USER_PASSWORD = #{userPassword}
+            </if>
         </where>
         ORDER BY UPDATE_DATE_TIME DESC
         <if test="pageNo != null and pageSize != null">
@@ -44,6 +50,12 @@
             <if test="userId != null">
                 USER_ID = #{userId}
             </if>
+            <if test="userName != null">
+                AND USER_NAME = #{userName}
+            </if>
+            <if test="userPassword != null">
+                AND USER_PASSWORD = #{userPassword}
+            </if>
         </where>
         <if test="pageNo != null and pageSize != null">
             LIMIT #{pageNo}, #{pageSize}
@@ -58,6 +70,12 @@
         <where>
             <if test="userId != null">
                 USER_ID = #{userId}
+            </if>
+            <if test="userName != null">
+                AND USER_NAME = #{userName}
+            </if>
+            <if test="userPassword != null">
+                AND USER_PASSWORD = #{userPassword}
             </if>
         </where>
     </select>

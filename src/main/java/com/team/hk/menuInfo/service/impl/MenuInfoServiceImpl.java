@@ -3,6 +3,7 @@ package com.team.hk.menuInfo.service.impl;
 import com.team.hk.menuInfo.entity.MenuInfo;
 import com.team.hk.menuInfo.mapper.MenuInfoMapper;
 import com.team.hk.menuInfo.service.MenuInfoService;
+import com.team.hk.storeInfo.entity.StoreInfo;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,8 +44,18 @@ public class MenuInfoServiceImpl implements MenuInfoService {
     }
 
     @Override
-    public int addMenuInfoService(MenuInfo menuInfo) {
-        return menuInfoMapper.add(menuInfo);
+    public List<MenuInfo> addMenuInfoService(MenuInfo menuInfo) {
+        menuInfoMapper.add(menuInfo);
+        if (menuInfo.getDishesId() != null){
+            logger.debug("添加菜单信息成功,返回ID : " + menuInfo.getDishesId());
+            MenuInfo mi = new MenuInfo();
+            mi.setStoreId(menuInfo.getStoreId());
+            return menuInfoMapper.list(mi);
+        }else{
+            logger.error("添加菜单信息成功,返回ID : " + menuInfo.getDishesId());
+            return null;
+        }
+
     }
 
     @Override

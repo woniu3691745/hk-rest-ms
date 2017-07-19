@@ -62,12 +62,12 @@ public class MenuInfoControllerImpl implements MenuInfoController {
      * 增加菜单信息
      *
      * @param menuInfo 菜单entity
-     * @return 1rowsAffected
+     * @return List<MenuInfo>
      */
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @Override
-    public int addMenuInfo(@RequestBody MenuInfo menuInfo) {
+    public List<MenuInfo> addMenuInfo(@RequestBody MenuInfo menuInfo) {
         return menuInfoService.addMenuInfoService(menuInfo);
     }
 

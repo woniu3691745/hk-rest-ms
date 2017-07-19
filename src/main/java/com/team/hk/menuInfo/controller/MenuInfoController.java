@@ -32,9 +32,9 @@ public interface MenuInfoController {
      * 增加菜单
      *
      * @param menuInfo 菜单实体
-     * @return rowsAffected
+     * @return List<MenuInfo>
      */
-    int addMenuInfo(MenuInfo menuInfo);
+    List<MenuInfo> addMenuInfo(MenuInfo menuInfo);
 
     /**
      * 修改菜单

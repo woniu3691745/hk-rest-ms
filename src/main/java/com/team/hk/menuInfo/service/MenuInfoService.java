@@ -36,9 +36,9 @@ public interface MenuInfoService {
      * 增加菜单信息
      *
      * @param menuInfo 菜单实体
-     * @return rowsAffected
+     * @return List<MenuInfo>
      */
-    int addMenuInfoService(MenuInfo menuInfo);
+    List<MenuInfo> addMenuInfoService(MenuInfo menuInfo);
 
     /**
      * 修改菜单信息

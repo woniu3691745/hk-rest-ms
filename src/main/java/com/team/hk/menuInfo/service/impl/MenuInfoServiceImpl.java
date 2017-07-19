@@ -46,13 +46,13 @@ public class MenuInfoServiceImpl implements MenuInfoService {
     @Override
     public List<MenuInfo> addMenuInfoService(MenuInfo menuInfo) {
         menuInfoMapper.add(menuInfo);
-        if (menuInfo.getDishesId() != null){
-            logger.debug("添加菜单信息成功,返回ID : " + menuInfo.getDishesId());
+        if (menuInfo.getDishesId() != null) {
+            logger.debug("添加菜单信息成功,返回DISHESID : " + menuInfo.getDishesId());
             MenuInfo mi = new MenuInfo();
             mi.setStoreId(menuInfo.getStoreId());
             return menuInfoMapper.list(mi);
-        }else{
-            logger.error("添加菜单信息失败,返回ID : " + menuInfo.getDishesId());
+        } else {
+            logger.error("添加菜单信息失败,返回DISHESID : " + menuInfo.getDishesId());
             return null;
         }
 

@@ -43,8 +43,17 @@ public class BookInfoServiceImpl implements BookInfoService {
     }
 
     @Override
-    public int addBookInfoService(BookInfo bookInfo) {
-        return bookInfoMapper.add(bookInfo);
+    public List<BookInfo> addBookInfoService(BookInfo bookInfo) {
+        bookInfoMapper.add(bookInfo);
+        if (bookInfo.getBookId() != null) {
+            logger.debug("添加预定信息成功,返回BOOKID : " + bookInfo.getBookId());
+            BookInfo bi = new BookInfo();
+            bookInfo.setBookId(bi.getBookId());
+            return bookInfoMapper.list(bi);
+        } else {
+            logger.error("添加预定信息失败,返回BOOKID : " + bookInfo.getBookId());
+            return null;
+        }
     }
 
     @Override

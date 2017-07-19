@@ -35,9 +35,9 @@ public interface BookInfoService {
      * 增加预约信息
      *
      * @param bookInfo 预约实体
-     * @return rowsAffected
+     * @return List<BookInfo>
      */
-    int addBookInfoService(BookInfo bookInfo);
+    List<BookInfo> addBookInfoService(BookInfo bookInfo);
 
     /**
      * 修改预约信息

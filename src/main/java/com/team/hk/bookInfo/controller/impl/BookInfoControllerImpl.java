@@ -62,12 +62,12 @@ public class BookInfoControllerImpl implements BookInfoController {
      * 增加预约信息
      *
      * @param bookInfo 预约entity
-     * @return rowsAffected
+     * @return List<BookInfo>
      */
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @Override
-    public int addBookInfo(@RequestBody BookInfo bookInfo) {
+    public List<BookInfo> addBookInfo(@RequestBody BookInfo bookInfo) {
         return bookInfoService.addBookInfoService(bookInfo);
     }
 

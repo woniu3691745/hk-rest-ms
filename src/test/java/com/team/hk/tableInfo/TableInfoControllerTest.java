@@ -1,4 +1,4 @@
-package com.team.hk.TableInfo;
+package com.team.hk.tableInfo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team.hk.storeInfo.entity.StoreInfo;

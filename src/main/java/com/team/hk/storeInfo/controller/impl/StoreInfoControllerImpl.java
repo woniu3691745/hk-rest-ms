@@ -42,22 +42,19 @@ public class StoreInfoControllerImpl implements StoreInfoController {
         int count = storeInfoService.getAllStoreInfoCountByPageService(storeInfo, pageNo, pageSize);
         list.add(menuInfos);
         list.add(count);
-        logger.debug("storeInfo --------- " + storeInfo.toString());
         return list;
     }
 
     /**
      * 获得门店信息
      *
-     * @param storeId 门店ID
+     * @param storeInfo 门店entity
      * @return List<StoreInfo>
      */
     @ResponseBody
-    @RequestMapping(value = "/get/{storeId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get", method = RequestMethod.POST)
     @Override
-    public List<StoreInfo> getAllStoreInfo(@PathVariable("storeId") Long storeId) {
-        StoreInfo storeInfo = new StoreInfo();
-        storeInfo.setStoreId(storeId);
+    public List<StoreInfo> getAllStoreInfo(@RequestBody StoreInfo storeInfo) {
         return storeInfoService.getAllStoreInfoService(storeInfo);
     }
 

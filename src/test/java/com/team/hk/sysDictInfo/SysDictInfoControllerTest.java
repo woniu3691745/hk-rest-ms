@@ -1,10 +1,8 @@
-package com.team.hk.SysDictInfo;
+package com.team.hk.sysDictInfo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team.hk.sys.entity.SysDictInfo;
-import com.team.hk.sys.entity.SysUserInfo;
 import com.team.hk.sys.server.SysDictInfoService;
-import com.team.hk.sys.server.SysUserInfoService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

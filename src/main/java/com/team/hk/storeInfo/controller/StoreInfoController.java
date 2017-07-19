@@ -1,6 +1,5 @@
 package com.team.hk.storeInfo.controller;
 
-import com.team.hk.menuInfo.entity.MenuInfo;
 import com.team.hk.storeInfo.entity.StoreInfo;
 
 import java.util.List;
@@ -12,48 +11,52 @@ import java.util.List;
 public interface StoreInfoController {
 
     /**
-     * 获得菜单信息（通过分页）
+     * 获得门店信息（通过分页）
      *
+     * @param storeInfo 门店entity
+     * @param pageNo    页数
+     * @param pageSize  数量
      * @return List<storeInfo
      * >
      */
     List<StoreInfo> getAllStoreInfoByPage(StoreInfo storeInfo, Long pageNo, Long pageSize);
 
     /**
-     * 获得菜单信息
+     * 获得门店信息
      *
+     * @param storeInfo 门店entity
      * @return List<storeInfo>
      */
-    List<StoreInfo> getAllStoreInfo(Long id);
+    List<StoreInfo> getAllStoreInfo(StoreInfo storeInfo);
 
     /**
-     * 增加菜单
+     * 增加门店
      *
-     * @param storeInfo 菜单实体
+     * @param storeInfo 门店entity
      * @return rowsAffected
      */
     int addStoreInfo(StoreInfo storeInfo);
 
     /**
-     * 修改菜单
+     * 修改门店
      *
-     * @param storeInfo 菜单实体
+     * @param storeInfo 门店实体
      * @return rowsAffected
      */
     int updateStoreInfo(StoreInfo storeInfo);
 
     /**
-     * 删除一个菜单
+     * 删除一个门店
      *
-     * @param id 菜单ID
+     * @param id 门店ID
      * @return rowsAffected
      */
     int deleteStoreInfoById(Long id);
 
     /**
-     * 删除多个菜单
+     * 删除多个门店
      *
-     * @param id 菜单ID
+     * @param id 门店ID
      * @return rowsAffected
      */
     int deleteStoreInfoByIds(List<Long> id);

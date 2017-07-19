@@ -27,7 +27,7 @@ public class TableInfoControllerImpl implements TableInfoController {
     /**
      * 获得桌子信息（通过分页）
      *
-     * @param tableInfo 门店entity
+     * @param tableInfo 桌子entity
      * @param pageNo    页数
      * @param pageSize  数量
      * @return List<MenuInfo>
@@ -48,15 +48,13 @@ public class TableInfoControllerImpl implements TableInfoController {
     /**
      * 获得桌子信息
      *
-     * @param tableId 桌子ID
+     * @param tableInfo 桌子entity
      * @return List<TableInfo>
      */
     @ResponseBody
-    @RequestMapping(value = "/get/{tableId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get", method = RequestMethod.POST)
     @Override
-    public List<TableInfo> getAllTableInfo(@PathVariable("tableId") Long tableId) {
-        TableInfo tableInfo = new TableInfo();
-        tableInfo.setTableId(tableId);
+    public List<TableInfo> getAllTableInfo(@RequestBody TableInfo tableInfo) {
         return tableInfoService.getAllTableInfoService(tableInfo);
     }
 

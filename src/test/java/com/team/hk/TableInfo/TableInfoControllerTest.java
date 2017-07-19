@@ -2,7 +2,6 @@ package com.team.hk.TableInfo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team.hk.storeInfo.entity.StoreInfo;
-import com.team.hk.storeInfo.service.StoreInfoService;
 import com.team.hk.tableInfo.entity.TableInfo;
 import com.team.hk.tableInfo.service.TableInfoService;
 import org.junit.Before;
@@ -17,8 +16,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
-import java.util.Date;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -45,7 +42,7 @@ public class TableInfoControllerTest {
     }
 
     @Test
-    public void getAllStoreInfo() throws Exception {
+    public void getAllTableInfo() throws Exception {
 
         StoreInfo storeInfo = new StoreInfo();
         storeInfo.setStoreId(1L);
@@ -64,10 +61,29 @@ public class TableInfoControllerTest {
     }
 
     @Test
-    public void getAllStoreInfoById() throws Exception {
+    public void getAllTableInfoByParams() throws Exception {
 
-        StoreInfo storeInfo = new StoreInfo();
-        storeInfo.setStoreId(1L);
+        TableInfo tableInfo = new TableInfo();
+        tableInfo.setTableId(5L);
+        String url = "/api/table/get";
+
+        ObjectMapper mapper = new ObjectMapper();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(tableInfo)))
+                .andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        String content = mvcResult.getResponse().getContentAsString();
+        System.out.println(content);
+
+        assertEquals(200, status);
+    }
+
+    @Test
+    public void getAllTableInfoById() throws Exception {
+
+        TableInfo tableInfo = new TableInfo();
+        tableInfo.setStoreId(1L);
         String url = "/api/table/get/1";
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url)
@@ -81,7 +97,7 @@ public class TableInfoControllerTest {
     }
 
     @Test
-    public void addStoreInfo() throws Exception {
+    public void addTableInfo() throws Exception {
 
         TableInfo tableInfo = new TableInfo();
         tableInfo.setStoreId(1L);
@@ -104,7 +120,7 @@ public class TableInfoControllerTest {
     }
 
     @Test
-    public void deleteByIdStoreInfo() throws Exception {
+    public void deleteByIdTableInfo() throws Exception {
 
         String url = "/api/table/delete/1";
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete(url)
@@ -116,7 +132,7 @@ public class TableInfoControllerTest {
     }
 
     @Test
-    public void deleteByIdsStoreInfo() throws Exception {
+    public void deleteByIdsTableInfo() throws Exception {
 
         String url = "/api/table/deleteAll";
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete(url)
@@ -133,7 +149,7 @@ public class TableInfoControllerTest {
     }
 
     @Test
-    public void updateStoreInfo() throws Exception {
+    public void updateTableInfo() throws Exception {
 
         TableInfo tableInfo = new TableInfo();
         tableInfo.setStoreId(2L);

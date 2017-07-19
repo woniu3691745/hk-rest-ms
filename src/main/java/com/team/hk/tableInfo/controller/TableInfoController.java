@@ -14,6 +14,9 @@ public interface TableInfoController {
     /**
      * 获得桌子信息（通过分页）
      *
+     * @param tableInfo 桌子entity
+     * @param pageNo    页数
+     * @param pageSize  数量
      * @return List<TableInfo>
      * >
      */
@@ -22,9 +25,10 @@ public interface TableInfoController {
     /**
      * 获得桌子信息
      *
+     * @param tableInfo 桌子entity
      * @return List<TableInfo>
      */
-    List<TableInfo> getAllTableInfo(Long id);
+    List<TableInfo> getAllTableInfo(TableInfo tableInfo);
 
     /**
      * 增加桌子

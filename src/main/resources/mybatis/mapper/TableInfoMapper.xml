@@ -53,7 +53,7 @@
         <include refid="Base_Column_List"/>
         FROM HK_TABLE_INFO_T
         <where>
-            <if test="storeId != null">
+            <if test="tableId != null">
                 TABLE_ID = #{tableId}
             </if>
         </where>

@@ -35,9 +35,9 @@ public interface SysDictInfoService {
      * 增加系统字典信息
      *
      * @param sysDictInfo 系统字典实体
-     * @return rowsAffected
+     * @return List<SysDictInfo>
      */
-    int addSysDictInfoService(SysDictInfo sysDictInfo);
+    List<SysDictInfo> addSysDictInfoService(SysDictInfo sysDictInfo);
 
     /**
      * 修改系统字典信息

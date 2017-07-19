@@ -4,6 +4,7 @@ import com.team.hk.sys.contorller.SysMenuInfoController;
 import com.team.hk.sys.entity.MenuFormatInfo;
 import com.team.hk.sys.entity.SysMenuInfo;
 import com.team.hk.sys.server.SysMenuInfoService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/sysMenu")
 public class SysMenuInfoControllerImpl implements SysMenuInfoController {
 
+    private static Logger logger = Logger.getLogger(SysMenuInfoControllerImpl.class);
 
     @Autowired
     private SysMenuInfoService sysMenuInfoService;
@@ -124,7 +126,7 @@ public class SysMenuInfoControllerImpl implements SysMenuInfoController {
      * 增加系统菜单信息
      *
      * @param sysMenuInfo 系统菜单entity
-     * @return rowsAffected
+     * @return List<SysMenuInfo>
      */
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)

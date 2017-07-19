@@ -3,6 +3,7 @@ package com.team.hk.sys.server.impl;
 import com.team.hk.sys.entity.SysDictInfo;
 import com.team.hk.sys.mapper.SysDictInfoMapper;
 import com.team.hk.sys.server.SysDictInfoService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,8 @@ import java.util.List;
 @Transactional
 @Service
 public class SysDictInfoServiceImpl implements SysDictInfoService {
+
+    private static Logger logger = Logger.getLogger(SysDictInfoServiceImpl.class);
 
     @Autowired
     private SysDictInfoMapper sysDictInfoMapper;
@@ -40,8 +43,17 @@ public class SysDictInfoServiceImpl implements SysDictInfoService {
     }
 
     @Override
-    public int addSysDictInfoService(SysDictInfo sysDictInfo) {
-        return sysDictInfoMapper.add(sysDictInfo);
+    public List<SysDictInfo> addSysDictInfoService(SysDictInfo sysDictInfo) {
+//        sysDictInfoMapper.add(sysDictInfo);
+        if (sysDictInfo.getId() != null) {
+            logger.debug("添加系统字典信息成功,返回ID : " + sysDictInfo.getId());
+            SysDictInfo sdi = new SysDictInfo();
+            sdi.setId(sysDictInfo.getId());
+            return sysDictInfoMapper.list(sysDictInfo);
+        } else {
+            logger.error("添加系统字典信息失败,返回ID : " + sysDictInfo.getId());
+            return null;
+        }
     }
 
     @Override

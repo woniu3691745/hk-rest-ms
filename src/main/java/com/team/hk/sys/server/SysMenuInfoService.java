@@ -35,7 +35,7 @@ public interface SysMenuInfoService {
      * 增加系统菜单信息
      *
      * @param sysMenuInfo 系统菜单实体
-     * @return rowsAffected
+     * @return List<SysMenuInfo>
      */
     List<SysMenuInfo> addSysMenuInfoService(SysMenuInfo sysMenuInfo);
 

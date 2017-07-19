@@ -33,9 +33,9 @@ public interface SysDictInfoController {
      * 增加系统字典
      *
      * @param sysDictInfo 系统字典实体
-     * @return rowsAffected
+     * @return List<SysDictInfo>
      */
-    int addSysDictInfo(SysDictInfo sysDictInfo);
+    List<SysDictInfo> addSysDictInfo(SysDictInfo sysDictInfo);
 
     /**
      * 修改系统字典

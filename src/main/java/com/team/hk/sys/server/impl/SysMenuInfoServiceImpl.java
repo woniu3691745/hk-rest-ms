@@ -1,8 +1,10 @@
 package com.team.hk.sys.server.impl;
 
 import com.team.hk.sys.entity.SysMenuInfo;
+import com.team.hk.sys.entity.SysUserInfo;
 import com.team.hk.sys.mapper.SysMenuInfoMapper;
 import com.team.hk.sys.server.SysMenuInfoService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,8 @@ import java.util.List;
 @Transactional
 @Service
 public class SysMenuInfoServiceImpl implements SysMenuInfoService {
+
+    private static Logger logger = Logger.getLogger(SysMenuInfoServiceImpl.class);
 
     @Autowired
     private SysMenuInfoMapper sysMenuInfoMapper;
@@ -48,7 +52,15 @@ public class SysMenuInfoServiceImpl implements SysMenuInfoService {
     @Override
     public List<SysMenuInfo> addSysMenuInfoService(SysMenuInfo sysMenuInfo) {
         sysMenuInfoMapper.add(sysMenuInfo);
-        return sysMenuInfoMapper.list(sysMenuInfo);
+        if (sysMenuInfo.getId() != null) {
+            logger.debug("添加系统菜单信息成功,返回ID : " + sysMenuInfo.getId());
+            SysMenuInfo smi = new SysMenuInfo();
+            smi.setId(sysMenuInfo.getId());
+            return sysMenuInfoMapper.list(smi);
+        } else {
+            logger.error("添加系统菜单信息失败,返回ID : " + sysMenuInfo.getId());
+            return null;
+        }
     }
 
     @Override

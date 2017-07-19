@@ -33,7 +33,7 @@ public interface SysUserInfoController {
      * 增加系统用户
      *
      * @param sysUserInfo 系统用户实体
-     * @return rowsAffected
+     * @return List<SysUserInfo>
      */
     List<SysUserInfo> addSysUserInfo(SysUserInfo sysUserInfo);
 

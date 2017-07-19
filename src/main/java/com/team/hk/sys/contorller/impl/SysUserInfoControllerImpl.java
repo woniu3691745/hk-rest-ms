@@ -3,6 +3,7 @@ package com.team.hk.sys.contorller.impl;
 import com.team.hk.sys.contorller.SysUserInfoController;
 import com.team.hk.sys.entity.SysUserInfo;
 import com.team.hk.sys.server.SysUserInfoService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import java.util.List;
 @RequestMapping("/api/sysUser")
 public class SysUserInfoControllerImpl implements SysUserInfoController {
 
+    private static Logger logger = Logger.getLogger(SysUserInfoControllerImpl.class);
 
     @Autowired
     private SysUserInfoService sysUserInfoService;
@@ -61,7 +63,7 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
      * 增加系统用户信息
      *
      * @param sysUserInfo 系统用户entity
-     * @return rowsAffected
+     * @return List<SysUserInfo>
      */
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)

@@ -3,6 +3,7 @@ package com.team.hk.sys.contorller.impl;
 import com.team.hk.sys.contorller.SysDictInfoController;
 import com.team.hk.sys.entity.SysDictInfo;
 import com.team.hk.sys.server.SysDictInfoService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import java.util.List;
 @RequestMapping("/api/sysDict")
 public class SysDictInfoControllerImpl implements SysDictInfoController {
 
+    private static Logger logger = Logger.getLogger(SysDictInfoControllerImpl.class);
 
     @Autowired
     private SysDictInfoService sysDictInfoService;
@@ -61,12 +63,12 @@ public class SysDictInfoControllerImpl implements SysDictInfoController {
      * 增加系统字典信息
      *
      * @param sysDictInfo 系统字典entity
-     * @return rowsAffected
+     * @return List<SysDictInfo>
      */
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @Override
-    public int addSysDictInfo(@RequestBody SysDictInfo sysDictInfo) {
+    public List<SysDictInfo> addSysDictInfo(@RequestBody SysDictInfo sysDictInfo) {
         return sysDictInfoService.addSysDictInfoService(sysDictInfo);
     }
 

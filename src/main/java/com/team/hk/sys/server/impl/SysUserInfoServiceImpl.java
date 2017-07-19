@@ -3,11 +3,13 @@ package com.team.hk.sys.server.impl;
 import com.team.hk.sys.entity.SysUserInfo;
 import com.team.hk.sys.mapper.SysUserInfoMapper;
 import com.team.hk.sys.server.SysUserInfoService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by lidongliang on 2017/7/16.
@@ -16,6 +18,8 @@ import java.util.List;
 @Transactional
 @Service
 public class SysUserInfoServiceImpl implements SysUserInfoService {
+
+    private static Logger logger = Logger.getLogger(SysUserInfoServiceImpl.class);
 
     @Autowired
     private SysUserInfoMapper sysUserInfoMapper;
@@ -48,7 +52,15 @@ public class SysUserInfoServiceImpl implements SysUserInfoService {
     @Override
     public List<SysUserInfo> addSysUserInfoService(SysUserInfo sysUserInfo) {
         sysUserInfoMapper.add(sysUserInfo);
-        return sysUserInfoMapper.list(sysUserInfo);
+        if (sysUserInfo.getUserId() != null) {
+            logger.debug("添加系统用户信息成功,返回USER_ID : " + sysUserInfo.getUserId());
+            SysUserInfo sui = new SysUserInfo();
+            sui.setUserId(sysUserInfo.getUserId());
+            return sysUserInfoMapper.list(sui);
+        } else {
+            logger.error("添加系统用户信息失败,返回USER_ID : " + sysUserInfo.getUserId());
+            return null;
+        }
     }
 
     @Override

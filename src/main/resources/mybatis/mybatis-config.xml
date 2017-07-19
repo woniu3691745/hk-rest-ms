@@ -19,5 +19,6 @@
         <typeAlias alias="BookInfo" type="com.team.hk.bookInfo.entity.BookInfo"/>
         <typeAlias alias="SysMenuInfo" type="com.team.hk.sys.entity.SysMenuInfo"/>
         <typeAlias alias="SysUserInfo" type="com.team.hk.sys.entity.SysUserInfo"/>
+        <typeAlias alias="SysDictInfo" type="com.team.hk.sys.entity.SysDictInfo"/>
     </typeAliases>
 </configuration>

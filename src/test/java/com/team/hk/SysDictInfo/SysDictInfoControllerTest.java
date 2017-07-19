@@ -1,11 +1,10 @@
-package com.team.hk.sysUserInfo;
+package com.team.hk.SysDictInfo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.team.hk.storeInfo.service.StoreInfoService;
-import com.team.hk.sys.entity.SysMenuInfo;
+import com.team.hk.sys.entity.SysDictInfo;
 import com.team.hk.sys.entity.SysUserInfo;
+import com.team.hk.sys.server.SysDictInfoService;
 import com.team.hk.sys.server.SysUserInfoService;
-import com.team.hk.tableInfo.entity.TableInfo;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,12 +22,12 @@ import static junit.framework.TestCase.assertEquals;
 
 /**
  * Created by lidongliang on 2017/7/4.
- * SysMenuInfo 单体测试
+ * SysDictInfo 单体测试
  * 测试通过
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SysUserInfoControllerTest {
+public class SysDictInfoControllerTest {
 
     private MockMvc mockMvc;
 
@@ -36,7 +35,7 @@ public class SysUserInfoControllerTest {
     private WebApplicationContext webApplicationContext;
 
     @Autowired
-    private SysUserInfoService sysUserInfoService;
+    private SysDictInfoService sysDictInfoService;
 
     @Before
     public void setUp() throws Exception {
@@ -44,15 +43,15 @@ public class SysUserInfoControllerTest {
     }
 
     @Test
-    public void getAllUserInfo() throws Exception {
+    public void getAllDictInfo() throws Exception {
 
-        SysUserInfo sysUserInfo = new SysUserInfo();
-        String url = "/api/sysUser/getAll/0/3";
+        SysDictInfo sysDictInfo = new SysDictInfo();
+        String url = "/api/sysDict/getAll/0/3";
 
         ObjectMapper mapper = new ObjectMapper();
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(url)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(sysUserInfo)))
+                .content(mapper.writeValueAsString(sysDictInfo)))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
         String content = mvcResult.getResponse().getContentAsString();
@@ -63,24 +62,41 @@ public class SysUserInfoControllerTest {
     }
 
     @Test
-    public void addUserInfo() throws Exception {
+    public void getAllDictInfoByParams() throws Exception {
 
-        SysUserInfo sysUserInfo = new SysUserInfo();
-        sysUserInfo.setUserName("lidongliang");
-        sysUserInfo.setUserPassword("a");
-        sysUserInfo.setUserPhone(13478824245L);
-        sysUserInfo.setUserAddress("beijiang");
-        sysUserInfo.setUserSex(1);
-        sysUserInfo.setUserRole("admin, user");
-        sysUserInfo.setCreater("ldl");
-        sysUserInfo.setModify("xiaoming");
-
-        String url = "/api/sysUser/add";
+        SysDictInfo sysDictInfo = new SysDictInfo();
+        sysDictInfo.setId(1L);
+        String url = "/api/sysDict/get";
 
         ObjectMapper mapper = new ObjectMapper();
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(url)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(sysUserInfo)))
+                .content(mapper.writeValueAsString(sysDictInfo)))
+                .andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        String content = mvcResult.getResponse().getContentAsString();
+        System.out.println(content);
+
+        assertEquals(200, status);
+
+    }
+
+    @Test
+    public void addDictInfo() throws Exception {
+
+        SysDictInfo sysDictInfo = new SysDictInfo();
+        sysDictInfo.setTypeId(90001L);
+        sysDictInfo.setTypeName("用户角色2");
+        sysDictInfo.setValue("user1");
+        sysDictInfo.setName("用户4");
+        sysDictInfo.setModify("lidongliang");
+        sysDictInfo.setCreater("lidongliang");
+        String url = "/api/sysDict/add";
+
+        ObjectMapper mapper = new ObjectMapper();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(sysDictInfo)))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
         String content = mvcResult.getResponse().getContentAsString();
@@ -90,25 +106,21 @@ public class SysUserInfoControllerTest {
     }
 
     @Test
-    public void updateUserInfo() throws Exception {
+    public void updateDictInfo() throws Exception {
 
-        SysUserInfo sysUserInfo = new SysUserInfo();
-        sysUserInfo.setUserName("lidongliang1");
-        sysUserInfo.setUserPassword("a");
-        sysUserInfo.setUserRole("admin, user");
-        sysUserInfo.setUserPhone(13478824245L);
-        sysUserInfo.setUserAddress("beijiang1");
-        sysUserInfo.setUserSex(1);
-        sysUserInfo.setCreater("ldl");
-        sysUserInfo.setModify("xiaoming");
-        sysUserInfo.setUserId(1L);
-
-        String url = "/api/sysUser/update";
+        SysDictInfo sysDictInfo = new SysDictInfo();
+        sysDictInfo.setTypeId(90001L);
+        sysDictInfo.setTypeName("a用户角色");
+        sysDictInfo.setValue("admin2");
+        sysDictInfo.setName("管d理员");
+        sysDictInfo.setModify("lidongliang");
+        sysDictInfo.setId(5L);
+        String url = "/api/sysDict/update";
 
         ObjectMapper mapper = new ObjectMapper();
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put(url)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(sysUserInfo)))
+                .content(mapper.writeValueAsString(sysDictInfo)))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
         String content = mvcResult.getResponse().getContentAsString();
@@ -118,9 +130,9 @@ public class SysUserInfoControllerTest {
     }
 
     @Test
-    public void deleteByIdUserInfo() throws Exception {
+    public void deleteByIdDictInfo() throws Exception {
 
-        String url = "/api/sysUser/delete/2";
+        String url = "/api/sysDict/delete/5";
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete(url)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
@@ -130,13 +142,13 @@ public class SysUserInfoControllerTest {
     }
 
     @Test
-    public void deleteByIdsUserInfo() throws Exception {
+    public void deleteByIdsDictInfo() throws Exception {
 
-        String url = "/api/sysUser/deleteAll";
+        String url = "/api/sysDict/deleteAll";
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete(url)
                 .contentType(MediaType.APPLICATION_JSON)
-                .param("userId", "3")
-                .param("userId", "5"))
+                .param("dictId", "3")
+                .param("dictId", "6"))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
         String content = mvcResult.getResponse().getContentAsString();

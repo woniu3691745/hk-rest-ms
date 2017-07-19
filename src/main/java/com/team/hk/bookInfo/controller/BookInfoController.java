@@ -14,6 +14,9 @@ public interface BookInfoController {
     /**
      * 获得预约信息（通过分页）
      *
+     * @param bookInfo 预约entity
+     * @param pageNo   页数
+     * @param pageSize 数量
      * @return List<BookInfo>
      */
     List<BookInfo> getAllBookInfoByPage(BookInfo bookInfo, Long pageNo, Long pageSize);
@@ -21,9 +24,10 @@ public interface BookInfoController {
     /**
      * 获得预约信息
      *
+     * @param bookInfo 预约entity
      * @return List<BookInfo>
      */
-    List<BookInfo> getAllBookInfo(Long id);
+    List<BookInfo> getAllBookInfo(BookInfo bookInfo);
 
     /**
      * 增加预约

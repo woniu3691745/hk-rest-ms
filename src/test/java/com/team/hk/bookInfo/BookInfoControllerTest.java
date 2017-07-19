@@ -67,6 +67,26 @@ public class BookInfoControllerTest {
     }
 
     @Test
+    public void getAllBookInfoByParams() throws Exception {
+
+        BookInfo bookInfo = new BookInfo();
+        bookInfo.setBookId(1L);
+        String url = "/api/book/get";
+
+        ObjectMapper mapper = new ObjectMapper();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(bookInfo)))
+                .andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        String content = mvcResult.getResponse().getContentAsString();
+        System.out.println(content);
+
+        assertEquals(200, status);
+
+    }
+
+    @Test
     public void addBookInfo() throws Exception {
 
         BookInfo bookInfo = new BookInfo();

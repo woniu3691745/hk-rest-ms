@@ -48,15 +48,13 @@ public class BookInfoControllerImpl implements BookInfoController {
     /**
      * 获得预约信息
      *
-     * @param bookId 预约ID
+     * @param bookInfo 预约entity
      * @return List<BookInfo>
      */
     @ResponseBody
-    @RequestMapping(value = "/get/{bookId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get", method = RequestMethod.POST)
     @Override
-    public List<BookInfo> getAllBookInfo(@PathVariable("bookId") Long bookId) {
-        BookInfo bookInfo = new BookInfo();
-        bookInfo.setBookId(bookId);
+    public List<BookInfo> getAllBookInfo(@RequestBody BookInfo bookInfo) {
         return bookInfoService.getAllBookInfoService(bookInfo);
     }
 

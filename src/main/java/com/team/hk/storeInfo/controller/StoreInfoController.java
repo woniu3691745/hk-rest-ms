@@ -16,8 +16,8 @@ public interface StoreInfoController {
      * @param storeInfo 门店entity
      * @param pageNo    页数
      * @param pageSize  数量
-     * @return List<storeInfo
-     * >
+     * @return List<storeInfo>
+     *
      */
     List<StoreInfo> getAllStoreInfoByPage(StoreInfo storeInfo, Long pageNo, Long pageSize);
 
@@ -33,9 +33,9 @@ public interface StoreInfoController {
      * 增加门店
      *
      * @param storeInfo 门店entity
-     * @return rowsAffected
+     * @return List<StoreInfo>
      */
-    int addStoreInfo(StoreInfo storeInfo);
+    List<StoreInfo> addStoreInfo(StoreInfo storeInfo);
 
     /**
      * 修改门店

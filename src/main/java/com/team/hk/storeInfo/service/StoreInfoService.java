@@ -36,9 +36,9 @@ public interface StoreInfoService {
      * 增加菜单信息
      *
      * @param storeInfo 菜单实体
-     * @return rowsAffected
+     * @return List<StoreInfo>
      */
-    int addStoreInfoService(StoreInfo storeInfo);
+    List<StoreInfo> addStoreInfoService(StoreInfo storeInfo);
 
     /**
      * 修改菜单信息

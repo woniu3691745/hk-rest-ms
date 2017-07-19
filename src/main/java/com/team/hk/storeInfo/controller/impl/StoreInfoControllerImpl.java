@@ -62,12 +62,12 @@ public class StoreInfoControllerImpl implements StoreInfoController {
      * 增加门店信息
      *
      * @param storeInfo 门店entity
-     * @return rowsAffected
+     * @return List<StoreInfo>
      */
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @Override
-    public int addStoreInfo(@RequestBody StoreInfo storeInfo) {
+    public List<StoreInfo> addStoreInfo(@RequestBody StoreInfo storeInfo) {
         return storeInfoService.addStoreInfoService(storeInfo);
     }
 

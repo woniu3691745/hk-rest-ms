@@ -44,7 +44,7 @@ public class SysDictInfoServiceImpl implements SysDictInfoService {
 
     @Override
     public List<SysDictInfo> addSysDictInfoService(SysDictInfo sysDictInfo) {
-//        sysDictInfoMapper.add(sysDictInfo);
+        sysDictInfoMapper.add(sysDictInfo);
         if (sysDictInfo.getId() != null) {
             logger.debug("添加系统字典信息成功,返回ID : " + sysDictInfo.getId());
             SysDictInfo sdi = new SysDictInfo();

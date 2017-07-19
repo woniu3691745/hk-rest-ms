@@ -71,12 +71,12 @@ public class StoreInfoServiceImpl implements StoreInfoService {
     public List<StoreInfo> addStoreInfoService(StoreInfo storeInfo) {
         storeInfoMapper.add(storeInfo);
         if (storeInfo.getStoreId() != null) {
-            logger.debug("添加门店信息成功,返回ID : " + storeInfo.getStoreId());
+            logger.debug("添加门店信息成功,返回STOREID : " + storeInfo.getStoreId());
             StoreInfo sif = new StoreInfo();
             sif.setStoreId(storeInfo.getStoreId());
             return storeInfoMapper.list(sif);
         } else {
-            logger.error("添加门店信息失败,返回ID : " + storeInfo.getStoreId());
+            logger.error("添加门店信息失败,返回STOREID : " + storeInfo.getStoreId());
             return null;
         }
     }

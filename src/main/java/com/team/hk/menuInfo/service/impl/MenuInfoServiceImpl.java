@@ -52,7 +52,7 @@ public class MenuInfoServiceImpl implements MenuInfoService {
             mi.setStoreId(menuInfo.getStoreId());
             return menuInfoMapper.list(mi);
         }else{
-            logger.error("添加菜单信息成功,返回ID : " + menuInfo.getDishesId());
+            logger.error("添加菜单信息失败,返回ID : " + menuInfo.getDishesId());
             return null;
         }
 

@@ -34,9 +34,9 @@ public interface TableInfoController {
      * 增加桌子
      *
      * @param tableInfo 桌子实体
-     * @return rowsAffected
+     * @return List<TableInfo>
      */
-    int addTableInfo(TableInfo tableInfo);
+    List<TableInfo> addTableInfo(TableInfo tableInfo);
 
     /**
      * 修改桌子

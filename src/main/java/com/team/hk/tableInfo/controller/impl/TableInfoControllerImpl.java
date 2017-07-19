@@ -62,12 +62,12 @@ public class TableInfoControllerImpl implements TableInfoController {
      * 增加桌子信息
      *
      * @param tableInfo 门店entity
-     * @return rowsAffected
+     * @return List<TableInfo>
      */
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @Override
-    public int addTableInfo(@RequestBody TableInfo tableInfo) {
+    public List<TableInfo> addTableInfo(@RequestBody TableInfo tableInfo) {
         return tableInfoService.addTableInfoService(tableInfo);
     }
 

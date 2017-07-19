@@ -38,9 +38,9 @@ public interface TableInfoService {
      * 增加桌子信息
      *
      * @param tableInfo 桌子实体
-     * @return rowsAffected
+     * @return List<TableInfo>
      */
-    int addTableInfoService(TableInfo tableInfo);
+    List<TableInfo> addTableInfoService(TableInfo tableInfo);
 
     /**
      * 修改桌子信息

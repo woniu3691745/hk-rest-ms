@@ -43,8 +43,17 @@ public class TableInfoServiceImpl implements TableInfoService {
     }
 
     @Override
-    public int addTableInfoService(TableInfo tableInfo) {
-        return tableInfoMapper.add(tableInfo);
+    public List<TableInfo> addTableInfoService(TableInfo tableInfo) {
+        tableInfoMapper.add(tableInfo);
+        if (tableInfo.getTableId() != null) {
+            logger.debug("添加桌子信息成功,返回ID : " + tableInfo.getTableId());
+            TableInfo ti = new TableInfo();
+            ti.setTableId(tableInfo.getTableId());
+            return tableInfoMapper.list(tableInfo);
+        } else {
+            logger.error("添加桌子信息失败,返回ID : " + tableInfo.getTableId());
+            return null;
+        }
     }
 
     @Override

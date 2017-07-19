@@ -14,6 +14,9 @@ public interface SysMenuInfoController {
     /**
      * 获得系统菜单信息（通过分页）
      *
+     * @param sysMenuInfo 系统字典entity
+     * @param pageNo      页数
+     * @param pageSize    数量
      * @return List<SysMenuInfo>
      * >
      */
@@ -22,9 +25,10 @@ public interface SysMenuInfoController {
     /**
      * 获得系统菜单信息
      *
+     * @param sysMenuInfo 系统字典entity
      * @return List<SysMenuInfo>
      */
-    List<SysMenuInfo> getAllSysMenuInfo(Long id);
+    List<SysMenuInfo> getAllSysMenuInfo(SysMenuInfo sysMenuInfo);
 
     /**
      * 增加系统菜单

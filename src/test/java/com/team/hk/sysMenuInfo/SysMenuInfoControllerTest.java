@@ -64,6 +64,25 @@ public class SysMenuInfoControllerTest {
     }
 
     @Test
+    public void getAllMenuInfoByParams() throws Exception {
+
+        SysMenuInfo sysMenuInfo = new SysMenuInfo();
+        sysMenuInfo.setId(1001L);
+        String url = "/api/sysMenu/get";
+
+        ObjectMapper mapper = new ObjectMapper();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(sysMenuInfo)))
+                .andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        String content = mvcResult.getResponse().getContentAsString();
+        System.out.println(content);
+
+        assertEquals(200, status);
+    }
+
+    @Test
     public void addMenuInfo() throws Exception {
 
         SysMenuInfo sysMenuInfo = new SysMenuInfo();

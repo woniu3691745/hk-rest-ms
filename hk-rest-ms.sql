@@ -46,7 +46,7 @@ COMMIT;
 -- ----------------------------
 --  Table structure for `hk_dictionary_info_t`
 -- ----------------------------
-DROP TABLE IF EXISTS `hk_dictionary_info_t`;
+DROP TABLE IF EXISTS hk_sys_dictionary_info_t;
 CREATE TABLE `hk_dictionary_info_t` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `CODE_ID` varchar(30) NOT NULL COMMENT '代码',

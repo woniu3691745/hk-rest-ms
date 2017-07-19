@@ -109,15 +109,13 @@ public class SysMenuInfoControllerImpl implements SysMenuInfoController {
     /**
      * 获得系统菜单信息
      *
-     * @param menuId 系统菜单ID
+     * @param sysMenuInfo 系统菜单entity
      * @return List<SysMenuInfo>
      */
     @ResponseBody
-    @RequestMapping(value = "/get/{menuId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get", method = RequestMethod.POST)
     @Override
-    public List<SysMenuInfo> getAllSysMenuInfo(@PathVariable("menuId") Long menuId) {
-        SysMenuInfo sysMenuInfo = new SysMenuInfo();
-        sysMenuInfo.setId(menuId);
+    public List<SysMenuInfo> getAllSysMenuInfo(@RequestBody SysMenuInfo sysMenuInfo) {
         return sysMenuInfoService.getAllSysMenuInfoService(sysMenuInfo);
     }
 

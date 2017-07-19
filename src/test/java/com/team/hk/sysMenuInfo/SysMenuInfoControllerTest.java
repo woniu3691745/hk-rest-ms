@@ -86,7 +86,7 @@ public class SysMenuInfoControllerTest {
     public void addMenuInfo() throws Exception {
 
         SysMenuInfo sysMenuInfo = new SysMenuInfo();
-        sysMenuInfo.setComponent("123");
+        sysMenuInfo.setComponent("dasdd");
         sysMenuInfo.setIcon("123");
         sysMenuInfo.setName("123");
         sysMenuInfo.setPath("123");

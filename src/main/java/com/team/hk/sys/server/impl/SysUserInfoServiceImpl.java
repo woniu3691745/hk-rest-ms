@@ -39,9 +39,16 @@ public class SysUserInfoServiceImpl implements SysUserInfoService {
         return sysUserInfoMapper.list(sysUserInfo);
     }
 
+    /**
+     * 添加之后查询
+     *
+     * @param sysUserInfo 系统用户实体
+     * @return SysUserInfo
+     */
     @Override
-    public int addSysUserInfoService(SysUserInfo sysUserInfo) {
-        return sysUserInfoMapper.add(sysUserInfo);
+    public List<SysUserInfo> addSysUserInfoService(SysUserInfo sysUserInfo) {
+        sysUserInfoMapper.add(sysUserInfo);
+        return sysUserInfoMapper.list(sysUserInfo);
     }
 
     @Override

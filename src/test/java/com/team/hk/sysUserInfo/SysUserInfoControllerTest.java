@@ -47,8 +47,8 @@ public class SysUserInfoControllerTest {
     public void getAllUserInfo() throws Exception {
 
         SysUserInfo sysUserInfo = new SysUserInfo();
-        sysUserInfo.setUserName("lidongliang");
-        sysUserInfo.setUserPassword("1");
+//        sysUserInfo.setUserName("lidongliang");
+//        sysUserInfo.setUserPassword("1");
         String url = "/api/sysUser/getAll/0/3";
 
         ObjectMapper mapper = new ObjectMapper();
@@ -90,7 +90,7 @@ public class SysUserInfoControllerTest {
     public void addUserInfo() throws Exception {
 
         SysUserInfo sysUserInfo = new SysUserInfo();
-        sysUserInfo.setUserName("lidongliang");
+        sysUserInfo.setUserName("123123");
         sysUserInfo.setUserPassword("a");
         sysUserInfo.setUserPhone(13478824245L);
         sysUserInfo.setUserAddress("beijiang");

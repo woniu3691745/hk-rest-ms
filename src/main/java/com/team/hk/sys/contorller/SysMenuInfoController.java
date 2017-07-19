@@ -36,7 +36,7 @@ public interface SysMenuInfoController {
      * @param sysMenuInfo 系统菜单实体
      * @return rowsAffected
      */
-    int addSysMenuInfo(SysMenuInfo sysMenuInfo);
+    List<SysMenuInfo> addSysMenuInfo(SysMenuInfo sysMenuInfo);
 
     /**
      * 修改系统菜单

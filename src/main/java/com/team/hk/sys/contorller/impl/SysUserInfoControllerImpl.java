@@ -66,7 +66,7 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @Override
-    public int addSysUserInfo(@RequestBody SysUserInfo sysUserInfo) {
+    public List<SysUserInfo> addSysUserInfo(@RequestBody SysUserInfo sysUserInfo) {
         return sysUserInfoService.addSysUserInfoService(sysUserInfo);
     }
 

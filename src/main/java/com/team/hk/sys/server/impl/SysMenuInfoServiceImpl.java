@@ -39,9 +39,16 @@ public class SysMenuInfoServiceImpl implements SysMenuInfoService {
         return sysMenuInfoMapper.list(sysMenuInfo);
     }
 
+    /**
+     * 添加之后查询
+     *
+     * @param sysMenuInfo 系统菜单实体
+     * @return SysMenuInfo
+     */
     @Override
-    public int addSysMenuInfoService(SysMenuInfo sysMenuInfo) {
-        return sysMenuInfoMapper.add(sysMenuInfo);
+    public List<SysMenuInfo> addSysMenuInfoService(SysMenuInfo sysMenuInfo) {
+        sysMenuInfoMapper.add(sysMenuInfo);
+        return sysMenuInfoMapper.list(sysMenuInfo);
     }
 
     @Override

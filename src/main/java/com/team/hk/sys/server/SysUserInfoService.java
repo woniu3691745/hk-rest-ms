@@ -37,7 +37,7 @@ public interface SysUserInfoService {
      * @param sysUserInfo 系统用户实体
      * @return rowsAffected
      */
-    int addSysUserInfoService(SysUserInfo sysUserInfo);
+    List<SysUserInfo> addSysUserInfoService(SysUserInfo sysUserInfo);
 
     /**
      * 修改系统用户信息

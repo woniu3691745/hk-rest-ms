@@ -129,7 +129,7 @@ public class SysMenuInfoControllerImpl implements SysMenuInfoController {
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @Override
-    public int addSysMenuInfo(@RequestBody SysMenuInfo sysMenuInfo) {
+    public List<SysMenuInfo> addSysMenuInfo(@RequestBody SysMenuInfo sysMenuInfo) {
         return sysMenuInfoService.addSysMenuInfoService(sysMenuInfo);
     }
 

@@ -67,9 +67,6 @@
             <if test="orderId != null">
                 ORDER_ID = #{orderId}
             </if>
-            <if test="storeId != null">
-                AND STORE_ID = #{storeId}
-            </if>
         </where>
     </select>
 

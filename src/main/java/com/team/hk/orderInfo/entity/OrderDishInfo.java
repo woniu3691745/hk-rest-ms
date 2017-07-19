@@ -17,7 +17,7 @@ public class OrderDishInfo extends CommonEntity {
     private String dishesName;              // 菜肴名
     private Float dishesPrice;              // 菜肴价钱
     private String dishesDiscountPrice;     // 菜肴折扣
-    private int amount;                    // 数量
+    private int amount;                     // 数量
 
     public OrderDishInfo() {
     }

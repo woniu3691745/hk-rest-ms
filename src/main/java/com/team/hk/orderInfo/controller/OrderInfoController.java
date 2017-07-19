@@ -14,6 +14,9 @@ public interface OrderInfoController {
     /**
      * 获得订单信息（通过分页）
      *
+     * @param orderInfo 订单实体
+     * @param pageNo    页数
+     * @param pageSize  数量
      * @return List<OrderInfo>
      */
     List<OrderInfo> getAllOrderInfoByPage(OrderInfo orderInfo, Long pageNo, Long pageSize);
@@ -21,9 +24,10 @@ public interface OrderInfoController {
     /**
      * 获得订单信息
      *
+     * @param orderInfo 订单实体
      * @return List<OrderInfo>
      */
-    List<OrderInfo> getAllOrderInfo(Long id);
+    List<OrderInfo> getAllOrderInfo(OrderInfo orderInfo);
 
     /**
      * 增加订单

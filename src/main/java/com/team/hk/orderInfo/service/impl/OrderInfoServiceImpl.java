@@ -33,8 +33,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     public List<OrderInfo> getAllOrderInfoByPageService(OrderInfo orderInfo, Long pageNo, Long pageSize) {
         orderInfo.setPageNo(pageNo);
         orderInfo.setPageSize(pageSize);
-        List<OrderInfo> orderInfos = orderInfoMapper.listByPage(orderInfo);
-        return orderInfos;
+        return orderInfoMapper.listByPage(orderInfo);
     }
 
     @Override
@@ -46,8 +45,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
     @Override
     public List<OrderInfo> getAllOrderInfoService(OrderInfo orderInfo) {
-        List<OrderInfo> orderList = orderInfoMapper.list(orderInfo);
-        return orderList;
+        return orderInfoMapper.list(orderInfo);
     }
 
     /**
@@ -60,7 +58,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     @Override
     public int addOrderInfoService(OrderInfo orderInfo, List<OrderDishInfo> orderDishInfo) {
         orderInfoMapper.add(orderInfo);
-        orderDishInfo.stream().forEach(o -> o.setOrderId(orderInfo.getOrderId()));
+        orderDishInfo.forEach(o -> o.setOrderId(orderInfo.getOrderId()));
         return orderDishInfoMapper.add(orderDishInfo);
     }
 

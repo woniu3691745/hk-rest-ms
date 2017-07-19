@@ -25,6 +25,7 @@ public class OrderDishInfoControllerImpl implements OrderDishInfoController {
 
     /**
      * 获得订单_菜肴信息
+     * 通过订单ID，获得下单菜肴信息
      *
      * @param orderId 订单_菜肴ID
      * @return OrderDishInfo

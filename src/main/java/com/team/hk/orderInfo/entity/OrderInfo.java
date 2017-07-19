@@ -9,7 +9,7 @@ import java.util.Date;
  * Created by lidongliang on 2017/6/27.
  * 订单实体类
  */
-public class OrderInfo extends CommonEntity implements Serializable {
+public class OrderInfo extends CommonEntity{
 
     private static final long serialVersionUID = 1L;
 

@@ -30,6 +30,8 @@ public class OrderInfoControllerImpl implements OrderInfoController {
      * 获得订单信息（通过分页）
      *
      * @param orderInfo 订单实体
+     * @param pageNo    页数
+     * @param pageSize  数量
      * @return orderInfoInfo
      */
     @ResponseBody
@@ -48,14 +50,12 @@ public class OrderInfoControllerImpl implements OrderInfoController {
     /**
      * 获得订单信息
      *
-     * @return orderInfoInfo
+     * @return orderInfo 订单实体
      */
     @ResponseBody
-    @RequestMapping(value = "/get/{orderId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get", method = RequestMethod.POST)
     @Override
-    public List<OrderInfo> getAllOrderInfo(@PathVariable("orderId") Long orderId) {
-        OrderInfo orderInfo = new OrderInfo();
-        orderInfo.setOrderId(orderId);
+    public List<OrderInfo> getAllOrderInfo(@RequestBody OrderInfo orderInfo) {
         return orderInfoService.getAllOrderInfoService(orderInfo);
     }
 

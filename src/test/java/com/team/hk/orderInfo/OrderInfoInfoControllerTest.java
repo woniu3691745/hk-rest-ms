@@ -63,6 +63,23 @@ public class OrderInfoInfoControllerTest {
     }
 
     @Test
+    public void getAllOrderInfoByParams() throws Exception {
+        OrderInfo order = new OrderInfo();
+        order.setOrderId(12L);
+        String url = "/api/order/get";
+        ObjectMapper mapper = new ObjectMapper();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(order)))
+                .andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        String content = mvcResult.getResponse().getContentAsString();
+        System.out.println(content);
+
+        assertEquals(200, status);
+    }
+
+    @Test
     public void addOrderInfo() throws Exception {
         // 订单信息
         OrderInfo order = new OrderInfo();

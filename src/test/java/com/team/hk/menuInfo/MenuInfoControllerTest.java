@@ -65,6 +65,27 @@ public class MenuInfoControllerTest {
     }
 
     @Test
+    public void getAllMenuInfoByParams() throws Exception {
+
+        MenuInfo menuInfo = new MenuInfo();
+//        menuInfo.setDishesId(2L);
+        menuInfo.setMenuId(2L);
+        String url = "/api/menu/get";
+
+        ObjectMapper mapper = new ObjectMapper();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(menuInfo)))
+                .andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        String content = mvcResult.getResponse().getContentAsString();
+        System.out.println(content);
+
+        assertEquals(200, status);
+
+    }
+
+    @Test
     public void addMenuInfo() throws Exception {
 
         MenuInfo menuInfo = new MenuInfo();

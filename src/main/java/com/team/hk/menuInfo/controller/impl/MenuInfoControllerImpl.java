@@ -48,15 +48,13 @@ public class MenuInfoControllerImpl implements MenuInfoController {
     /**
      * 获得菜单信息
      *
-     * @param dishesId 菜单ID
+     * @param menuInfo 菜单entity
      * @return List<MenuInfo>
      */
     @ResponseBody
-    @RequestMapping(value = "/get/{dishesId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get", method = RequestMethod.POST)
     @Override
-    public List<MenuInfo> getAllMenuInfo(@PathVariable("dishesId") Long dishesId) {
-        MenuInfo menuInfo = new MenuInfo();
-        menuInfo.setDishesId(dishesId);
+    public List<MenuInfo> getAllMenuInfo(@RequestBody MenuInfo menuInfo) {
         return menuInfoService.getAllMenuInfoService(menuInfo);
     }
 

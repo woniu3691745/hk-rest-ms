@@ -13,6 +13,9 @@ public interface MenuInfoController {
     /**
      * 获得菜单信息（通过分页）
      *
+     * @param menuInfo 菜单entity
+     * @param pageNo   页数
+     * @param pageSize 数量
      * @return List<MenuInfo>
      */
     List<MenuInfo> getAllMenuInfoByPage(MenuInfo menuInfo, Long pageNo, Long pageSize);
@@ -20,9 +23,10 @@ public interface MenuInfoController {
     /**
      * 获得菜单信息
      *
+     * @param menuInfo 菜单entity
      * @return List<MenuInfo>
      */
-    List<MenuInfo> getAllMenuInfo(Long id);
+    List<MenuInfo> getAllMenuInfo(MenuInfo menuInfo);
 
     /**
      * 增加菜单

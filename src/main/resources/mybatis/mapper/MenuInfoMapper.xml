@@ -34,6 +34,9 @@
             <if test="dishesId != null">
                 DISHES_ID = #{dishesId}
             </if>
+            <if test="menuId != null">
+                MENU_ID = #{menuId}
+            </if>
         </where>
         ORDER BY UPDATE_DATE_TIME DESC
         <if test="pageNo != null and pageSize != null">
@@ -50,6 +53,9 @@
             <if test="dishesId != null">
                 DISHES_ID = #{dishesId}
             </if>
+            <if test="menuId != null">
+                MENU_ID = #{menuId}
+            </if>
         </where>
         <if test="pageNo != null and pageSize != null">
             LIMIT #{pageNo}, #{pageSize}
@@ -64,6 +70,9 @@
         <where>
             <if test="dishesId != null">
                 DISHES_ID = #{dishesId}
+            </if>
+            <if test="menuId != null">
+                MENU_ID = #{menuId}
             </if>
         </where>
     </select>

@@ -3,6 +3,7 @@ package com.team.hk.orderInfo.mapper;
 import com.team.hk.common.CommonMapper;
 import com.team.hk.orderInfo.entity.OrderDishInfo;
 import com.team.hk.orderInfo.entity.OrderInfo;
+import com.team.hk.orderInfo.entity.OrderToDishInfo;
 
 import java.util.List;
 
@@ -26,4 +27,12 @@ public interface OrderInfoMapper extends CommonMapper<OrderInfo> {
      * @param orderDishInfo 实体
      */
     int add(List<OrderDishInfo> orderDishInfo);
+
+    /**
+     * 查询
+     *
+     * @param orderToDishInfo 订单对订单_菜肴实体类
+     * @return List<OrderToDishInfo>
+     */
+    List<OrderToDishInfo> listOrderToDish(OrderToDishInfo orderToDishInfo);
 }

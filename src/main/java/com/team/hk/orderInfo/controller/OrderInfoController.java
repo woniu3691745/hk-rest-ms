@@ -2,6 +2,7 @@ package com.team.hk.orderInfo.controller;
 
 import com.team.hk.orderInfo.entity.OrderDishInfo;
 import com.team.hk.orderInfo.entity.OrderInfo;
+import com.team.hk.orderInfo.entity.OrderToDishInfo;
 
 import java.util.List;
 
@@ -60,5 +61,13 @@ public interface OrderInfoController {
      * @return rowsAffected
      */
     int deleteOrderInfoByIds(List<Long> id);
+
+    /**
+     * 获得订单信息
+     *
+     * @param orderToDishInfo 订单对订单_菜肴实体类
+     * @return List<OrderToDishInfo>
+     */
+    List<OrderToDishInfo> listOrderToDish(OrderToDishInfo orderToDishInfo);
 }
 

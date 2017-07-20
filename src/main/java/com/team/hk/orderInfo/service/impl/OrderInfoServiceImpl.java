@@ -2,6 +2,7 @@ package com.team.hk.orderInfo.service.impl;
 
 import com.team.hk.orderInfo.entity.OrderDishInfo;
 import com.team.hk.orderInfo.entity.OrderInfo;
+import com.team.hk.orderInfo.entity.OrderToDishInfo;
 import com.team.hk.orderInfo.mapper.OrderDishInfoMapper;
 import com.team.hk.orderInfo.mapper.OrderInfoMapper;
 import com.team.hk.orderInfo.service.OrderInfoService;
@@ -95,6 +96,11 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         int i = orderInfoMapper.deleteByIds(orderId);
         orderDishInfoMapper.deleteByIdsForOrder(orderId);
         return i;
+    }
+
+    @Override
+    public List<OrderToDishInfo> listOrderToDish(OrderToDishInfo orderToDishInfo) {
+        return orderInfoMapper.listOrderToDish(orderToDishInfo);
     }
 
 }

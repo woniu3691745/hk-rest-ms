@@ -3,6 +3,7 @@ package com.team.hk.orderInfo.controller.impl;
 import com.team.hk.orderInfo.controller.OrderInfoController;
 import com.team.hk.orderInfo.entity.OrderDishInfo;
 import com.team.hk.orderInfo.entity.OrderInfo;
+import com.team.hk.orderInfo.entity.OrderToDishInfo;
 import com.team.hk.orderInfo.service.OrderInfoService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,5 +110,18 @@ public class OrderInfoControllerImpl implements OrderInfoController {
     @Override
     public int deleteOrderInfoByIds(@RequestParam("orderId") List<Long> orderId) {
         return orderInfoService.deleteOrderInfoByIdsService(orderId);
+    }
+
+    /**
+     * 获得订单对订单_菜肴信息
+     *
+     * @param orderToDishInfo 订单对订单_菜肴实体类
+     * @return orderToDishInfo
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getOrderToDishList", method = RequestMethod.POST)
+    @Override
+    public List<OrderToDishInfo> listOrderToDish(@RequestBody OrderToDishInfo orderToDishInfo) {
+        return orderInfoService.listOrderToDish(orderToDishInfo);
     }
 }

@@ -2,6 +2,7 @@ package com.team.hk.orderInfo.service;
 
 import com.team.hk.orderInfo.entity.OrderDishInfo;
 import com.team.hk.orderInfo.entity.OrderInfo;
+import com.team.hk.orderInfo.entity.OrderToDishInfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -64,4 +65,12 @@ public interface OrderInfoService {
      * @return rowsAffected
      */
     int deleteOrderInfoByIdsService(List<Long> id);
+
+    /**
+     * 获得订单信息
+     *
+     * @param orderToDishInfo 订单对订单_菜肴实体类
+     * @return List<OrderToDishInfo>
+     */
+    List<OrderToDishInfo> listOrderToDish(OrderToDishInfo orderToDishInfo);
 }

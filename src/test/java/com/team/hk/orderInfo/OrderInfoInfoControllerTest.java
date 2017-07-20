@@ -3,6 +3,7 @@ package com.team.hk.orderInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team.hk.orderInfo.entity.OrderDishInfo;
 import com.team.hk.orderInfo.entity.OrderInfo;
+import com.team.hk.orderInfo.entity.OrderToDishInfo;
 import com.team.hk.orderInfo.service.OrderInfoService;
 import org.junit.Before;
 import org.junit.Test;
@@ -83,44 +84,44 @@ public class OrderInfoInfoControllerTest {
     public void addOrderInfo() throws Exception {
         // 订单信息
         OrderInfo order = new OrderInfo();
-        order.setStoreId(10L);
-        order.setTableId(121L);
-        order.setOrderStatus(2);
-        order.setOrderAmount(100.22f);
-        order.setOrderCreater("Tony");
-        order.setMember(8);
+        order.setStoreId(5002L);
+        order.setTableId(99L);
+        order.setOrderStatus(1);
+        order.setOrderAmount(100.00f);
+        order.setOrderCreater("李栋梁");
+        order.setMember(2);
         order.setComment("测试");
         order.setCreater("李栋梁");
         order.setModify("李栋梁");
 
         // 菜肴信息，从菜单中获得
         OrderDishInfo orderDishInfo1 = new OrderDishInfo();
-        orderDishInfo1.setDishesId(1012L);
-        orderDishInfo1.setDishesName("红烧肉1");
-        orderDishInfo1.setDishesPrice(38f);
-        orderDishInfo1.setDishesDiscountPrice("8%");
-        orderDishInfo1.setAmount(1);
-        orderDishInfo1.setMenuId(1001L);
+        orderDishInfo1.setDishesId(201L);
+        orderDishInfo1.setDishesName("锅包肉");
+        orderDishInfo1.setDishesPrice(48f);
+        orderDishInfo1.setDishesDiscountPrice("10%");
+        orderDishInfo1.setAmount(2);
+        orderDishInfo1.setMenuId(400001L);
         orderDishInfo1.setCreater("李栋梁");
         orderDishInfo1.setModify("李栋梁");
 
         OrderDishInfo orderDishInfo2 = new OrderDishInfo();
-        orderDishInfo2.setDishesId(1013L);
-        orderDishInfo2.setDishesName("水煮鱼1");
-        orderDishInfo2.setDishesPrice(98f);
-        orderDishInfo2.setDishesDiscountPrice("18%");
+        orderDishInfo2.setDishesId(202L);
+        orderDishInfo2.setDishesName("水牛蛙");
+        orderDishInfo2.setDishesPrice(88f);
+        orderDishInfo2.setDishesDiscountPrice("1%");
         orderDishInfo2.setAmount(1);
-        orderDishInfo2.setMenuId(1001L);
+        orderDishInfo2.setMenuId(400001L);
         orderDishInfo2.setCreater("李栋梁");
         orderDishInfo2.setModify("李栋梁");
 
         OrderDishInfo orderDishInfo3 = new OrderDishInfo();
-        orderDishInfo3.setDishesId(1014L);
-        orderDishInfo3.setDishesName("大鲍鱼");
-        orderDishInfo3.setDishesPrice(98f);
-        orderDishInfo3.setDishesDiscountPrice("18%");
+        orderDishInfo3.setDishesId(203L);
+        orderDishInfo3.setDishesName("清蒸大鲍鱼");
+        orderDishInfo3.setDishesPrice(50f);
+        orderDishInfo3.setDishesDiscountPrice("");
         orderDishInfo3.setAmount(1);
-        orderDishInfo3.setMenuId(1001L);
+        orderDishInfo3.setMenuId(400001L);
         orderDishInfo3.setCreater("李栋梁");
         orderDishInfo3.setModify("李栋梁");
 
@@ -174,7 +175,7 @@ public class OrderInfoInfoControllerTest {
     @Test
     public void updateOrderInfo() throws Exception {
         OrderInfo order = new OrderInfo();
-        order.setOrderId(12L);
+        order.setOrderId(13L);
         order.setStoreId(9L);
         order.setTableId(9L);
         order.setOrderStatus(9);
@@ -189,6 +190,24 @@ public class OrderInfoInfoControllerTest {
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(order)))
+                .andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        String content = mvcResult.getResponse().getContentAsString();
+        System.out.println(content);
+
+        assertEquals(200, status);
+    }
+
+
+    @Test
+    public void getAllOrderToDishInfo() throws Exception {
+        OrderToDishInfo orderToDishInfo = new OrderToDishInfo();
+        orderToDishInfo.setOrderId(13L);
+        String url = "/api/order/getOrderToDishList";
+        ObjectMapper mapper = new ObjectMapper();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(orderToDishInfo)))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
         String content = mvcResult.getResponse().getContentAsString();

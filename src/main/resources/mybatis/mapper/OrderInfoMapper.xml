@@ -21,6 +21,46 @@
         STATUS AS status
     </sql>
 
+    <!-- 查询 一个订单对应多个菜肴信息 -->
+    <select id="listOrderToDish" parameterType="OrderToDishInfo" resultMap="orderToDishInfoId">
+        SELECT
+        INFO.*, DISH.*
+        FROM HK_ORDER_INFO_T INFO, HK_ORDER_DISH_INFO_T DISH
+        <where>
+            INFO.ORDER_ID = DISH.ORDER_ID
+            <if test="orderId != null">
+                AND INFO.ORDER_ID = #{orderId}
+            </if>
+        </where>
+        ORDER BY INFO.UPDATE_DATE_TIME, DISH.UPDATE_DATE_TIME DESC
+    </select>
+
+    <resultMap type="OrderToDishInfo" id="orderToDishInfoId">
+        <id column="ORDER_ID" property="orderId"/>
+        <result column="STORE_ID" property="storeId"/>
+        <result column="TABLE_ID" property="tableId"/>
+        <result column="ORDER_STATUS" property="orderStatus"/>
+        <result column="START_DATE_TIME" property="startDateTime"/>
+        <result column="ORDER_AMOUNT" property="orderAmount"/>
+        <result column="ORDER_CREATER" property="orderCreater"/>
+        <result column="MEMBER" property="member"/>
+        <result column="COMMENT" property="comment"/>
+        <result column="CREATER" property="creater"/>
+        <result column="CREATE_DATE_TIME" property="createDateTime"/>
+        <result column="MODIFY" property="modify"/>
+        <result column="UPDATE_DATE_TIME" property="updateDateTime"/>
+        <collection property="orderDishInfo" ofType="OrderDishInfo">
+            <id column="ID" property="id"/>
+            <result column="ORDER_ID" property="orderId"/>
+            <result column="DISHES_ID" property="dishesId"/>
+            <result column="MENU_ID" property="menuId"/>
+            <result column="DISHES_NAME" property="dishesName"/>
+            <result column="DISHES_PRICE" property="dishesPrice"/>
+            <result column="DISHES_DISCOUNT_PRICE" property="dishesDiscountPrice"/>
+            <result column="AMOUNT" property="amount"/>
+        </collection>
+    </resultMap>
+
     <!-- 查询 -->
     <select id="listByPage" parameterType="OrderInfo" resultType="OrderInfo">
         SELECT

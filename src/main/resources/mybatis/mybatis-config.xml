@@ -20,5 +20,6 @@
         <typeAlias alias="SysMenuInfo" type="com.team.hk.sys.entity.SysMenuInfo"/>
         <typeAlias alias="SysUserInfo" type="com.team.hk.sys.entity.SysUserInfo"/>
         <typeAlias alias="SysDictInfo" type="com.team.hk.sys.entity.SysDictInfo"/>
+        <typeAlias alias="OrderToDishInfo" type="com.team.hk.orderInfo.entity.OrderToDishInfo"/>
     </typeAliases>
 </configuration>

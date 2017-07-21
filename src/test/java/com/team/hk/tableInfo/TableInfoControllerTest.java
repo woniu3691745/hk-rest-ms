@@ -83,11 +83,13 @@ public class TableInfoControllerTest {
     public void getAllTableInfoById() throws Exception {
 
         TableInfo tableInfo = new TableInfo();
-        tableInfo.setStoreId(1L);
-        String url = "/api/table/get/1";
+        tableInfo.setTableId(1L);
+        String url = "/api/table/get";
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url)
-                .contentType(MediaType.APPLICATION_JSON))
+        ObjectMapper mapper = new ObjectMapper();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(tableInfo)))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
         String content = mvcResult.getResponse().getContentAsString();

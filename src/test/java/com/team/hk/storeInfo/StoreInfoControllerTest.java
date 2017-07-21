@@ -81,24 +81,6 @@ public class StoreInfoControllerTest {
     }
 
     @Test
-    public void getAllStoreInfoById() throws Exception {
-
-        StoreInfo storeInfo = new StoreInfo();
-        storeInfo.setStoreId(1L);
-        String url = "/api/store/get/1";
-
-        ObjectMapper mapper = new ObjectMapper();
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andReturn();
-        int status = mvcResult.getResponse().getStatus();
-        String content = mvcResult.getResponse().getContentAsString();
-        System.out.println(content);
-
-        assertEquals(200, status);
-    }
-
-    @Test
     public void addStoreInfo() throws Exception {
 
         StoreInfo storeInfo = new StoreInfo();

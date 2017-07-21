@@ -151,26 +151,26 @@ public class SysMenuInfoControllerImpl implements SysMenuInfoController {
     /**
      * 删除一个系统菜单信息
      *
-     * @param menuId 系统菜单ID
+     * @param id 系统菜单ID
      * @return rowsAffected
      */
     @ResponseBody
-    @RequestMapping(value = "/delete/{menuId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @Override
-    public int deleteSysMenuInfoById(@PathVariable("menuId") Long menuId) {
-        return sysMenuInfoService.deleteSysMenuInfoByIdService(menuId);
+    public int deleteSysMenuInfoById(@PathVariable("id") Long id) {
+        return sysMenuInfoService.deleteSysMenuInfoByIdService(id);
     }
 
     /**
      * 删除多个系统菜单信息
      *
-     * @param menuId 系统菜单ID
+     * @param id 系统菜单ID
      * @return rowsAffected
      */
     @ResponseBody
     @RequestMapping(value = "/deleteAll", method = RequestMethod.DELETE)
     @Override
-    public int deleteSysMenuInfoByIds(@RequestParam("menuId") List<Long> menuId) {
-        return sysMenuInfoService.deleteSysMenuInfoByIdsService(menuId);
+    public int deleteSysMenuInfoByIds(@RequestParam("id") List<Long> id) {
+        return sysMenuInfoService.deleteSysMenuInfoByIdsService(id);
     }
 }

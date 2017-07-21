@@ -106,7 +106,7 @@ public class BookInfoControllerImpl implements BookInfoController {
     @ResponseBody
     @RequestMapping(value = "/deleteAll", method = RequestMethod.DELETE)
     @Override
-    public int deleteBookInfoByIds(@PathVariable("bookId") List<Long> bookId) {
+    public int deleteBookInfoByIds(@RequestParam("bookId") List<Long> bookId) {
         return bookInfoService.deleteBookInfoByIdsService(bookId);
     }
 }

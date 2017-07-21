@@ -38,12 +38,12 @@ public class HkRestMsApplicationTests {
 //                .andExpect(MockMvcResultMatchers.status().isOk())
 //                .andDo(MockMvcResultHandlers.print())
 //                .andReturn();
-        String uri = "/api/order/getAll";
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON))
-                .andReturn();
-        int status = mvcResult.getResponse().getStatus();
-        String content = mvcResult.getResponse().getContentAsString();
-        System.out.println(content);
-        assertEquals(200, status);
+//        String uri = "/api/order/getAll";
+//        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON))
+//                .andReturn();
+//        int status = mvcResult.getResponse().getStatus();
+//        String content = mvcResult.getResponse().getContentAsString();
+//        System.out.println(content);
+//        assertEquals(200, status);
     }
 }

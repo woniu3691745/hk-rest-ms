@@ -61,7 +61,7 @@ public class DruidConfiguration {
     public DruidDataSource druidDataSource() throws SQLException {
         DruidDataSource druidDataSource = new DruidDataSource();
         druidDataSource.setUsername("root");
-        druidDataSource.setPassword("Axiaoxuan123");
+        druidDataSource.setPassword("123456");
         druidDataSource.setUrl("jdbc:mysql://localhost:3306/hk-rest-ms");
         druidDataSource.setMaxActive(100);
         druidDataSource.setFilters("stat,wall");

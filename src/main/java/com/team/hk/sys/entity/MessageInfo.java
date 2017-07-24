@@ -10,8 +10,8 @@ public class MessageInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private int code;
-    private String msg;
+    private int code;       // 状态码
+    private String msg;     // 消息
 
     public MessageInfo() {
     }

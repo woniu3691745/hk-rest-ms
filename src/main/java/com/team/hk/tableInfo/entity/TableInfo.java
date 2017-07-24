@@ -10,10 +10,10 @@ public class TableInfo extends CommonEntity {
 
     private static final long serialVersionUID = 1L;
 
-    private Long tableId;
-    private Long storeId;
-    private int tableStatus;
-    private String tableDescription;
+    private Long tableId;       // 餐桌编号
+    private Long storeId;       // 门店标号
+    private int tableStatus;    // 餐桌状态
+    private String tableDescription;    // 餐桌描述
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

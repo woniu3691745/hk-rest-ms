@@ -14,23 +14,22 @@ public class StoreInfo extends CommonEntity {
 
     private Long storeId;               // 餐厅编号
     private String storeName;           // 餐厅名称
-    private Long storePhone;             // 订餐电话
+    private Long storePhone;            // 订餐电话
     private String storeAddress;        // 餐厅地址
     private String storeAdmin;          // 餐厅负责人
-    private String storeDescription;   // 餐厅描述
+    private String storeDescription;    // 餐厅描述
     private int storeStatus;            // 餐厅状态
     private String storeLogo;           // 餐厅LOGO
     private String storeNotice;         // 餐厅公告
     private String storeImg;            // 餐厅相片
     private int storeType;              // 餐厅类型
     private Float seatCost;             // 茶位费
-    private String serviceCost;          // 服务费
+    private String serviceCost;         // 服务费
     private Date storeBusinessAmStartHours;         // 餐厅营业上午营业开始时间
     private Date storeBusinessAmEndHours;           // 餐厅营业上午闭店结束时间
     private Date storeBusinessPmStartHours;         // 餐厅营业下午营业开始时间
     private Date storeBusinessPmEndHours;           // 餐厅营业下午闭店结束时间
     private String storeBusinessDay;                // 餐厅营业日
-
 
 
     private Long userId;                // 用户编号

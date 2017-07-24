@@ -19,7 +19,7 @@ public interface SysLoginController {
      * @return List<SysUserInfo>
      * >
      */
-//    List<SysUserInfo> index(SysUserInfo sysUserInfo, HttpServletRequest request);
+    List<SysUserInfo> index(SysUserInfo sysUserInfo, HttpServletRequest request);
 
     /**
      * 系统登陆
@@ -28,7 +28,7 @@ public interface SysLoginController {
      * @param request     http请求
      * @return List<SysUserInfo>
      */
-//    String login(SysUserInfo sysUserInfo, HttpServletRequest request);
+    String login(SysUserInfo sysUserInfo, HttpServletRequest request);
 
     /**
      * 系统退出页面
@@ -37,7 +37,7 @@ public interface SysLoginController {
      * @param request     http请求
      * @return List<SysUserInfo>
      */
-//    MessageInfo loginOut(SysUserInfo sysUserInfo, HttpServletRequest request);
+    MessageInfo loginOut(SysUserInfo sysUserInfo, HttpServletRequest request);
 
     /**
      * 注册
@@ -45,7 +45,7 @@ public interface SysLoginController {
      * @param sysUserInfo 用户信息entity
      * @return List<SysUserInfo>
      */
-//    List<SysUserInfo> register(SysUserInfo sysUserInfo);
+    List<SysUserInfo> register(SysUserInfo sysUserInfo);
 
 
     /**
@@ -54,6 +54,6 @@ public interface SysLoginController {
      * @param sysUserInfo 用户信息entity
      * @return List<SysUserInfo>
      */
-//    List<SysUserInfo> changePassword(SysUserInfo sysUserInfo);
+    List<SysUserInfo> changePassword(SysUserInfo sysUserInfo);
 
 }

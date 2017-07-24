@@ -79,7 +79,11 @@ public class SysLoginControllerImpl implements SysLoginController {
     @RequestMapping(value = "/loginOut", method = RequestMethod.GET)
     @Override
     public MessageInfo loginOut(SysUserInfo sysUserInfo, HttpServletRequest request) {
-        return null;
+        request.getSession().removeAttribute("seid");
+        MessageInfo messageInfo = new MessageInfo();
+        messageInfo.setCode(200);
+        messageInfo.setMsg("退出成功!");
+        return messageInfo;
     }
 
     /**

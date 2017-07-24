@@ -70,7 +70,7 @@ public class SysUserInfoControllerTest {
         SysUserInfo sysUserInfo = new SysUserInfo();
 //        sysUserInfo.setUserId(4L);
         sysUserInfo.setUserName("lidongliang");
-        sysUserInfo.setUserPassword("a");
+//        sysUserInfo.setUserPassword("a");
         String url = "/api/sysUser/get";
 
         ObjectMapper mapper = new ObjectMapper();

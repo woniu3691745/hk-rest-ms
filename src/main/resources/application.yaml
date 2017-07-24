@@ -4,6 +4,7 @@ server:
   port: 8088
   tomcat:
     uri-encoding: UTF-8
+#  address: 10.7.13.152
 
 # DB
 spring:
@@ -20,10 +21,11 @@ spring:
     password:
     port: 6379
     pool:
-      max-idle: 100
+      max-idle: 8
       min-idle: 1
-      max-active: 1000
+      max-active: 8
       max-wait: -1
+    timeout: 0
 
 # JPA
   jpa:
@@ -51,4 +53,8 @@ mybatis:
 logging:
   level:
     com.team.hk: debug
+
+connection:
+  username: lidongliang
+  remoteAddress: 123456
 #  path: E://logs/logs.log

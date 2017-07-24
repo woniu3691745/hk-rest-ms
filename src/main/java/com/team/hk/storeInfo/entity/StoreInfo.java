@@ -13,7 +13,6 @@ public class StoreInfo extends CommonEntity {
     private static final long serialVersionUID = 1L;
 
     private Long storeId;               // 餐厅编号
-    private Long userId;                // 用户编号
     private String storeName;           // 餐厅名称
     private Long storePhone;             // 订餐电话
     private String storeAddress;        // 餐厅地址
@@ -31,6 +30,10 @@ public class StoreInfo extends CommonEntity {
     private Date storeBusinessPmStartHours;         // 餐厅营业下午营业开始时间
     private Date storeBusinessPmEndHours;           // 餐厅营业下午闭店结束时间
     private String storeBusinessDay;                // 餐厅营业日
+
+
+
+    private Long userId;                // 用户编号
 
     public Long getStoreId() {
         return storeId;

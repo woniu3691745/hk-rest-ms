@@ -1,6 +1,7 @@
 package com.team.hk.storeInfo.service.impl;
 
 import com.team.hk.storeInfo.entity.StoreInfo;
+import com.team.hk.storeInfo.entity.StoreUserInfo;
 import com.team.hk.storeInfo.mapper.StoreInfoMapper;
 import com.team.hk.storeInfo.service.StoreInfoService;
 import org.apache.log4j.Logger;
@@ -40,16 +41,14 @@ public class StoreInfoServiceImpl implements StoreInfoService {
     public List<StoreInfo> getAllStoreInfoByPageService(StoreInfo storeInfo, Long pageNo, Long pageSize) {
         storeInfo.setPageNo(pageNo);
         storeInfo.setPageSize(pageSize);
-        List storeInfoListByPage = storeInfoMapper.listByPage(storeInfo);
-        return storeInfoListByPage;
+        return storeInfoMapper.listByPage(storeInfo);
     }
 
     @Override
     public int getAllStoreInfoCountByPageService(StoreInfo storeInfo, Long pageNo, Long pageSize) {
         storeInfo.setPageNo(pageNo);
         storeInfo.setPageSize(pageSize);
-        int count = storeInfoMapper.listCountByPage(storeInfo);
-        return count;
+        return storeInfoMapper.listCountByPage(storeInfo);
     }
 
     @Override
@@ -70,6 +69,11 @@ public class StoreInfoServiceImpl implements StoreInfoService {
     @Override
     public List<StoreInfo> addStoreInfoService(StoreInfo storeInfo) {
         storeInfoMapper.add(storeInfo);
+        // 保存门店用户关联信息
+        StoreUserInfo storeUserInfo = new StoreUserInfo();
+        storeUserInfo.setUserId(storeInfo.getUserId());
+        storeUserInfo.setStoreId(storeInfo.getStoreId());
+        storeInfoMapper.addStoreUserInfo(storeUserInfo);
         if (storeInfo.getStoreId() != null) {
             logger.debug("添加门店信息成功,返回STOREID : " + storeInfo.getStoreId());
             StoreInfo sif = new StoreInfo();
@@ -86,13 +90,27 @@ public class StoreInfoServiceImpl implements StoreInfoService {
         return storeInfoMapper.update(storeInfo);
     }
 
+    /**
+     * 删除 HK_STORE_INFO_T HK_USER_STORE_INFO_T 一条数据
+     *
+     * @param storeId 门店ID
+     * @return rowsAffected
+     */
     @Override
     public int deleteStoreInfoByIdService(Long storeId) {
+        storeInfoMapper.deleteByIdOne(storeId);
         return storeInfoMapper.deleteById(storeId);
     }
 
+    /**
+     * 删除 HK_STORE_INFO_T HK_USER_STORE_INFO_T 多条数据
+     *
+     * @param storeId 门店ID
+     * @return rowsAffected
+     */
     @Override
     public int deleteStoreInfoByIdsService(List<Long> storeId) {
+        storeInfoMapper.deleteByIdsOne(storeId);
         return storeInfoMapper.deleteByIds(storeId);
     }
 }

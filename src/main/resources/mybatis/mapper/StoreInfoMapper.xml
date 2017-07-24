@@ -5,29 +5,28 @@
 
     <!-- 基本字段 -->
     <sql id="Base_Column_List">
-        STORE_ID AS storeId,
-        USER_ID AS userId,
-        STORE_NAME AS storeName,
-        STORE_PHONE AS storePhone,
-        STORE_ADDRESS AS storeAddress,
-        STORE_ADMIN AS storeAdmin,
-        STORE_DESCRIPTION AS storeDescription,
-        STORE_STATUS AS storeStatus,
-        STORE_LOGO AS storeLogo,
-        STORE_NOTICE AS storeNotice,
-        STORE_IMG AS storeImg,
-        STORE_TYPE AS storeType,
-        SEAT_COST AS seatCost,
-        SERVICE_COST AS serviceCost,
-        STORE_BUSINESS_AM_START_HOURS AS storeBusinessAmStartHours,
-        STORE_BUSINESS_AM_END_HOURS AS storeBusinessAmEndHours,
-        STORE_BUSINESS_PM_START_HOURS AS storeBusinessPmStartHours,
-        STORE_BUSINESS_PM_END_HOURS AS storeBusinessPmEndHours,
-        STORE_BUSINESS_DAY AS storeBusinessDay,
-        CREATER AS creater,
-        CREATE_DATE_TIME AS createDateTime,
-        MODIFY AS modify,
-        UPDATE_DATE_TIME AS updateDateTime,
+        SI.STORE_ID AS storeId,
+        SI.STORE_NAME AS storeName,
+        SI.STORE_PHONE AS storePhone,
+        SI.STORE_ADDRESS AS storeAddress,
+        SI.STORE_ADMIN AS storeAdmin,
+        SI.STORE_DESCRIPTION AS storeDescription,
+        SI.STORE_STATUS AS storeStatus,
+        SI.STORE_LOGO AS storeLogo,
+        SI.STORE_NOTICE AS storeNotice,
+        SI.STORE_IMG AS storeImg,
+        SI.STORE_TYPE AS storeType,
+        SI.SEAT_COST AS seatCost,
+        SI.SERVICE_COST AS serviceCost,
+        SI.STORE_BUSINESS_AM_START_HOURS AS storeBusinessAmStartHours,
+        SI.STORE_BUSINESS_AM_END_HOURS AS storeBusinessAmEndHours,
+        SI.STORE_BUSINESS_PM_START_HOURS AS storeBusinessPmStartHours,
+        SI.STORE_BUSINESS_PM_END_HOURS AS storeBusinessPmEndHours,
+        SI.STORE_BUSINESS_DAY AS storeBusinessDay,
+        SI.CREATER AS creater,
+        SI.CREATE_DATE_TIME AS createDateTime,
+        SI.MODIFY AS modify,
+        SI.UPDATE_DATE_TIME AS updateDateTime,
         STATUS AS status
     </sql>
 
@@ -35,10 +34,14 @@
     <select id="listByPage" parameterType="StoreInfo" resultType="StoreInfo">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM HK_STORE_INFO_T
+        FROM HK_STORE_INFO_T SI, HK_USER_STORE_INFO_T USI
         <where>
+            SI.STORE_ID = USI.STORE_ID
             <if test="storeId != null">
-                STORE_ID = #{storeId}
+                AND USI.STORE_ID = #{storeId}
+            </if>
+            <if test="userId != null">
+                AND USI.USER_ID = #{userId}
             </if>
         </where>
         ORDER BY UPDATE_DATE_TIME DESC
@@ -51,10 +54,14 @@
     <select id="listCountByPage" parameterType="StoreInfo" resultType="int">
         SELECT
         count(*)
-        FROM HK_STORE_INFO_T
+        FROM HK_STORE_INFO_T SI, HK_USER_STORE_INFO_T USI
         <where>
+            SI.STORE_ID = USI.STORE_ID
             <if test="storeId != null">
-                STORE_ID = #{storeId}
+                AND USI.STORE_ID = #{storeId}
+            </if>
+            <if test="userId != null">
+                AND USI.USER_ID = #{userId}
             </if>
         </where>
         <if test="pageNo != null and pageSize != null">
@@ -66,7 +73,7 @@
     <select id="list" parameterType="StoreInfo" resultType="StoreInfo">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM HK_STORE_INFO_T
+        FROM HK_STORE_INFO_T SI
         <where>
             <if test="storeId != null">
                 STORE_ID = #{storeId}
@@ -78,8 +85,7 @@
     <!-- 更新 -->
     <update id="update" parameterType="MenuInfo">
         UPDATE HK_STORE_INFO_T
-          SET USER_ID = #{userId},
-              STORE_NAME = #{storeName},
+          SET STORE_NAME = #{storeName},
               STORE_PHONE = #{storePhone},
               STORE_ADDRESS = #{storeAddress},
               STORE_ADMIN = #{storeAdmin},
@@ -104,7 +110,6 @@
     <!-- 增加 -->
     <insert id="add" parameterType="StoreInfo" useGeneratedKeys="true" keyProperty="storeId">
         INSERT into HK_STORE_INFO_T(
-                USER_ID,
                 STORE_NAME,
                 STORE_PHONE,
                 STORE_ADDRESS,
@@ -130,7 +135,6 @@
             )
             VALUES
             (
-               #{userId},
                #{storeName},
                #{storePhone},
                #{storeAddress},
@@ -156,9 +160,24 @@
             )
     </insert>
 
+    <!-- 增加 -->
+    <insert id="addStoreUserInfo" parameterType="StoreUserInfo" useGeneratedKeys="true" keyProperty="userId">
+        INSERT into HK_USER_STORE_INFO_T(
+        USER_ID,
+        STORE_ID
+        )
+        VALUES
+        (
+        #{userId},
+        #{storeId}
+        )
+    </insert>
     <!-- 删除 -->
     <delete id="deleteById" parameterType="Long">
         DELETE FROM HK_STORE_INFO_T WHERE STORE_ID = #{0}
+    </delete>
+    <delete id="deleteByIdOne" parameterType="Long">
+        DELETE FROM HK_USER_STORE_INFO_T WHERE STORE_ID = #{0}
     </delete>
 
     <!-- 删除全部-->
@@ -168,5 +187,12 @@
             #{item}
         </foreach>
     </delete>
+    <delete id="deleteByIdsOne" parameterType="java.util.List">
+        DELETE FROM HK_USER_STORE_INFO_T WHERE STORE_ID in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
 
+    <!-- 登陆做好记得加 user_id 条件删除关联表 -->
 </mapper>

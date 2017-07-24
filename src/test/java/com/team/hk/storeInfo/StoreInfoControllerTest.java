@@ -46,8 +46,8 @@ public class StoreInfoControllerTest {
     public void getAllStoreInfo() throws Exception {
 
         StoreInfo storeInfo = new StoreInfo();
-        storeInfo.setStoreId(1L);
-        String url = "/api/store/getAll/0/2";
+        storeInfo.setUserId(100003L);
+        String url = "/api/store/getAll/0/5";
 
         ObjectMapper mapper = new ObjectMapper();
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(url)
@@ -65,7 +65,7 @@ public class StoreInfoControllerTest {
     public void getAllStoreInfoByParams() throws Exception {
 
         StoreInfo storeInfo = new StoreInfo();
-        storeInfo.setStoreId(2L);
+        storeInfo.setStoreId(5L);
         String url = "/api/store/get";
 
         ObjectMapper mapper = new ObjectMapper();
@@ -84,16 +84,16 @@ public class StoreInfoControllerTest {
     public void addStoreInfo() throws Exception {
 
         StoreInfo storeInfo = new StoreInfo();
-        storeInfo.setUserId(1001L);
-        storeInfo.setStoreName("aibaba");
+        storeInfo.setUserId(100003L);
+        storeInfo.setStoreName("好利来1");
         storeInfo.setStorePhone(13478824245L);
-        storeInfo.setStoreAddress("ddss1212");
-        storeInfo.setStoreAdmin("aaaa");
-        storeInfo.setStoreDescription("dddddd");
+        storeInfo.setStoreAddress("北京");
+        storeInfo.setStoreAdmin("李栋梁");
+        storeInfo.setStoreDescription("环境优雅");
         storeInfo.setStoreLogo("D:\\asd");
         storeInfo.setStoreStatus(1);
-        storeInfo.setStoreNotice("123213");
-        storeInfo.setStoreImg("123123213");
+        storeInfo.setStoreNotice("aaaa");
+        storeInfo.setStoreImg("D:\\asd");
         storeInfo.setStoreType(1);
         storeInfo.setSeatCost(22.11f);
         storeInfo.setServiceCost("10%");
@@ -101,8 +101,8 @@ public class StoreInfoControllerTest {
         storeInfo.setStoreBusinessAmEndHours(new Date());
         storeInfo.setStoreBusinessPmStartHours(new Date());
         storeInfo.setStoreBusinessPmEndHours(new Date());
-        storeInfo.setCreater("111");
-        storeInfo.setModify("2222");
+        storeInfo.setCreater("李栋梁");
+        storeInfo.setModify("李栋梁");
         storeInfo.setStatus(0);
         String url = "/api/store/add";
 
@@ -121,7 +121,7 @@ public class StoreInfoControllerTest {
     @Test
     public void deleteByIdStoreInfo() throws Exception {
 
-        String url = "/api/store/delete/1";
+        String url = "/api/store/delete/9";
         ObjectMapper mapper = new ObjectMapper();
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete(url)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -136,8 +136,8 @@ public class StoreInfoControllerTest {
         String url = "/api/store/deleteAll";
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete(url)
                 .contentType(MediaType.APPLICATION_JSON)
-                .param("storeId", "3")
-                .param("storeId", "4"))
+                .param("storeId", "5")
+                .param("storeId", "8"))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
         String content = mvcResult.getResponse().getContentAsString();
@@ -151,8 +151,8 @@ public class StoreInfoControllerTest {
     public void updateStoreInfo() throws Exception {
 
         StoreInfo storeInfo = new StoreInfo();
-        storeInfo.setStoreId(1L);
-        storeInfo.setUserId(1001L);
+        storeInfo.setStoreId(5L);
+//        storeInfo.setUserId(1001L);
         storeInfo.setStoreName("李栋梁1111");
         storeInfo.setStorePhone(13478824245L);
         storeInfo.setStoreAddress("ddss1212");

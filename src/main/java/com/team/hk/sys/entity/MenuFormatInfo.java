@@ -1,6 +1,7 @@
 package com.team.hk.sys.entity;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -19,6 +20,7 @@ public class MenuFormatInfo implements Serializable {
     private String icon;
     private Long parent;
     private String[] role;
+    private int type;
 
     private List<MenuFormatInfo> children;
 
@@ -94,6 +96,30 @@ public class MenuFormatInfo implements Serializable {
         this.role = role;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     public MenuFormatInfo() {
+    }
+
+    @Override
+    public String toString() {
+        return "MenuFormatInfo{" +
+                "id=" + id +
+                ", path='" + path + '\'' +
+                ", component='" + component + '\'' +
+                ", redirect='" + redirect + '\'' +
+                ", name='" + name + '\'' +
+                ", icon='" + icon + '\'' +
+                ", parent=" + parent +
+                ", role=" + Arrays.toString(role) +
+                ", type=" + type +
+                ", children=" + children +
+                '}';
     }
 }

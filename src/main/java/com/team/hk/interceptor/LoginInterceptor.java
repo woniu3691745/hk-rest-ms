@@ -42,6 +42,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             }
         }
         if (seid == null) {
+            logger.debug("seid = " + seid);
             response.setContentType("application/json;charset=utf-8");
             response.setStatus(500);
 
@@ -50,7 +51,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             map.put("msg", "您尚未登录！");
             response.getWriter().write(JSONUtils.toJSONString(map));
 
-            logger.info(JSONUtils.toJSONString(map));
+            logger.debug(JSONUtils.toJSONString(map));
 //            String url = "/api/login";
 //            response.sendRedirect(url);
             return false;

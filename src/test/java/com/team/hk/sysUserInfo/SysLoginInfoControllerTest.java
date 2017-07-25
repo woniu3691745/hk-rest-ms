@@ -46,7 +46,7 @@ public class SysLoginInfoControllerTest {
 
         SysUserInfo sysUserInfo = new SysUserInfo();
         sysUserInfo.setUserName("admin");
-        sysUserInfo.setUserPassword("1234567");
+        sysUserInfo.setUserPassword("123456");
         String url = "/api/login";
 
         ObjectMapper mapper = new ObjectMapper();

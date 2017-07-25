@@ -5,6 +5,7 @@ import com.team.hk.sys.entity.SysUserInfo;
 import com.team.hk.sys.server.SysUserInfoService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,9 @@ import java.util.List;
 public class SysUserInfoControllerImpl implements SysUserInfoController {
 
     private static Logger logger = Logger.getLogger(SysUserInfoControllerImpl.class);
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Autowired
     private SysUserInfoService sysUserInfoService;
@@ -55,6 +59,8 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     @Override
     public List<SysUserInfo> getAllSysUserInfo(@RequestBody SysUserInfo sysUserInfo) {
+        long userId = (long) redisTemplate.opsForValue().get("userId");
+        sysUserInfo.setUserId(userId);
         return sysUserInfoService.getAllSysUserInfoService(sysUserInfo);
     }
 

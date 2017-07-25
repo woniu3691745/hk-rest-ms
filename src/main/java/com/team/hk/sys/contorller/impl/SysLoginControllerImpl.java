@@ -52,6 +52,7 @@ public class SysLoginControllerImpl implements SysLoginController {
             request.getSession().setAttribute("seid", seid);
             messageInfo.setCode(200);
             messageInfo.setMsg("登录成功！");
+            redisTemplate.opsForValue().set("userId", userInfo.getUserId());
             return messageInfo;
         } else {
             messageInfo.setCode(500);

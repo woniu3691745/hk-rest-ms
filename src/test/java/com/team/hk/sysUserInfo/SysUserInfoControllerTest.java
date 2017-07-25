@@ -69,7 +69,7 @@ public class SysUserInfoControllerTest {
 
         SysUserInfo sysUserInfo = new SysUserInfo();
 //        sysUserInfo.setUserId(4L);
-        sysUserInfo.setUserName("lidongliang");
+//        sysUserInfo.setUserName("lidongliang");
 //        sysUserInfo.setUserPassword("a");
         String url = "/api/sysUser/get";
 

@@ -3,7 +3,7 @@ package com.team.hk.interceptor;
 import com.alibaba.druid.support.json.JSONUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,7 +21,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     private static Logger logger = Logger.getLogger(LoginInterceptor.class);
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private StringRedisTemplate stringRedisTemplate;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o)

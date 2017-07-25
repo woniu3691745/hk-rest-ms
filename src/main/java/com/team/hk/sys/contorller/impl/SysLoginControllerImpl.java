@@ -7,6 +7,7 @@ import com.team.hk.sys.server.SysLoginInfoService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,7 @@ public class SysLoginControllerImpl implements SysLoginController {
     private static Logger logger = Logger.getLogger(SysLoginControllerImpl.class);
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
     private SysLoginInfoService sysLoginInfoService;
@@ -52,7 +53,7 @@ public class SysLoginControllerImpl implements SysLoginController {
             request.getSession().setAttribute("seid", seid);
             messageInfo.setCode(200);
             messageInfo.setMsg("登录成功！");
-            redisTemplate.opsForValue().set("userId", userInfo.getUserId());
+            stringRedisTemplate.opsForValue().set("userId", userInfo.getUserId().toString());
             return messageInfo;
         } else {
             messageInfo.setCode(500);
@@ -76,6 +77,7 @@ public class SysLoginControllerImpl implements SysLoginController {
         MessageInfo messageInfo = new MessageInfo();
         messageInfo.setCode(200);
         messageInfo.setMsg("退出成功!");
+        stringRedisTemplate.delete("userId");
         logger.info("XXX 退出系统。");
         return messageInfo;
     }

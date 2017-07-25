@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,7 +35,9 @@ public class SysMenuInfoControllerImpl implements SysMenuInfoController {
      */
     @ResponseBody
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public List<MenuFormatInfo> getAllSysMenuInfo() {
+    public List<MenuFormatInfo> getAllSysMenuInfo(HttpServletRequest request) {
+        String seid = request.getSession().getId();
+        System.err.println("seid = " + seid);
         List<MenuFormatInfo> listInfo = new ArrayList<>();
 
         // 获得数据

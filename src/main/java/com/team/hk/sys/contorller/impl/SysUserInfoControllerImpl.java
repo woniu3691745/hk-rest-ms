@@ -10,6 +10,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +60,9 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
     @ResponseBody
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     @Override
-    public List<SysUserInfo> getAllSysUserInfo(@RequestBody SysUserInfo sysUserInfo) {
+    public List<SysUserInfo> getAllSysUserInfo(@RequestBody SysUserInfo sysUserInfo, HttpServletRequest request) {
+        String seid = request.getSession().getId();
+        System.err.println("seid = " + seid);
         String userId =  stringRedisTemplate.opsForValue().get("userId");
         sysUserInfo.setUserId(Long.parseLong(userId));
         return sysUserInfoService.getAllSysUserInfoService(sysUserInfo);

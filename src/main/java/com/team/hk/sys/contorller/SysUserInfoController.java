@@ -2,6 +2,7 @@ package com.team.hk.sys.contorller;
 
 import com.team.hk.sys.entity.SysUserInfo;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ public interface SysUserInfoController {
      * @param sysUserInfo 用户信息entity
      * @return List<SysUserInfo>
      */
-    List<SysUserInfo> getAllSysUserInfo(SysUserInfo sysUserInfo);
+    List<SysUserInfo> getAllSysUserInfo(SysUserInfo sysUserInfo, HttpServletRequest request);
 
     /**
      * 增加系统用户

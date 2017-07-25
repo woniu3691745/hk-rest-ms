@@ -13,31 +13,21 @@ import java.util.List;
 public interface SysLoginController {
 
     /**
-     * 系统主页面
-     *
-     * @param sysUserInfo 用户信息entity
-     * @return List<SysUserInfo>
-     * >
-     */
-    List<SysUserInfo> index(SysUserInfo sysUserInfo, HttpServletRequest request);
-
-    /**
      * 系统登陆
      *
      * @param sysUserInfo 用户信息entity
      * @param request     http请求
      * @return List<SysUserInfo>
      */
-    String login(SysUserInfo sysUserInfo, HttpServletRequest request);
+    MessageInfo login(SysUserInfo sysUserInfo, HttpServletRequest request);
 
     /**
      * 系统退出页面
      *
-     * @param sysUserInfo 用户信息entity
      * @param request     http请求
      * @return List<SysUserInfo>
      */
-    MessageInfo loginOut(SysUserInfo sysUserInfo, HttpServletRequest request);
+    MessageInfo loginOut(HttpServletRequest request);
 
     /**
      * 注册

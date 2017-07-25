@@ -3,9 +3,10 @@ package com.team.hk.sys.contorller.impl;
 import com.team.hk.sys.contorller.SysLoginController;
 import com.team.hk.sys.entity.MessageInfo;
 import com.team.hk.sys.entity.SysUserInfo;
-import com.team.hk.sys.server.SysUserInfoService;
+import com.team.hk.sys.server.SysLoginInfoService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by lidongliang on 2017/7/24.
@@ -26,20 +28,10 @@ public class SysLoginControllerImpl implements SysLoginController {
     private static Logger logger = Logger.getLogger(SysLoginControllerImpl.class);
 
     @Autowired
-    private SysUserInfoService sysUserInfoService;
+    private RedisTemplate redisTemplate;
 
-    /**
-     * 主页
-     *
-     * @param sysUserInfo 用户信息entity
-     * @return List<SysUserInfo>
-     */
-    @ResponseBody
-    @RequestMapping(value = "/index", method = RequestMethod.POST)
-    @Override
-    public List<SysUserInfo> index(@RequestBody SysUserInfo sysUserInfo, HttpServletRequest request) {
-        return sysUserInfoService.getAllSysUserInfoService(sysUserInfo);
-    }
+    @Autowired
+    private SysLoginInfoService sysLoginInfoService;
 
     /**
      * 登陆
@@ -49,39 +41,41 @@ public class SysLoginControllerImpl implements SysLoginController {
      * @return MessageInfo
      */
     @ResponseBody
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     @Override
-    public String login(SysUserInfo sysUserInfo, HttpServletRequest request) {
-        // 获得sessionId
-        String seid = request.getSession().getId();
-        request.getSession().setAttribute("seid", seid);
-        System.out.println("/login = " + request.getSession().getAttribute("seid"));
-        return "/login";
+    public MessageInfo login(@RequestBody SysUserInfo sysUserInfo, HttpServletRequest request) {
+        MessageInfo messageInfo = new MessageInfo();
+        SysUserInfo userInfo = sysLoginInfoService.login(sysUserInfo);
+        if (Objects.nonNull(userInfo)) {
+            // 获得sessionId
+            String seid = request.getSession().getId();
+            request.getSession().setAttribute("seid", seid);
+            messageInfo.setCode(200);
+            messageInfo.setMsg("登录成功！");
+            return messageInfo;
+        } else {
+            messageInfo.setCode(500);
+            messageInfo.setMsg("登录失败，账号或密码错误！");
+            return messageInfo;
+        }
     }
 
-
-    @ResponseBody
-    @RequestMapping(value = "/method", method = RequestMethod.GET)
-    public String getTest(HttpServletRequest request) {
-        System.out.println("/method = " + request.getSession().getAttribute("seid"));
-        return request.getSession().getAttribute("seid").toString();
-    }
 
     /**
      * 退出
      *
-     * @param sysUserInfo 用户信息entity
-     * @param request     http请求
+     * @param request http请求
      * @return MessageInfo
      */
     @ResponseBody
-    @RequestMapping(value = "/loginOut", method = RequestMethod.GET)
+    @RequestMapping(value = "/loginOut", method = RequestMethod.POST)
     @Override
-    public MessageInfo loginOut(SysUserInfo sysUserInfo, HttpServletRequest request) {
+    public MessageInfo loginOut(HttpServletRequest request) {
         request.getSession().removeAttribute("seid");
         MessageInfo messageInfo = new MessageInfo();
         messageInfo.setCode(200);
         messageInfo.setMsg("退出成功!");
+        logger.info("XXX 退出系统。");
         return messageInfo;
     }
 

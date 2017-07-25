@@ -1,7 +1,6 @@
 package com.team.hk.interceptor;
 
 import com.alibaba.druid.support.json.JSONUtils;
-import com.team.hk.sys.entity.MessageInfo;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -10,10 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by lidongliang on 2017/7/13.
@@ -25,8 +22,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Autowired
     private RedisTemplate redisTemplate;
-
-    private ConcurrentHashMap<String, String> concurrentHashMap = new ConcurrentHashMap<>();
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o)
@@ -49,16 +44,17 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (seid == null) {
             response.setContentType("application/json;charset=utf-8");
             response.setStatus(500);
-            MessageInfo messageInfo = new MessageInfo();
-            messageInfo.setCode(500);
-            messageInfo.setMsg("您尚未登录！");
-            System.out.println("登录消息 " + messageInfo.toString());
-//            response.getWriter().write(JSONUtils.toJSONString(messageInfo));
-            String url = "/api/login";
-            response.sendRedirect(url);
+
+            Map<String, String> map = new HashMap<>();
+            map.put("code", "500");
+            map.put("msg", "您尚未登录！");
+            response.getWriter().write(JSONUtils.toJSONString(map));
+
+            logger.info(JSONUtils.toJSONString(map));
+//            String url = "/api/login";
+//            response.sendRedirect(url);
             return false;
         } else {
-            System.out.println("login session = " + request.getSession().getAttribute("seid"));
             return true;
         }
 

@@ -23,7 +23,7 @@ import static junit.framework.TestCase.assertEquals;
 
 /**
  * Created by lidongliang on 2017/7/4.
- * SysMenuInfo 单体测试
+ * SysUserInfo 单体测试
  * 测试通过
  */
 @RunWith(SpringRunner.class)

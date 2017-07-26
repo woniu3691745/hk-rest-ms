@@ -4,6 +4,7 @@ import com.team.hk.sys.entity.MessageInfo;
 import com.team.hk.sys.entity.SysUserInfo;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public interface SysLoginController {
      * @param request     http请求
      * @return List<SysUserInfo>
      */
-    MessageInfo login(SysUserInfo sysUserInfo, HttpServletRequest request);
+    MessageInfo login(SysUserInfo sysUserInfo, HttpServletRequest request, HttpServletResponse response);
 
     /**
      * 系统退出页面

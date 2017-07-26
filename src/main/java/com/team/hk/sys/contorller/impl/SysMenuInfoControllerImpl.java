@@ -36,8 +36,6 @@ public class SysMenuInfoControllerImpl implements SysMenuInfoController {
     @ResponseBody
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public List<MenuFormatInfo> getAllSysMenuInfo(HttpServletRequest request) {
-        String seid = request.getSession().getId();
-        System.err.println("seid = " + seid);
         List<MenuFormatInfo> listInfo = new ArrayList<>();
 
         // 获得数据

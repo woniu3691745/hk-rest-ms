@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Objects;
 
@@ -44,46 +46,25 @@ public class SysLoginControllerImpl implements SysLoginController {
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @Override
-    public MessageInfo login(@RequestBody SysUserInfo sysUserInfo, HttpServletRequest request) {
+    public MessageInfo login(@RequestBody SysUserInfo sysUserInfo, HttpServletRequest request,
+                             HttpServletResponse response) {
         MessageInfo messageInfo = new MessageInfo();
         SysUserInfo userInfo = sysLoginInfoService.login(sysUserInfo);
         if (Objects.nonNull(userInfo)) {
             // 获得sessionId
             String seid = request.getSession().getId();
-            System.err.println("seid = " + seid);
+            logger.debug("seid = " + seid);
             request.getSession().setAttribute("seid", seid);
 
             messageInfo.setCode(200);
-            messageInfo.setMsg("登录成功！");
-            stringRedisTemplate.opsForValue().set("userId", userInfo.getUserId().toString());
-            return messageInfo;
-        } else {
-            messageInfo.setCode(500);
-            messageInfo.setMsg("登录失败，账号或密码错误！");
-            return messageInfo;
-        }
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/login1", method = RequestMethod.GET)
-    public MessageInfo login1(HttpServletRequest request) {
-        MessageInfo messageInfo = new MessageInfo();
-        SysUserInfo sysUserInfo = new SysUserInfo();
-        sysUserInfo.setUserName("admin");
-        sysUserInfo.setUserPassword("123456");
-        SysUserInfo userInfo = sysLoginInfoService.login(sysUserInfo);
-        if (Objects.nonNull(userInfo)) {
-            // 获得sessionId
-            String seid = request.getSession().getId();
-            System.err.println("seid = " + seid);
-            request.getSession().setAttribute("seid", seid);
-            messageInfo.setCode(200);
-            messageInfo.setMsg("登录成功！");
-
+            messageInfo.setMsg("登录系统成功！");
+            messageInfo.setCookie(seid);
+            messageInfo.setT(userInfo);
+            // 保存到Redis中
             stringRedisTemplate.opsForValue().set("userId", userInfo.getUserId().toString());
             stringRedisTemplate.opsForValue().set("userName", userInfo.getUserName());
             stringRedisTemplate.opsForValue().set("userRole", userInfo.getUserRole());
-            logger.debug(userInfo.getUserName() + " 登录系统");
+            logger.debug(userInfo.getUserName() + " 登录系统成功");
             return messageInfo;
         } else {
             messageInfo.setCode(500);
@@ -91,6 +72,34 @@ public class SysLoginControllerImpl implements SysLoginController {
             return messageInfo;
         }
     }
+
+//    @ResponseBody
+//    @RequestMapping(value = "/login1", method = RequestMethod.POST)
+//    public MessageInfo login1(HttpServletRequest request) {
+//        MessageInfo messageInfo = new MessageInfo();
+//        SysUserInfo sysUserInfo = new SysUserInfo();
+//        sysUserInfo.setUserName("admin");
+//        sysUserInfo.setUserPassword("1");
+//        SysUserInfo userInfo = sysLoginInfoService.login(sysUserInfo);
+//        if (Objects.nonNull(userInfo)) {
+//            // 获得sessionId
+//            String seid = request.getSession().getId();
+//            System.err.println("seid = " + seid);
+//            request.getSession().setAttribute("seid", seid);
+//            messageInfo.setCode(200);
+//            messageInfo.setMsg("登录成功！");
+//
+//            stringRedisTemplate.opsForValue().set("userId", userInfo.getUserId().toString());
+//            stringRedisTemplate.opsForValue().set("userName", userInfo.getUserName());
+//            stringRedisTemplate.opsForValue().set("userRole", userInfo.getUserRole());
+//            logger.debug(userInfo.getUserName() + " 登录系统");
+//            return messageInfo;
+//        } else {
+//            messageInfo.setCode(500);
+//            messageInfo.setMsg("登录失败，账号或密码错误！");
+//            return messageInfo;
+//        }
+//    }
 
     /**
      * 退出
@@ -99,16 +108,16 @@ public class SysLoginControllerImpl implements SysLoginController {
      * @return MessageInfo
      */
     @ResponseBody
-    @RequestMapping(value = "/loginOut", method = RequestMethod.GET)
+    @RequestMapping(value = "/loginOut", method = RequestMethod.POST)
     @Override
     public MessageInfo loginOut(HttpServletRequest request) {
-        request.getSession().removeAttribute("seid");
+
         MessageInfo messageInfo = new MessageInfo();
         messageInfo.setCode(200);
-        messageInfo.setMsg("退出成功!");
+        messageInfo.setMsg("退出系统成功!");
 
         logger.debug(stringRedisTemplate.opsForValue().get("userName") + " 退出系统");
-        request.getSession().removeAttribute("seid");
+//        stringRedisTemplate.delete("spring:session:sessions:"+request.getSession().getId());
         stringRedisTemplate.delete("userId");
         stringRedisTemplate.delete("userName");
         stringRedisTemplate.delete("userRole");

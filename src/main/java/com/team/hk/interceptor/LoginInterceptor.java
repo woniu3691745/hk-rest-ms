@@ -36,6 +36,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         // 获得登陆用户session
         Object seid = request.getSession().getAttribute("seid");
 
+        response.setContentType("application/json;charset=utf-8");
         for (String strUrl : allowUrls) {
             if (addRessUrl.contains(strUrl)) {
                 return true;
@@ -43,19 +44,16 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
         if (seid == null) {
             logger.debug("seid = " + seid);
-            response.setContentType("application/json;charset=utf-8");
+            logger.debug("addRessUrl = " + addRessUrl + " 被拦截");
             response.setStatus(500);
-
             Map<String, String> map = new HashMap<>();
             map.put("code", "500");
             map.put("msg", "您尚未登录！");
             response.getWriter().write(JSONUtils.toJSONString(map));
-
             logger.debug(JSONUtils.toJSONString(map));
-//            String url = "/api/login";
-//            response.sendRedirect(url);
             return false;
         } else {
+            logger.debug("addRessUrl = " + addRessUrl + " 通过拦截");
             return true;
         }
 

@@ -18,7 +18,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/api/**");
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/api/**");
     }
 
     /**
@@ -31,9 +31,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         registry.addMapping("/**")
                 .allowedHeaders("*")
                 .allowedMethods("GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "TRACE")
-                .allowedOrigins("*")
+                .allowedOrigins("http://localhost:9527")
+                .exposedHeaders("Set-Cookie")
                 .allowCredentials(true)
-                .maxAge(60 * 60 * 10);
+                .maxAge(1800);
     }
 
 }

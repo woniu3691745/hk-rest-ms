@@ -6,12 +6,14 @@ import java.io.Serializable;
  * Created by lidongliang on 2017/7/24.
  * 消息实体
  */
-public class MessageInfo implements Serializable {
+public class MessageInfo<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private int code;       // 状态码
     private String msg;     // 消息
+    private String cookie;  // Cookie
+    private T t;            // 对象
 
     public MessageInfo() {
     }
@@ -32,11 +34,20 @@ public class MessageInfo implements Serializable {
         this.msg = msg;
     }
 
-    @Override
-    public String toString() {
-        return "MessageInfo{" +
-                "code=" + code +
-                ", msg='" + msg + '\'' +
-                '}';
+    public T getT() {
+        return t;
     }
+
+    public void setT(T t) {
+        this.t = t;
+    }
+
+    public String getCookie() {
+        return cookie;
+    }
+
+    public void setCookie(String cookie) {
+        this.cookie = cookie;
+    }
+   
 }

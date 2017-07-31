@@ -20,15 +20,12 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     private static Logger logger = Logger.getLogger(LoginInterceptor.class);
 
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o)
             throws Exception {
 
         // 无需登录，允许访问的地址
-        String[] allowUrls = new String[]{"/toLogin", "/login"};
+        String[] allowUrls = new String[]{"/toLogin", "/login", "/loginOut"};
 
         // 获取请求地址
         String addRessUrl = request.getRequestURL().toString();

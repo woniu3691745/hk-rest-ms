@@ -61,9 +61,7 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     @Override
     public List<SysUserInfo> getAllSysUserInfo(@RequestBody SysUserInfo sysUserInfo, HttpServletRequest request) {
-//        String seid = request.getSession().getId();
-//        System.err.println("seid = " + seid);
-        String userId =  stringRedisTemplate.opsForValue().get("userId");
+        String userId = (String)request.getSession().getAttribute("userId");
         sysUserInfo.setUserId(Long.parseLong(userId));
         return sysUserInfoService.getAllSysUserInfoService(sysUserInfo);
     }

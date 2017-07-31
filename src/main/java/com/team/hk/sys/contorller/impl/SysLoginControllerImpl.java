@@ -1,12 +1,12 @@
 package com.team.hk.sys.contorller.impl;
 
+import com.team.hk.common.RedisEntity;
 import com.team.hk.sys.contorller.SysLoginController;
 import com.team.hk.sys.entity.MessageInfo;
 import com.team.hk.sys.entity.SysUserInfo;
 import com.team.hk.sys.server.SysLoginInfoService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -36,6 +35,8 @@ public class SysLoginControllerImpl implements SysLoginController {
     @Autowired
     private SysLoginInfoService sysLoginInfoService;
 
+    @Autowired
+    private RedisEntity redisEntity;
     /**
      * 登陆
      *
@@ -60,10 +61,7 @@ public class SysLoginControllerImpl implements SysLoginController {
             messageInfo.setMsg("登录系统成功！");
             messageInfo.setCookie(seid);
             messageInfo.setT(userInfo);
-            // 保存到Redis中
-            stringRedisTemplate.opsForValue().set("userId", userInfo.getUserId().toString());
-            stringRedisTemplate.opsForValue().set("userName", userInfo.getUserName());
-            stringRedisTemplate.opsForValue().set("userRole", userInfo.getUserRole());
+            redisEntity.setKey(userInfo, request);
             logger.debug(userInfo.getUserName() + " 登录系统成功");
             return messageInfo;
         } else {
@@ -72,34 +70,6 @@ public class SysLoginControllerImpl implements SysLoginController {
             return messageInfo;
         }
     }
-
-//    @ResponseBody
-//    @RequestMapping(value = "/login1", method = RequestMethod.POST)
-//    public MessageInfo login1(HttpServletRequest request) {
-//        MessageInfo messageInfo = new MessageInfo();
-//        SysUserInfo sysUserInfo = new SysUserInfo();
-//        sysUserInfo.setUserName("admin");
-//        sysUserInfo.setUserPassword("1");
-//        SysUserInfo userInfo = sysLoginInfoService.login(sysUserInfo);
-//        if (Objects.nonNull(userInfo)) {
-//            // 获得sessionId
-//            String seid = request.getSession().getId();
-//            System.err.println("seid = " + seid);
-//            request.getSession().setAttribute("seid", seid);
-//            messageInfo.setCode(200);
-//            messageInfo.setMsg("登录成功！");
-//
-//            stringRedisTemplate.opsForValue().set("userId", userInfo.getUserId().toString());
-//            stringRedisTemplate.opsForValue().set("userName", userInfo.getUserName());
-//            stringRedisTemplate.opsForValue().set("userRole", userInfo.getUserRole());
-//            logger.debug(userInfo.getUserName() + " 登录系统");
-//            return messageInfo;
-//        } else {
-//            messageInfo.setCode(500);
-//            messageInfo.setMsg("登录失败，账号或密码错误！");
-//            return messageInfo;
-//        }
-//    }
 
     /**
      * 退出
@@ -116,11 +86,8 @@ public class SysLoginControllerImpl implements SysLoginController {
         messageInfo.setCode(200);
         messageInfo.setMsg("退出系统成功!");
 
-        logger.debug(stringRedisTemplate.opsForValue().get("userName") + " 退出系统");
-//        stringRedisTemplate.delete("spring:session:sessions:"+request.getSession().getId());
-        stringRedisTemplate.delete("userId");
-        stringRedisTemplate.delete("userName");
-        stringRedisTemplate.delete("userRole");
+        logger.debug(request.getSession().getAttribute("username") + " 退出系统");
+        redisEntity.delKey(request);
         return messageInfo;
     }
 

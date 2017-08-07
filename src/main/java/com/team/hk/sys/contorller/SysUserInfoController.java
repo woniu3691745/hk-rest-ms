@@ -1,6 +1,8 @@
 package com.team.hk.sys.contorller;
 
+import com.team.hk.sys.entity.MessageInfo;
 import com.team.hk.sys.entity.SysUserInfo;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -61,4 +63,13 @@ public interface SysUserInfoController {
      * @return rowsAffected
      */
     int deleteSysUserInfoByIds(List<Long> id);
+
+    /**
+     * 头像上传
+     *
+     * @param request req请求
+     * @param headImg 头像
+     * @return messageInfo
+     */
+    MessageInfo doUploadHeadImg(HttpServletRequest request, MultipartFile headImg);
 }

@@ -1,16 +1,20 @@
 package com.team.hk.sys.contorller.impl;
 
 import com.team.hk.sys.contorller.SysUserInfoController;
+import com.team.hk.sys.entity.MessageInfo;
 import com.team.hk.sys.entity.SysUserInfo;
 import com.team.hk.sys.server.SysUserInfoService;
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +33,35 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
 
     @Autowired
     private SysUserInfoService sysUserInfoService;
+
+    /**
+     * 上传头像
+     *
+     * @param request req请求
+     * @param headImg 头像
+     * @return messageInfo
+     */
+    @ResponseBody
+    @RequestMapping(value = "/headUpload", method = RequestMethod.POST)
+    @Override
+    public MessageInfo doUploadHeadImg(HttpServletRequest request, @RequestParam("headImg") MultipartFile headImg) {
+        MessageInfo messageInfo = new MessageInfo();
+        if (!headImg.isEmpty()) {
+            try {
+                FileUtils.copyInputStreamToFile(headImg.getInputStream(), new File("img/",
+                        System.currentTimeMillis() + headImg.getOriginalFilename()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            messageInfo.setCode(200);
+            messageInfo.setMsg("上传成功.");
+            return messageInfo;
+        }
+        messageInfo.setCode(500);
+        messageInfo.setMsg("上传失败,文件为空.");
+        return messageInfo;
+    }
+
 
     /**
      * 获得系统用户信息（通过分页）
@@ -61,7 +94,7 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     @Override
     public List<SysUserInfo> getAllSysUserInfo(@RequestBody SysUserInfo sysUserInfo, HttpServletRequest request) {
-        String userId = (String)request.getSession().getAttribute("userId");
+        String userId = (String) request.getSession().getAttribute("userId");
         sysUserInfo.setUserId(Long.parseLong(userId));
         return sysUserInfoService.getAllSysUserInfoService(sysUserInfo);
     }

@@ -134,6 +134,8 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
 //        System.out.println("~~~" + Paths.get(ROOT + "/" + username + "/", "img.jpg").toString());
 //        list.add(Paths.get(ROOT + "/" + username + "/", "img.jpg").toString());
         list.add("api/sysUser/headDown/img.jpg");
+        list.add("api/sysUser/headDown/b1.jpg");
+        list.add("api/sysUser/headDown/me.jpg");
         return list;
     }
 

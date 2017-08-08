@@ -7,7 +7,9 @@ import com.team.hk.sys.server.SysUserInfoService;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,8 +17,12 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.sun.tools.doclets.internal.toolkit.builders.ClassBuilder.ROOT;
 
 /**
  * Created by lidongliang on 2017/7/16.
@@ -34,6 +40,13 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
     @Autowired
     private SysUserInfoService sysUserInfoService;
 
+    private final ResourceLoader resourceLoader;
+
+    @Autowired
+    public SysUserInfoControllerImpl(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
+
     /**
      * 上传头像
      *
@@ -48,8 +61,9 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
         MessageInfo messageInfo = new MessageInfo();
         if (!headImg.isEmpty()) {
             try {
-                FileUtils.copyInputStreamToFile(headImg.getInputStream(), new File("img/",
-                        System.currentTimeMillis() + headImg.getOriginalFilename()));
+                System.out.println(Paths.get(ROOT, headImg.getOriginalFilename()));
+                FileUtils.copyInputStreamToFile(headImg.getInputStream(), new File(String.valueOf(Paths.get(ROOT)),
+                        headImg.getOriginalFilename()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -62,6 +76,21 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
         return messageInfo;
     }
 
+    /**
+     * 获得头像
+     *
+     * @param filename 文件名字
+     * @return ResponseEntity
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/getImg/{filename:.+}")
+    @ResponseBody
+    public ResponseEntity<?> getFile(@PathVariable String filename) {
+        try {
+            return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get(ROOT, filename).toString()));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     /**
      * 获得系统用户信息（通过分页）

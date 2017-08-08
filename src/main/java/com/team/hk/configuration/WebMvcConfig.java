@@ -3,10 +3,7 @@ package com.team.hk.configuration;
 import com.team.hk.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 
 /**
  * Created by lidongliang on 2017/7/13.
@@ -37,4 +34,14 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
                 .maxAge(1800);
     }
 
+    /**
+     * 静态图片
+     *
+     * @param registry registry
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        super.addResourceHandlers(registry);
+    }
 }

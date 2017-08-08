@@ -96,14 +96,15 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/headDowns/{filename:.+}")
+    @RequestMapping(method = RequestMethod.GET, value = "/headDowns")
     @ResponseBody
     public List getFiles(HttpServletRequest request) {
 
         List<String> list = new ArrayList<>();
         String username = (String) request.getSession().getAttribute("username");
-        System.out.println("~~~" + Paths.get(ROOT + "/" + username + "/", "img.jpg").toString());
-        list.add(Paths.get(ROOT + "/" + username + "/", "img.jpg").toString());
+//        System.out.println("~~~" + Paths.get(ROOT + "/" + username + "/", "img.jpg").toString());
+//        list.add(Paths.get(ROOT + "/" + username + "/", "img.jpg").toString());
+        list.add("api/sysUser/headDown/img.jpg");
         return list;
     }
 

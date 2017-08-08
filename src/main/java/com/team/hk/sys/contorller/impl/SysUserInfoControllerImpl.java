@@ -96,6 +96,17 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
         }
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/headDowns")
+    @ResponseBody
+    public List getFiles(HttpServletRequest request) {
+
+        List<String> list = new ArrayList<>();
+        String username = (String) request.getSession().getAttribute("username");
+        System.out.println("~~~" + Paths.get(ROOT + "/" + username + "/", "img.jpg").toString());
+        list.add(Paths.get(ROOT + "/" + username + "/", "img.jpg").toString());
+        return list;
+    }
+
     /**
      * 获得系统用户信息（通过分页）
      *

@@ -1,9 +1,12 @@
 package com.team.hk.sys.contorller.impl;
 
 import com.team.hk.common.RedisEntity;
+import com.team.hk.storeInfo.entity.StoreInfo;
+import com.team.hk.storeInfo.service.StoreInfoService;
 import com.team.hk.sys.contorller.SysLoginController;
 import com.team.hk.sys.entity.MessageInfo;
 import com.team.hk.sys.entity.SysUserInfo;
+import com.team.hk.sys.entity.SysUserInfoByLogin;
 import com.team.hk.sys.server.SysLoginInfoService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +39,9 @@ public class SysLoginControllerImpl implements SysLoginController {
     private SysLoginInfoService sysLoginInfoService;
 
     @Autowired
+    private StoreInfoService storeInfoService;
+
+    @Autowired
     private RedisEntity redisEntity;
     /**
      * 登陆
@@ -57,10 +63,18 @@ public class SysLoginControllerImpl implements SysLoginController {
             logger.debug("seid = " + seid);
             request.getSession().setAttribute("seid", seid);
 
+            SysUserInfoByLogin sysUserInfoByLogin = new SysUserInfoByLogin();
+            sysUserInfoByLogin.setUserId(userInfo.getUserId());
+
+            // 设置当前用户的门店ID
+            if(userInfo.getUserRole().contains("user")){
+                sysUserInfoByLogin.setStoreId(storeInfoService.getStoreIdbyUser(userInfo.getUserId()));
+            }
+
             messageInfo.setCode(200);
             messageInfo.setMsg("登录系统成功！");
             messageInfo.setCookie(seid);
-            messageInfo.setT(userInfo);
+            messageInfo.setT(sysUserInfoByLogin);
             redisEntity.setKey(userInfo, request);
             logger.debug(userInfo.getUserName() + " 登录系统成功");
             return messageInfo;

@@ -1,5 +1,6 @@
 package com.team.hk.storeInfo.controller.impl;
 
+import com.team.hk.common.Constant;
 import com.team.hk.storeInfo.controller.StoreInfoController;
 import com.team.hk.storeInfo.entity.StoreInfo;
 import com.team.hk.storeInfo.service.StoreInfoService;
@@ -56,8 +57,13 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     @RequestMapping(value = "/getAll/{pageNo}/{pageSize}", method = RequestMethod.POST)
     @Override
     public List<StoreInfo> getAllStoreInfoByPage(@RequestBody StoreInfo storeInfo, @PathVariable("pageNo") Long pageNo,
-                                                 @PathVariable("pageSize") Long pageSize) {
+                                                 @PathVariable("pageSize") Long pageSize, HttpServletRequest request) {
         List list = new ArrayList();
+        String userRole = (String) request.getSession().getAttribute("userRole");
+        // admin登陆查询全部信息
+        if(userRole != null && userRole.contains(Constant.ROULE_ADMIN)){
+            storeInfo.setUserId(null);
+        }
         List<StoreInfo> menuInfos = storeInfoService.getAllStoreInfoByPageService(storeInfo, pageNo, pageSize);
         int count = storeInfoService.getAllStoreInfoCountByPageService(storeInfo, pageNo, pageSize);
         list.add(menuInfos);
@@ -74,7 +80,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     @ResponseBody
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     @Override
-    public List<StoreInfo> getAllStoreInfo(@RequestBody StoreInfo storeInfo) {
+    public List<StoreInfo> getAllStoreInfo(@RequestBody StoreInfo storeInfo, HttpServletRequest request) {
         return storeInfoService.getAllStoreInfoService(storeInfo);
     }
 

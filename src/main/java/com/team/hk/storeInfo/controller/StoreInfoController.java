@@ -2,6 +2,7 @@ package com.team.hk.storeInfo.controller;
 
 import com.team.hk.storeInfo.entity.StoreInfo;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public interface StoreInfoController {
      * @return List<storeInfo>
      *
      */
-    List<StoreInfo> getAllStoreInfoByPage(StoreInfo storeInfo, Long pageNo, Long pageSize);
+    List<StoreInfo> getAllStoreInfoByPage(StoreInfo storeInfo, Long pageNo, Long pageSize, HttpServletRequest request);
 
     /**
      * 获得门店信息
@@ -27,7 +28,7 @@ public interface StoreInfoController {
      * @param storeInfo 门店entity
      * @return List<storeInfo>
      */
-    List<StoreInfo> getAllStoreInfo(StoreInfo storeInfo);
+    List<StoreInfo> getAllStoreInfo(StoreInfo storeInfo, HttpServletRequest request);
 
     /**
      * 增加门店

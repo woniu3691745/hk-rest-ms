@@ -63,4 +63,12 @@ public interface StoreInfoService {
      * @return rowsAffected
      */
     int deleteStoreInfoByIdsService(List<Long> id);
+
+    /**
+     * 通过用户ID获得门店ID
+     *
+     * @param id 用户ID
+     * @return 门店ID
+     */
+    Long getStoreIdbyUser(Long id);
 }

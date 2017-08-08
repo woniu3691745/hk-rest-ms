@@ -113,4 +113,15 @@ public class StoreInfoServiceImpl implements StoreInfoService {
         storeInfoMapper.deleteByIdsOne(storeId);
         return storeInfoMapper.deleteByIds(storeId);
     }
+
+    /**
+     * 通过用户ID获得门店ID
+     *
+     * @param id 用户ID
+     * @return 门店ID
+     */
+    @Override
+    public Long getStoreIdbyUser(Long id){
+        return storeInfoMapper.getStoreIdbyUser(id);
+    }
 }

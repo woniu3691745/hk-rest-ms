@@ -81,6 +81,17 @@
         </where>
     </select>
 
+    <!--查询门店ID -->
+    <select id="getStoreIdbyUser" parameterType="Long" resultType="Long">
+        SELECT
+        USI.STORE_ID
+        FROM HK_USER_STORE_INFO_T USI
+        <where>
+            <if test="#{0} != null">
+                USI.USER_ID = #{0}
+            </if>
+        </where>
+    </select>
 
     <!-- 更新 -->
     <update id="update" parameterType="MenuInfo">

@@ -44,5 +44,11 @@ public interface StoreInfoMapper extends CommonMapper<StoreInfo> {
      */
     int deleteByIdsOne(List<Long> id);
 
-
+    /**
+     * 通过用户ID获得门店ID
+     *
+     * @param id 用户ID
+     * @return 门店ID
+     */
+    Long getStoreIdbyUser(Long id);
 }

@@ -18,5 +18,6 @@ public class Constant {
      */
     public static final String ROULE_BOSS = "boss";
     public static final String ROULE_USER = "user";
+    public static final String ROULE_ADMIN = "admin";
 
 }

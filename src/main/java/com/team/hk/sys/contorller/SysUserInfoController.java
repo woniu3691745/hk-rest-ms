@@ -64,12 +64,4 @@ public interface SysUserInfoController {
      */
     int deleteSysUserInfoByIds(List<Long> id);
 
-    /**
-     * 头像上传
-     *
-     * @param request req请求
-     * @param headImg 头像
-     * @return messageInfo
-     */
-    MessageInfo doUploadHeadImg(HttpServletRequest request, MultipartFile headImg);
 }

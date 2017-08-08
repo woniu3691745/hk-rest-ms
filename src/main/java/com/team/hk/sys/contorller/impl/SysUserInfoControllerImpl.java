@@ -2,28 +2,17 @@ package com.team.hk.sys.contorller.impl;
 
 import com.team.hk.common.Constant;
 import com.team.hk.sys.contorller.SysUserInfoController;
-import com.team.hk.sys.entity.MessageInfo;
 import com.team.hk.sys.entity.SysUserInfo;
 import com.team.hk.sys.server.SysUserInfoService;
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.sun.tools.doclets.internal.toolkit.builders.ClassBuilder.ROOT;
 
 /**
  * Created by lidongliang on 2017/7/16.
@@ -41,106 +30,6 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
     @Autowired
     private SysUserInfoService sysUserInfoService;
 
-
-    private final ResourceLoader resourceLoader;
-
-    @Autowired
-    public SysUserInfoControllerImpl(ResourceLoader resourceLoader) {
-        this.resourceLoader = resourceLoader;
-    }
-
-    /**
-     * 上传头像
-     *
-     * @param request req请求
-     * @param img     头像
-     * @return messageInfo
-     */
-    @ResponseBody
-    @RequestMapping(value = "/headUpload", method = RequestMethod.POST)
-    @Override
-    public MessageInfo doUploadHeadImg(HttpServletRequest request, @RequestParam("img") MultipartFile img) {
-        MessageInfo messageInfo = new MessageInfo();
-        if (!img.isEmpty()) {
-            try {
-                String username = (String) request.getSession().getAttribute("username");
-                FileUtils.copyInputStreamToFile(img.getInputStream(),
-                        new File(String.valueOf(Paths.get(ROOT)) + "/" + username + "/",
-                                img.getOriginalFilename()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            messageInfo.setCode(200);
-            messageInfo.setMsg("上传成功.");
-            return messageInfo;
-        }
-        messageInfo.setCode(500);
-        messageInfo.setMsg("上传失败,文件为空.");
-        return messageInfo;
-    }
-
-    /**
-     * 上传门店图片
-     *
-     * @param request req请求
-     * @param file    门店图片
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping(value = "/storeImgUpload", method = RequestMethod.POST)
-    public MessageInfo doUploadStoreImgs(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
-        logger.debug("11111111111111111");
-        MessageInfo messageInfo = new MessageInfo();
-        if (!file.isEmpty()) {
-            try {
-                String username = (String) request.getSession().getAttribute("username");
-                FileUtils.copyInputStreamToFile(file.getInputStream(),
-                        new File(String.valueOf(Paths.get(ROOT)) + "/" + username + "/",
-                                file.getOriginalFilename()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            messageInfo.setCode(200);
-            messageInfo.setMsg("上传成功.");
-            logger.debug("2222222222222222");
-            return messageInfo;
-        }
-        messageInfo.setCode(500);
-        messageInfo.setMsg("上传失败,文件为空.");
-        logger.debug("33333333333333");
-        return messageInfo;
-    }
-
-    /**
-     * 获得头像
-     *
-     * @param filename 文件名字
-     * @return ResponseEntity
-     */
-    @RequestMapping(method = RequestMethod.GET, value = "/headDown/{filename:.+}")
-    public ResponseEntity<?> getFile(HttpServletRequest request, @PathVariable String filename) {
-        try {
-            String username = (String) request.getSession().getAttribute("username");
-            return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get(ROOT + "/" + username
-                    + "/", filename).toString()));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/headDowns")
-    @ResponseBody
-    public List getFiles(HttpServletRequest request) {
-
-        List<String> list = new ArrayList<>();
-        String username = (String) request.getSession().getAttribute("username");
-//        System.out.println("~~~" + Paths.get(ROOT + "/" + username + "/", "img.jpg").toString());
-//        list.add(Paths.get(ROOT + "/" + username + "/", "img.jpg").toString());
-        list.add("api/sysUser/headDown/img.jpg");
-        list.add("api/sysUser/headDown/b1.jpg");
-        list.add("api/sysUser/headDown/me.jpg");
-        return list;
-    }
 
     /**
      * 获得系统用户信息（通过分页）

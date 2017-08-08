@@ -40,6 +40,7 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
     @Autowired
     private SysUserInfoService sysUserInfoService;
 
+
     private final ResourceLoader resourceLoader;
 
     @Autowired

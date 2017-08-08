@@ -96,7 +96,7 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/headDowns")
+    @RequestMapping(method = RequestMethod.GET, value = "/headDowns/{filename:.+}")
     @ResponseBody
     public List getFiles(HttpServletRequest request) {
 

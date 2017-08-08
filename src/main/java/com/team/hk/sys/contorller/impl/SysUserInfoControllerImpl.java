@@ -80,6 +80,35 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
     }
 
     /**
+     * 上传门店图片
+     *
+     * @param request req请求
+     * @param file    门店图片
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/storeImgUpload", method = RequestMethod.POST)
+    public MessageInfo doUploadStoreImgs(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+        MessageInfo messageInfo = new MessageInfo();
+        if (!file.isEmpty()) {
+            try {
+                String username = (String) request.getSession().getAttribute("username");
+                FileUtils.copyInputStreamToFile(file.getInputStream(),
+                        new File(String.valueOf(Paths.get(ROOT)) + "/" + username + "/",
+                                file.getOriginalFilename()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            messageInfo.setCode(200);
+            messageInfo.setMsg("上传成功.");
+            return messageInfo;
+        }
+        messageInfo.setCode(500);
+        messageInfo.setMsg("上传失败,文件为空.");
+        return messageInfo;
+    }
+
+    /**
      * 获得头像
      *
      * @param filename 文件名字

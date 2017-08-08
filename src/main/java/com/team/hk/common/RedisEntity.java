@@ -12,9 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class RedisEntity {
 
-    private static String KEY1 = "userId";
-    private static String KEY2 = "username";
-    private static String KEY3 = "userRole";
+    private static final String KEY0 = "seid";
+    private static final String KEY1 = "userId";
+    private static final String KEY2 = "username";
+    private static final String KEY3 = "userRole";
 
     public void setKey(SysUserInfo userInfo, HttpServletRequest request) {
         request.getSession().setAttribute(KEY1, userInfo.getUserId().toString());
@@ -23,7 +24,7 @@ public class RedisEntity {
     }
 
     public void delKey(HttpServletRequest request) {
-        request.getSession().removeAttribute("seid");
+        request.getSession().removeAttribute(KEY0);
         request.getSession().removeAttribute(KEY1);
         request.getSession().removeAttribute(KEY2);
         request.getSession().removeAttribute(KEY3);

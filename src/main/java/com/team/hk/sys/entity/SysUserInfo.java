@@ -17,6 +17,8 @@ public class SysUserInfo extends CommonEntity {
     private int userSex;
     private String userAddress;
     private String userRole;
+    private String userType;
+    private Long parentId;
 
     public Long getUserId() {
         return userId;
@@ -74,6 +76,22 @@ public class SysUserInfo extends CommonEntity {
         this.userRole = userRole;
     }
 
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
     public SysUserInfo() {
     }
 
@@ -86,7 +104,9 @@ public class SysUserInfo extends CommonEntity {
                 ", userPhone=" + userPhone +
                 ", userSex=" + userSex +
                 ", userAddress='" + userAddress + '\'' +
-                ", userRole=" + userRole +
+                ", userRole='" + userRole + '\'' +
+                ", userType='" + userType + '\'' +
+                ", parentId=" + parentId +
                 '}';
     }
 }

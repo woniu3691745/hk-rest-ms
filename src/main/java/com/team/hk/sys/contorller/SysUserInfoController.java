@@ -22,7 +22,7 @@ public interface SysUserInfoController {
      * @return List<SysUserInfo>
      * >
      */
-    List<SysUserInfo> getAllSysUserInfoByPage(SysUserInfo sysUserInfo, Long pageNo, Long pageSize);
+    List<SysUserInfo> getAllSysUserInfoByPage(SysUserInfo sysUserInfo, Long pageNo, Long pageSize, HttpServletRequest request);
 
     /**
      * 获得系统用户信息
@@ -38,7 +38,7 @@ public interface SysUserInfoController {
      * @param sysUserInfo 系统用户实体
      * @return List<SysUserInfo>
      */
-    List<SysUserInfo> addSysUserInfo(SysUserInfo sysUserInfo);
+    List<SysUserInfo> addSysUserInfo(SysUserInfo sysUserInfo, HttpServletRequest request);
 
     /**
      * 修改系统用户

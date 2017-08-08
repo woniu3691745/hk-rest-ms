@@ -12,6 +12,8 @@
         USER_SEX AS userSex,
         USER_ADDRESS AS userAddress,
         USER_ROLE AS userRole,
+        USER_TYPE AS userType,
+        PARENT_ID AS parentId,
         CREATER AS creater,
         CREATE_DATE_TIME AS createDateTime,
         MODIFY AS modify,
@@ -33,6 +35,12 @@
             </if>
             <if test="userPassword != null">
                 AND USER_PASSWORD = #{userPassword}
+            </if>
+            <if test="userType != null">
+                AND USER_TYPE = #{userType}
+            </if>
+            <if test="parentId != null">
+                AND PARENT_ID = #{parentId}
             </if>
         </where>
         ORDER BY UPDATE_DATE_TIME DESC
@@ -56,6 +64,12 @@
             <if test="userPassword != null">
                 AND USER_PASSWORD = #{userPassword}
             </if>
+            <if test="userType != null">
+                AND USER_TYPE = #{userType}
+            </if>
+            <if test="parentId != null">
+                AND PARENT_ID = #{parentId}
+            </if>
         </where>
         <if test="pageNo != null and pageSize != null">
             LIMIT #{pageNo}, #{pageSize}
@@ -76,6 +90,12 @@
             </if>
             <if test="userPassword != null">
                 AND USER_PASSWORD = #{userPassword}
+            </if>
+            <if test="userType != null">
+                AND USER_TYPE = #{userType}
+            </if>
+            <if test="parentId != null">
+                AND PARENT_ID = #{parentId}
             </if>
         </where>
     </select>
@@ -103,6 +123,8 @@
                 USER_PHONE,
                 USER_SEX,
                 USER_ADDRESS,
+                USER_TYPE,
+                PARENT_ID,
                 CREATER,
                 CREATE_DATE_TIME,
                 MODIFY,
@@ -117,6 +139,8 @@
                #{userPhone},
                #{userSex},
                #{userAddress},
+               #{userType},
+               #{parentId},
                #{creater},
                now(),
                #{modify},

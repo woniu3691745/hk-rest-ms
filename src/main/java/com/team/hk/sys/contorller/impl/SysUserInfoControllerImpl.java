@@ -1,5 +1,6 @@
 package com.team.hk.sys.contorller.impl;
 
+import com.team.hk.common.Constant;
 import com.team.hk.sys.contorller.SysUserInfoController;
 import com.team.hk.sys.entity.MessageInfo;
 import com.team.hk.sys.entity.SysUserInfo;
@@ -105,8 +106,21 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
     @RequestMapping(value = "/getAll/{pageNo}/{pageSize}", method = RequestMethod.POST)
     @Override
     public List<SysUserInfo> getAllSysUserInfoByPage(@RequestBody SysUserInfo sysUserInfo, @PathVariable("pageNo") Long pageNo,
-                                                     @PathVariable("pageSize") Long pageSize) {
+                                                     @PathVariable("pageSize") Long pageSize, HttpServletRequest request) {
         List list = new ArrayList();
+        Long userId = Long.valueOf(request.getSession().getAttribute("userId").toString());
+        String userRole = (String) request.getSession().getAttribute("userRole");
+
+        if (userRole != null && userRole.equals("admin")) {
+            sysUserInfo.setParentId(userId);
+            sysUserInfo.setUserType(Constant.USER_TYPE_BOSS);
+        } else if (userRole != null && userRole.equals("boss")) {
+            sysUserInfo.setParentId(userId);
+            sysUserInfo.setUserType(Constant.USER_TYPE_STORE);
+        } else if (userRole != null && userRole.equals("user")) {
+            sysUserInfo.setUserId(userId);
+        }
+
         List<SysUserInfo> sysUserInfos = sysUserInfoService.getAllSysUserInfoByPageService(sysUserInfo, pageNo, pageSize);
         int count = sysUserInfoService.getAllSysUserInfoCountByPageService(sysUserInfo, pageNo, pageSize);
         list.add(sysUserInfos);
@@ -139,7 +153,21 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @Override
-    public List<SysUserInfo> addSysUserInfo(@RequestBody SysUserInfo sysUserInfo) {
+    public List<SysUserInfo> addSysUserInfo(@RequestBody SysUserInfo sysUserInfo, HttpServletRequest request) {
+
+        Long userId = Long.valueOf(request.getSession().getAttribute("userId").toString());
+        String userRole = (String) request.getSession().getAttribute("userRole");
+
+        if (userRole != null && userRole.equals("admin")) {
+            sysUserInfo.setParentId(userId);
+            sysUserInfo.setUserType(Constant.USER_TYPE_BOSS);
+            sysUserInfo.setUserRole(Constant.ROULE_BOSS);
+        } else if (userRole != null && userRole.equals("boss")) {
+            sysUserInfo.setParentId(userId);
+            sysUserInfo.setUserType(Constant.USER_TYPE_STORE);
+            sysUserInfo.setUserRole(Constant.ROULE_USER);
+        }
+
         return sysUserInfoService.addSysUserInfoService(sysUserInfo);
     }
 

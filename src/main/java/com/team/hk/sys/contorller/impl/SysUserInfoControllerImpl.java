@@ -53,19 +53,20 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
      * 上传头像
      *
      * @param request req请求
-     * @param headImg 头像
+     * @param img     头像
      * @return messageInfo
      */
     @ResponseBody
     @RequestMapping(value = "/headUpload", method = RequestMethod.POST)
     @Override
-    public MessageInfo doUploadHeadImg(HttpServletRequest request, @RequestParam("headImg") MultipartFile headImg) {
+    public MessageInfo doUploadHeadImg(HttpServletRequest request, @RequestParam("img") MultipartFile img) {
         MessageInfo messageInfo = new MessageInfo();
-        if (!headImg.isEmpty()) {
+        if (!img.isEmpty()) {
             try {
-                System.out.println(Paths.get(ROOT, headImg.getOriginalFilename()));
-                FileUtils.copyInputStreamToFile(headImg.getInputStream(), new File(String.valueOf(Paths.get(ROOT)),
-                        headImg.getOriginalFilename()));
+                String username = (String) request.getSession().getAttribute("username");
+                FileUtils.copyInputStreamToFile(img.getInputStream(),
+                        new File(String.valueOf(Paths.get(ROOT)) + "/" + username + "/",
+                                img.getOriginalFilename()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -84,11 +85,13 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
      * @param filename 文件名字
      * @return ResponseEntity
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/getImg/{filename:.+}")
+    @RequestMapping(method = RequestMethod.GET, value = "/headDown/{filename:.+}")
     @ResponseBody
-    public ResponseEntity<?> getFile(@PathVariable String filename) {
+    public ResponseEntity<?> getFile(HttpServletRequest request, @PathVariable String filename) {
         try {
-            return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get(ROOT, filename).toString()));
+            String username = (String) request.getSession().getAttribute("username");
+            return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get(ROOT + "/" + username
+                    + "/", filename).toString()));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }

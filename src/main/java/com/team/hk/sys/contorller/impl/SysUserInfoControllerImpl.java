@@ -89,6 +89,7 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
     @ResponseBody
     @RequestMapping(value = "/storeImgUpload", method = RequestMethod.POST)
     public MessageInfo doUploadStoreImgs(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+        logger.debug("11111111111111111");
         MessageInfo messageInfo = new MessageInfo();
         if (!file.isEmpty()) {
             try {
@@ -101,10 +102,12 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
             }
             messageInfo.setCode(200);
             messageInfo.setMsg("上传成功.");
+            logger.debug("2222222222222222");
             return messageInfo;
         }
         messageInfo.setCode(500);
         messageInfo.setMsg("上传失败,文件为空.");
+        logger.debug("33333333333333");
         return messageInfo;
     }
 

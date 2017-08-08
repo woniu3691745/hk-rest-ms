@@ -86,7 +86,6 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
      * @return ResponseEntity
      */
     @RequestMapping(method = RequestMethod.GET, value = "/headDown/{filename:.+}")
-    @ResponseBody
     public ResponseEntity<?> getFile(HttpServletRequest request, @PathVariable String filename) {
         try {
             String username = (String) request.getSession().getAttribute("username");
@@ -114,13 +113,13 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
         Long userId = Long.valueOf(request.getSession().getAttribute("userId").toString());
         String userRole = (String) request.getSession().getAttribute("userRole");
 
-        if (userRole != null && userRole.equals("admin")) {
+        if (userRole != null && userRole.contains("admin")) {
             sysUserInfo.setParentId(userId);
             sysUserInfo.setUserType(Constant.USER_TYPE_BOSS);
-        } else if (userRole != null && userRole.equals("boss")) {
+        } else if (userRole != null && userRole.contains("boss")) {
             sysUserInfo.setParentId(userId);
             sysUserInfo.setUserType(Constant.USER_TYPE_STORE);
-        } else if (userRole != null && userRole.equals("user")) {
+        } else if (userRole != null && userRole.contains("user")) {
             sysUserInfo.setUserId(userId);
         }
 
@@ -161,11 +160,11 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
         Long userId = Long.valueOf(request.getSession().getAttribute("userId").toString());
         String userRole = (String) request.getSession().getAttribute("userRole");
 
-        if (userRole != null && userRole.equals("admin")) {
+        if (userRole != null && userRole.contains("admin")) {
             sysUserInfo.setParentId(userId);
             sysUserInfo.setUserType(Constant.USER_TYPE_BOSS);
             sysUserInfo.setUserRole(Constant.ROULE_BOSS);
-        } else if (userRole != null && userRole.equals("boss")) {
+        } else if (userRole != null && userRole.contains("boss")) {
             sysUserInfo.setParentId(userId);
             sysUserInfo.setUserType(Constant.USER_TYPE_STORE);
             sysUserInfo.setUserRole(Constant.ROULE_USER);

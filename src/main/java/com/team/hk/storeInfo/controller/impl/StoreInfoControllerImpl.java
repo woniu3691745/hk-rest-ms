@@ -93,7 +93,8 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @Override
-    public List<StoreInfo> addStoreInfo(@RequestBody StoreInfo storeInfo) {
+    public List<StoreInfo> addStoreInfo(@RequestBody StoreInfo storeInfo, HttpServletRequest request) {
+        storeInfo.setUserId(Long.valueOf(request.getSession().getAttribute("userId").toString()));
         return storeInfoService.addStoreInfoService(storeInfo);
     }
 

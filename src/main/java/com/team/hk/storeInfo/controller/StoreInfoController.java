@@ -36,7 +36,7 @@ public interface StoreInfoController {
      * @param storeInfo 门店entity
      * @return List<StoreInfo>
      */
-    List<StoreInfo> addStoreInfo(StoreInfo storeInfo);
+    List<StoreInfo> addStoreInfo(StoreInfo storeInfo, HttpServletRequest request);
 
     /**
      * 修改门店

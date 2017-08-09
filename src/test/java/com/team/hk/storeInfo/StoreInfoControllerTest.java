@@ -65,7 +65,7 @@ public class StoreInfoControllerTest {
     public void getAllStoreInfoByParams() throws Exception {
 
         StoreInfo storeInfo = new StoreInfo();
-        storeInfo.setStoreId(5L);
+//        storeInfo.setStoreId(5L);
         String url = "/api/store/get";
 
         ObjectMapper mapper = new ObjectMapper();

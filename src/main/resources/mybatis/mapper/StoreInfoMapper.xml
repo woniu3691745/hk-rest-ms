@@ -73,10 +73,14 @@
     <select id="list" parameterType="StoreInfo" resultType="StoreInfo">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM HK_STORE_INFO_T SI
+        FROM HK_STORE_INFO_T SI, HK_USER_STORE_INFO_T USI
         <where>
+            SI.STORE_ID = USI.STORE_ID
             <if test="storeId != null">
-                STORE_ID = #{storeId}
+                AND USI.STORE_ID = #{storeId}
+            </if>
+            <if test="userId != null">
+                AND USI.USER_ID = #{userId}
             </if>
         </where>
     </select>

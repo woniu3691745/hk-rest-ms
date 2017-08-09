@@ -1,6 +1,7 @@
 package com.team.hk.storeInfo.controller.impl;
 
 import com.team.hk.common.Constant;
+import com.team.hk.common.RedisEntity;
 import com.team.hk.storeInfo.controller.StoreInfoController;
 import com.team.hk.storeInfo.entity.StoreInfo;
 import com.team.hk.storeInfo.service.StoreInfoService;
@@ -59,7 +60,8 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     public List<StoreInfo> getAllStoreInfoByPage(@RequestBody StoreInfo storeInfo, @PathVariable("pageNo") Long pageNo,
                                                  @PathVariable("pageSize") Long pageSize, HttpServletRequest request) {
         List list = new ArrayList();
-        String userRole = (String) request.getSession().getAttribute("userRole");
+        String userRole = (String) request.getSession().getAttribute(Constant.KEY3);
+
         // admin登陆查询全部信息
         if(userRole != null && userRole.contains(Constant.ROULE_ADMIN)){
             storeInfo.setUserId(null);
@@ -81,6 +83,13 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     @Override
     public List<StoreInfo> getAllStoreInfo(@RequestBody StoreInfo storeInfo, HttpServletRequest request) {
+
+        Long userId = Long.valueOf(request.getSession().getAttribute(Constant.KEY1).toString());
+        String userRole = (String) request.getSession().getAttribute(Constant.KEY3);
+
+        if(userRole != null && userRole.contains(Constant.ROULE_BOSS)){
+            storeInfo.setUserId(userId);
+        }
         return storeInfoService.getAllStoreInfoService(storeInfo);
     }
 
@@ -94,7 +103,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @Override
     public List<StoreInfo> addStoreInfo(@RequestBody StoreInfo storeInfo, HttpServletRequest request) {
-        storeInfo.setUserId(Long.valueOf(request.getSession().getAttribute("userId").toString()));
+        storeInfo.setUserId(Long.valueOf(request.getSession().getAttribute(Constant.KEY1).toString()));
         return storeInfoService.addStoreInfoService(storeInfo);
     }
 

@@ -20,4 +20,11 @@ public class Constant {
     public static final String ROULE_USER = "user";
     public static final String ROULE_ADMIN = "admin";
 
+    /**
+     * Redis
+     */
+    public static final String KEY0 = "seid";
+    public static final String KEY1 = "userId";
+    public static final String KEY2 = "username";
+    public static final String KEY3 = "userRole";
 }

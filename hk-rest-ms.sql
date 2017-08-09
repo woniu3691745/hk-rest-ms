@@ -1,24 +1,22 @@
 /*
- Navicat Premium Data Transfer
+Navicat MySQL Data Transfer
 
- Source Server         : localhost
- Source Server Type    : MySQL
- Source Server Version : 50625
- Source Host           : localhost
- Source Database       : hk-rest-ms
+Source Server         : localhost
+Source Server Version : 50717
+Source Host           : localhost:3306
+Source Database       : hk-rest-ms
 
- Target Server Type    : MySQL
- Target Server Version : 50625
- File Encoding         : utf-8
+Target Server Type    : MYSQL
+Target Server Version : 50717
+File Encoding         : 65001
 
- Date: 07/24/2017 20:42:36 PM
+Date: 2017-08-09 17:10:31
 */
 
-SET NAMES utf8;
-SET FOREIGN_KEY_CHECKS = 0;
+SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
---  Table structure for `hk_book_info_t`
+-- Table structure for `hk_book_info_t`
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_book_info_t`;
 CREATE TABLE `hk_book_info_t` (
@@ -34,17 +32,21 @@ CREATE TABLE `hk_book_info_t` (
   `UPDATE_DATE_TIME` datetime NOT NULL COMMENT '修改时间',
   `STATUS` int(1) NOT NULL COMMENT '状态（0：不可用，1：可用）',
   PRIMARY KEY (`BOOK_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Records of `hk_book_info_t`
+-- Records of hk_book_info_t
 -- ----------------------------
-BEGIN;
-INSERT INTO `hk_book_info_t` VALUES ('1', '12123123', '13478824245', '2017-07-24 20:32:51', '10011', '100022', 'lidl', '2017-07-18 09:22:28', 'lidongliang', '2017-07-24 20:32:50', '0'), ('5', 'xiaomingdingdan', '13478824245', '2017-07-24 20:25:10', '10011', '100022', 'lidl', '2017-07-24 20:25:10', 'lidongliang', '2017-07-24 20:25:10', '0'), ('6', 'xiaomingdingdan', '13478824245', '2017-07-24 20:25:30', '10011', '100022', 'lidl', '2017-07-24 20:25:29', 'lidongliang', '2017-07-24 20:25:29', '0'), ('7', 'xiaomingdingdan', '13478824245', '2017-07-24 20:27:45', '10011', '100022', 'lidl', '2017-07-24 20:27:44', 'lidongliang', '2017-07-24 20:27:44', '0'), ('8', 'xiaomingdingdan', '13478824245', '2017-07-24 20:32:51', '10011', '100022', 'lidl', '2017-07-24 20:32:50', 'lidongliang', '2017-07-24 20:32:50', '0');
-COMMIT;
+INSERT INTO `hk_book_info_t` VALUES ('1', '12123123', '13478824245', '2017-07-25 10:34:38', '10011', '100022', 'lidl', '2017-07-18 09:22:28', 'lidongliang', '2017-07-25 10:34:38', '0');
+INSERT INTO `hk_book_info_t` VALUES ('5', 'xiaomingdingdan', '13478824245', '2017-07-24 20:25:10', '10011', '100022', 'lidl', '2017-07-24 20:25:10', 'lidongliang', '2017-07-24 20:25:10', '0');
+INSERT INTO `hk_book_info_t` VALUES ('6', 'xiaomingdingdan', '13478824245', '2017-07-24 20:25:30', '10011', '100022', 'lidl', '2017-07-24 20:25:29', 'lidongliang', '2017-07-24 20:25:29', '0');
+INSERT INTO `hk_book_info_t` VALUES ('7', 'xiaomingdingdan', '13478824245', '2017-07-24 20:27:45', '10011', '100022', 'lidl', '2017-07-24 20:27:44', 'lidongliang', '2017-07-24 20:27:44', '0');
+INSERT INTO `hk_book_info_t` VALUES ('8', 'xiaomingdingdan', '13478824245', '2017-07-24 20:32:51', '10011', '100022', 'lidl', '2017-07-24 20:32:50', 'lidongliang', '2017-07-24 20:32:50', '0');
+INSERT INTO `hk_book_info_t` VALUES ('9', 'xiaomingdingdan', '13478824245', '2017-07-24 20:57:25', '10011', '100022', 'lidl', '2017-07-24 20:57:24', 'lidongliang', '2017-07-24 20:57:24', '0');
+INSERT INTO `hk_book_info_t` VALUES ('10', 'xiaomingdingdan', '13478824245', '2017-07-25 10:34:39', '10011', '100022', 'lidl', '2017-07-25 10:34:38', 'lidongliang', '2017-07-25 10:34:38', '0');
 
 -- ----------------------------
---  Table structure for `hk_menu_info_t`
+-- Table structure for `hk_menu_info_t`
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_menu_info_t`;
 CREATE TABLE `hk_menu_info_t` (
@@ -67,17 +69,22 @@ CREATE TABLE `hk_menu_info_t` (
   `UPDATE_DATE_TIME` datetime DEFAULT NULL COMMENT '修改时间',
   `STATUS` int(1) DEFAULT NULL COMMENT '状态（0：不可用，1：可用）',
   PRIMARY KEY (`DISHES_ID`,`MENU_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Records of `hk_menu_info_t`
+-- Records of hk_menu_info_t
 -- ----------------------------
-BEGIN;
-INSERT INTO `hk_menu_info_t` VALUES ('2', '2', '10002', '水煮肉1', '30.35', '0.8', '鱼水肉', '1', '333', '1', '1', '1', '1', 'lidl', '2017-07-18 11:17:26', 'lidongliang', '2017-07-24 20:32:51', '0'), ('5', '10001', '10002', '水煮肉', '20.35', '0.8', '鱼水肉', '1', '333', '1', '1', '1', '1', 'lidl', '2017-07-19 21:04:09', 'lidongliang', '2017-07-19 21:04:09', '0'), ('6', '10001', '10002', '水煮肉', '20.35', '0.8', '鱼水肉', '1', '333', '1', '1', '1', '1', 'lidl', '2017-07-24 20:25:10', 'lidongliang', '2017-07-24 20:25:10', '0'), ('7', '10001', '10002', '水煮肉', '20.35', '0.8', '鱼水肉', '1', '333', '1', '1', '1', '1', 'lidl', '2017-07-24 20:25:30', 'lidongliang', '2017-07-24 20:25:30', '0'), ('8', '10001', '10002', '水煮肉', '20.35', '0.8', '鱼水肉', '1', '333', '1', '1', '1', '1', 'lidl', '2017-07-24 20:27:45', 'lidongliang', '2017-07-24 20:27:45', '0'), ('9', '10001', '10002', '水煮肉', '20.35', '0.8', '鱼水肉', '1', '333', '1', '1', '1', '1', 'lidl', '2017-07-24 20:32:51', 'lidongliang', '2017-07-24 20:32:51', '0');
-COMMIT;
+INSERT INTO `hk_menu_info_t` VALUES ('2', '2', '10002', '水煮肉1', '30.35', '0.8', '鱼水肉', '1', '333', '1', '1', '1', '1', 'lidl', '2017-07-18 11:17:26', 'lidongliang', '2017-07-25 10:34:39', '0');
+INSERT INTO `hk_menu_info_t` VALUES ('5', '10001', '10002', '水煮肉', '20.35', '0.8', '鱼水肉', '1', '333', '1', '1', '1', '1', 'lidl', '2017-07-19 21:04:09', 'lidongliang', '2017-07-19 21:04:09', '0');
+INSERT INTO `hk_menu_info_t` VALUES ('6', '10001', '10002', '水煮肉', '20.35', '0.8', '鱼水肉', '1', '333', '1', '1', '1', '1', 'lidl', '2017-07-24 20:25:10', 'lidongliang', '2017-07-24 20:25:10', '0');
+INSERT INTO `hk_menu_info_t` VALUES ('7', '10001', '10002', '水煮肉', '20.35', '0.8', '鱼水肉', '1', '333', '1', '1', '1', '1', 'lidl', '2017-07-24 20:25:30', 'lidongliang', '2017-07-24 20:25:30', '0');
+INSERT INTO `hk_menu_info_t` VALUES ('8', '10001', '10002', '水煮肉', '20.35', '0.8', '鱼水肉', '1', '333', '1', '1', '1', '1', 'lidl', '2017-07-24 20:27:45', 'lidongliang', '2017-07-24 20:27:45', '0');
+INSERT INTO `hk_menu_info_t` VALUES ('9', '10001', '10002', '水煮肉', '20.35', '0.8', '鱼水肉', '1', '333', '1', '1', '1', '1', 'lidl', '2017-07-24 20:32:51', 'lidongliang', '2017-07-24 20:32:51', '0');
+INSERT INTO `hk_menu_info_t` VALUES ('10', '10001', '10002', '水煮肉', '20.35', '0.8', '鱼水肉', '1', '333', '1', '1', '1', '1', 'lidl', '2017-07-24 20:57:25', 'lidongliang', '2017-07-24 20:57:25', '0');
+INSERT INTO `hk_menu_info_t` VALUES ('11', '10001', '10002', '水煮肉', '20.35', '0.8', '鱼水肉', '1', '333', '1', '1', '1', '1', 'lidl', '2017-07-25 10:34:39', 'lidongliang', '2017-07-25 10:34:39', '0');
 
 -- ----------------------------
---  Table structure for `hk_order_dish_info_t`
+-- Table structure for `hk_order_dish_info_t`
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_order_dish_info_t`;
 CREATE TABLE `hk_order_dish_info_t` (
@@ -95,17 +102,44 @@ CREATE TABLE `hk_order_dish_info_t` (
   `MODIFY` varchar(16) DEFAULT NULL COMMENT '修改者',
   `STATUS` int(1) DEFAULT NULL COMMENT '状态（0：不可用，1：可用）',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Records of `hk_order_dish_info_t`
+-- Records of hk_order_dish_info_t
 -- ----------------------------
-BEGIN;
-INSERT INTO `hk_order_dish_info_t` VALUES ('22', '12', '1234', '11', '大虾', '10.00', '10%', '2', '李栋梁', '2017-07-18 11:04:33', '2017-07-24 20:32:51', null, '0'), ('23', '12', '1013', '1001', '水煮鱼1', '98.00', '18%', '1', '李栋梁', '2017-07-18 11:04:33', '2017-07-18 11:04:33', '李栋梁', '0'), ('24', '12', '1014', '1001', '大鲍鱼', '98.00', '18%', '1', '李栋梁', '2017-07-18 11:04:33', '2017-07-18 11:04:33', '李栋梁', '0'), ('25', '13', '201', '400001', '锅包肉', '48.00', '10%', '2', '李栋梁', '2017-07-24 20:25:10', '2017-07-24 20:25:10', '李栋梁', '0'), ('26', '13', '202', '400001', '水牛蛙', '88.00', '1%', '1', '李栋梁', '2017-07-24 20:25:10', '2017-07-24 20:25:10', '李栋梁', '0'), ('27', '13', '203', '400001', '清蒸大鲍鱼', '50.00', '', '1', '李栋梁', '2017-07-24 20:25:10', '2017-07-24 20:25:10', '李栋梁', '0'), ('28', '14', '201', '400001', '锅包肉', '48.00', '10%', '2', '李栋梁', '2017-07-24 20:25:30', '2017-07-24 20:25:30', '李栋梁', '0'), ('29', '14', '202', '400001', '水牛蛙', '88.00', '1%', '1', '李栋梁', '2017-07-24 20:25:30', '2017-07-24 20:25:30', '李栋梁', '0'), ('30', '14', '203', '400001', '清蒸大鲍鱼', '50.00', '', '1', '李栋梁', '2017-07-24 20:25:30', '2017-07-24 20:25:30', '李栋梁', '0'), ('31', '15', '201', '400001', '锅包肉', '48.00', '10%', '2', '李栋梁', '2017-07-24 20:27:45', '2017-07-24 20:27:45', '李栋梁', '0'), ('32', '15', '202', '400001', '水牛蛙', '88.00', '1%', '1', '李栋梁', '2017-07-24 20:27:45', '2017-07-24 20:27:45', '李栋梁', '0'), ('33', '15', '203', '400001', '清蒸大鲍鱼', '50.00', '', '1', '李栋梁', '2017-07-24 20:27:45', '2017-07-24 20:27:45', '李栋梁', '0'), ('34', '16', '201', '400001', '锅包肉', '48.00', '10%', '2', '李栋梁', '2017-07-24 20:32:51', '2017-07-24 20:32:51', '李栋梁', '0'), ('35', '16', '202', '400001', '水牛蛙', '88.00', '1%', '1', '李栋梁', '2017-07-24 20:32:51', '2017-07-24 20:32:51', '李栋梁', '0'), ('36', '16', '203', '400001', '清蒸大鲍鱼', '50.00', '', '1', '李栋梁', '2017-07-24 20:32:51', '2017-07-24 20:32:51', '李栋梁', '0');
-COMMIT;
+INSERT INTO `hk_order_dish_info_t` VALUES ('22', '12', '1234', '11', '大虾', '10.00', '10%', '2', '李栋梁', '2017-07-18 11:04:33', '2017-07-25 10:34:40', null, '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('23', '12', '1013', '1001', '水煮鱼1', '98.00', '18%', '1', '李栋梁', '2017-07-18 11:04:33', '2017-07-18 11:04:33', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('24', '12', '1014', '1001', '大鲍鱼', '98.00', '18%', '1', '李栋梁', '2017-07-18 11:04:33', '2017-07-18 11:04:33', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('25', '13', '201', '400001', '锅包肉', '48.00', '10%', '2', '李栋梁', '2017-07-24 20:25:10', '2017-07-24 20:25:10', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('26', '13', '202', '400001', '水牛蛙', '88.00', '1%', '1', '李栋梁', '2017-07-24 20:25:10', '2017-07-24 20:25:10', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('27', '13', '203', '400001', '清蒸大鲍鱼', '50.00', '', '1', '李栋梁', '2017-07-24 20:25:10', '2017-07-24 20:25:10', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('28', '14', '201', '400001', '锅包肉', '48.00', '10%', '2', '李栋梁', '2017-07-24 20:25:30', '2017-07-24 20:25:30', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('29', '14', '202', '400001', '水牛蛙', '88.00', '1%', '1', '李栋梁', '2017-07-24 20:25:30', '2017-07-24 20:25:30', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('30', '14', '203', '400001', '清蒸大鲍鱼', '50.00', '', '1', '李栋梁', '2017-07-24 20:25:30', '2017-07-24 20:25:30', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('31', '15', '201', '400001', '锅包肉', '48.00', '10%', '2', '李栋梁', '2017-07-24 20:27:45', '2017-07-24 20:27:45', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('32', '15', '202', '400001', '水牛蛙', '88.00', '1%', '1', '李栋梁', '2017-07-24 20:27:45', '2017-07-24 20:27:45', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('33', '15', '203', '400001', '清蒸大鲍鱼', '50.00', '', '1', '李栋梁', '2017-07-24 20:27:45', '2017-07-24 20:27:45', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('34', '16', '201', '400001', '锅包肉', '48.00', '10%', '2', '李栋梁', '2017-07-24 20:32:51', '2017-07-24 20:32:51', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('35', '16', '202', '400001', '水牛蛙', '88.00', '1%', '1', '李栋梁', '2017-07-24 20:32:51', '2017-07-24 20:32:51', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('36', '16', '203', '400001', '清蒸大鲍鱼', '50.00', '', '1', '李栋梁', '2017-07-24 20:32:51', '2017-07-24 20:32:51', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('37', '17', '201', '400001', '锅包肉', '48.00', '10%', '2', '李栋梁', '2017-07-24 20:57:25', '2017-07-24 20:57:25', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('38', '17', '202', '400001', '水牛蛙', '88.00', '1%', '1', '李栋梁', '2017-07-24 20:57:25', '2017-07-24 20:57:25', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('39', '17', '203', '400001', '清蒸大鲍鱼', '50.00', '', '1', '李栋梁', '2017-07-24 20:57:25', '2017-07-24 20:57:25', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('40', '18', '201', '400001', '锅包肉', '48.00', '10%', '2', '李栋梁', '2017-07-25 10:34:40', '2017-07-25 10:34:40', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('41', '18', '202', '400001', '水牛蛙', '88.00', '1%', '1', '李栋梁', '2017-07-25 10:34:40', '2017-07-25 10:34:40', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('42', '18', '203', '400001', '清蒸大鲍鱼', '50.00', '', '1', '李栋梁', '2017-07-25 10:34:40', '2017-07-25 10:34:40', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('43', '19', '201', '400001', '锅包肉', '48.00', '10%', '2', '李栋梁', '2017-07-25 11:25:05', '2017-07-25 11:25:05', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('44', '19', '202', '400001', '水牛蛙', '88.00', '1%', '1', '李栋梁', '2017-07-25 11:25:05', '2017-07-25 11:25:05', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('45', '19', '203', '400001', '清蒸大鲍鱼', '50.00', '', '1', '李栋梁', '2017-07-25 11:25:05', '2017-07-25 11:25:05', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('46', '20', '201', '400001', '锅包肉', '48.00', '10%', '2', '李栋梁', '2017-07-25 11:44:26', '2017-07-25 11:44:26', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('47', '20', '202', '400001', '水牛蛙', '88.00', '1%', '1', '李栋梁', '2017-07-25 11:44:26', '2017-07-25 11:44:26', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('48', '20', '203', '400001', '清蒸大鲍鱼', '50.00', '', '1', '李栋梁', '2017-07-25 11:44:26', '2017-07-25 11:44:26', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('49', '21', '201', '400001', '锅包肉', '48.00', '10%', '2', '李栋梁', '2017-07-25 11:46:02', '2017-07-25 11:46:02', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('50', '21', '202', '400001', '水牛蛙', '88.00', '1%', '1', '李栋梁', '2017-07-25 11:46:02', '2017-07-25 11:46:02', '李栋梁', '0');
+INSERT INTO `hk_order_dish_info_t` VALUES ('51', '21', '203', '400001', '清蒸大鲍鱼', '50.00', '', '1', '李栋梁', '2017-07-25 11:46:02', '2017-07-25 11:46:02', '李栋梁', '0');
 
 -- ----------------------------
---  Table structure for `hk_order_info_t`
+-- Table structure for `hk_order_info_t`
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_order_info_t`;
 CREATE TABLE `hk_order_info_t` (
@@ -124,17 +158,24 @@ CREATE TABLE `hk_order_info_t` (
   `UPDATE_DATE_TIME` datetime DEFAULT NULL COMMENT '修改时间',
   `STATUS` int(1) DEFAULT NULL COMMENT '状态（0：不可用，1：可用）',
   PRIMARY KEY (`ORDER_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Records of `hk_order_info_t`
+-- Records of hk_order_info_t
 -- ----------------------------
-BEGIN;
-INSERT INTO `hk_order_info_t` VALUES ('12', '9', '9', '9', '2017-07-18 11:04:33', '9.00', '李栋梁', '9', 'XXXX', '李栋梁', '2017-07-18 11:04:33', '天天向上', '2017-07-18 11:12:50', '0'), ('13', '9', '9', '9', '2017-07-24 20:25:10', '9.00', '李栋梁', '9', 'XXXX', '李栋梁', '2017-07-24 20:25:10', '天天向上', '2017-07-24 20:32:51', '0'), ('14', '5002', '99', '1', '2017-07-24 20:25:30', '100.00', '李栋梁', '2', '测试', '李栋梁', '2017-07-24 20:25:30', '李栋梁', '2017-07-24 20:25:30', '0'), ('15', '5002', '99', '1', '2017-07-24 20:27:45', '100.00', '李栋梁', '2', '测试', '李栋梁', '2017-07-24 20:27:45', '李栋梁', '2017-07-24 20:27:45', '0'), ('16', '5002', '99', '1', '2017-07-24 20:32:51', '100.00', '李栋梁', '2', '测试', '李栋梁', '2017-07-24 20:32:51', '李栋梁', '2017-07-24 20:32:51', '0');
-COMMIT;
+INSERT INTO `hk_order_info_t` VALUES ('12', '9', '9', '9', '2017-07-18 11:04:33', '9.00', '李栋梁', '9', 'XXXX', '李栋梁', '2017-07-18 11:04:33', '天天向上', '2017-07-18 11:12:50', '0');
+INSERT INTO `hk_order_info_t` VALUES ('13', '9', '9', '9', '2017-07-24 20:25:10', '9.00', '李栋梁', '9', 'XXXX', '李栋梁', '2017-07-24 20:25:10', '天天向上', '2017-07-25 10:34:40', '0');
+INSERT INTO `hk_order_info_t` VALUES ('14', '5002', '99', '1', '2017-07-24 20:25:30', '100.00', '李栋梁', '2', '测试', '李栋梁', '2017-07-24 20:25:30', '李栋梁', '2017-07-24 20:25:30', '0');
+INSERT INTO `hk_order_info_t` VALUES ('15', '5002', '99', '1', '2017-07-24 20:27:45', '100.00', '李栋梁', '2', '测试', '李栋梁', '2017-07-24 20:27:45', '李栋梁', '2017-07-24 20:27:45', '0');
+INSERT INTO `hk_order_info_t` VALUES ('16', '5002', '99', '1', '2017-07-24 20:32:51', '100.00', '李栋梁', '2', '测试', '李栋梁', '2017-07-24 20:32:51', '李栋梁', '2017-07-24 20:32:51', '0');
+INSERT INTO `hk_order_info_t` VALUES ('17', '5002', '99', '1', '2017-07-24 20:57:25', '100.00', '李栋梁', '2', '测试', '李栋梁', '2017-07-24 20:57:25', '李栋梁', '2017-07-24 20:57:25', '0');
+INSERT INTO `hk_order_info_t` VALUES ('18', '5002', '99', '1', '2017-07-25 10:34:40', '100.00', '李栋梁', '2', '测试', '李栋梁', '2017-07-25 10:34:40', '李栋梁', '2017-07-25 10:34:40', '0');
+INSERT INTO `hk_order_info_t` VALUES ('19', '5002', '99', '1', '2017-07-25 11:25:04', '100.00', '李栋梁', '2', '测试', '李栋梁', '2017-07-25 11:25:04', '李栋梁', '2017-07-25 11:25:04', '0');
+INSERT INTO `hk_order_info_t` VALUES ('20', '5002', '99', '1', '2017-07-25 11:44:26', '100.00', '李栋梁', '2', '测试', '李栋梁', '2017-07-25 11:44:26', '李栋梁', '2017-07-25 11:44:26', '0');
+INSERT INTO `hk_order_info_t` VALUES ('21', '5002', '99', '1', '2017-07-25 11:46:02', '100.00', '李栋梁', '2', '测试', '李栋梁', '2017-07-25 11:46:02', '李栋梁', '2017-07-25 11:46:02', '0');
 
 -- ----------------------------
---  Table structure for `hk_store_img_t`
+-- Table structure for `hk_store_img_t`
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_store_img_t`;
 CREATE TABLE `hk_store_img_t` (
@@ -145,7 +186,11 @@ CREATE TABLE `hk_store_img_t` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `hk_store_info_t`
+-- Records of hk_store_img_t
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `hk_store_info_t`
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_store_info_t`;
 CREATE TABLE `hk_store_info_t` (
@@ -162,10 +207,10 @@ CREATE TABLE `hk_store_info_t` (
   `STORE_TYPE` int(20) DEFAULT NULL COMMENT '餐厅类型（00：日料，01:韩国，等）',
   `SEAT_COST` float(5,2) DEFAULT NULL COMMENT '茶位费',
   `SERVICE_COST` varchar(3) DEFAULT NULL COMMENT '服务费',
-  `STORE_BUSINESS_AM_START_HOURS` datetime DEFAULT NULL COMMENT '餐厅营业上午营业开始时间',
-  `STORE_BUSINESS_AM_END_HOURS` datetime DEFAULT NULL COMMENT '餐厅营业上午闭店结束时间',
-  `STORE_BUSINESS_PM_START_HOURS` datetime DEFAULT NULL COMMENT '餐厅营业下午营业开始时间',
-  `STORE_BUSINESS_PM_END_HOURS` datetime DEFAULT NULL COMMENT '餐厅营业下午闭店结束时间',
+  `STORE_BUSINESS_AM_START_HOURS` varchar(10) DEFAULT NULL COMMENT '餐厅营业上午营业开始时间',
+  `STORE_BUSINESS_AM_END_HOURS` varchar(10) DEFAULT NULL COMMENT '餐厅营业上午闭店结束时间',
+  `STORE_BUSINESS_PM_START_HOURS` varchar(10) DEFAULT NULL COMMENT '餐厅营业下午营业开始时间',
+  `STORE_BUSINESS_PM_END_HOURS` varchar(10) DEFAULT NULL COMMENT '餐厅营业下午闭店结束时间',
   `STORE_BUSINESS_DAY` varchar(30) DEFAULT NULL COMMENT '餐厅营业日',
   `CREATER` varchar(16) DEFAULT NULL COMMENT '创建者',
   `CREATE_DATE_TIME` datetime DEFAULT NULL COMMENT '创建时间',
@@ -173,17 +218,16 @@ CREATE TABLE `hk_store_info_t` (
   `UPDATE_DATE_TIME` datetime DEFAULT NULL COMMENT '修改时间',
   `STATUS` int(1) DEFAULT NULL COMMENT '状态（0：不可用，1：可用）',
   PRIMARY KEY (`STORE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Records of `hk_store_info_t`
+-- Records of hk_store_info_t
 -- ----------------------------
-BEGIN;
-INSERT INTO `hk_store_info_t` VALUES ('7', '好利来1', '13478824245', '北京', '李栋梁', '环境优雅', '1', 'D:\\asd', 'aaaa', 'D:\\asd', '1', '22.11', '10%', '2017-07-24 19:21:26', '2017-07-24 19:21:26', '2017-07-24 19:21:26', '2017-07-24 19:21:26', null, '李栋梁', '2017-07-24 19:21:25', '李栋梁', '2017-07-24 19:21:25', '0'), ('10', '好利来1', '13478824245', '北京', '李栋梁', '环境优雅', '1', 'D:\\asd', 'aaaa', 'D:\\asd', '1', '22.11', '10%', '2017-07-24 20:25:11', '2017-07-24 20:25:11', '2017-07-24 20:25:11', '2017-07-24 20:25:11', null, '李栋梁', '2017-07-24 20:25:11', '李栋梁', '2017-07-24 20:25:11', '0'), ('11', '好利来1', '13478824245', '北京', '李栋梁', '环境优雅', '1', 'D:\\asd', 'aaaa', 'D:\\asd', '1', '22.11', '10%', '2017-07-24 20:25:31', '2017-07-24 20:25:31', '2017-07-24 20:25:31', '2017-07-24 20:25:31', null, '李栋梁', '2017-07-24 20:25:30', '李栋梁', '2017-07-24 20:25:30', '0'), ('12', '好利来1', '13478824245', '北京', '李栋梁', '环境优雅', '1', 'D:\\asd', 'aaaa', 'D:\\asd', '1', '22.11', '10%', '2017-07-24 20:27:46', '2017-07-24 20:27:46', '2017-07-24 20:27:46', '2017-07-24 20:27:46', null, '李栋梁', '2017-07-24 20:27:45', '李栋梁', '2017-07-24 20:27:45', '0'), ('13', '好利来1', '13478824245', '北京', '李栋梁', '环境优雅', '1', 'D:\\asd', 'aaaa', 'D:\\asd', '1', '22.11', '10%', '2017-07-24 20:32:52', '2017-07-24 20:32:52', '2017-07-24 20:32:52', '2017-07-24 20:32:52', null, '李栋梁', '2017-07-24 20:32:51', '李栋梁', '2017-07-24 20:32:51', '0');
-COMMIT;
+INSERT INTO `hk_store_info_t` VALUES ('17', '好利来1', '13478824245', '北京', '李栋梁', '环境优雅', '1', 'D:\\asd', 'aaaa', 'D:\\asd', '1', '22.11', '10%', '06:30', '12:00', '12:00', '23:00', null, '李栋梁', '2017-08-09 14:00:57', '李栋梁', '2017-08-09 14:26:04', '0');
+INSERT INTO `hk_store_info_t` VALUES ('23', 'test1', '1', null, '1', null, '0', null, '1', null, '0', '1.00', '1', '00:00', '00:30', '12:00', '12:00', '1', null, '2017-08-09 15:10:48', null, '2017-08-09 15:10:48', '0');
 
 -- ----------------------------
---  Table structure for `hk_sys_dictionary_info_t`
+-- Table structure for `hk_sys_dictionary_info_t`
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_sys_dictionary_info_t`;
 CREATE TABLE `hk_sys_dictionary_info_t` (
@@ -198,17 +242,23 @@ CREATE TABLE `hk_sys_dictionary_info_t` (
   `UPDATE_DATE_TIME` datetime DEFAULT NULL COMMENT '修改时间',
   `STATUS` int(1) DEFAULT NULL COMMENT '状态（0：不可用，1：可用）',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Records of `hk_sys_dictionary_info_t`
+-- Records of hk_sys_dictionary_info_t
 -- ----------------------------
-BEGIN;
-INSERT INTO `hk_sys_dictionary_info_t` VALUES ('1', '90001', '用户角色', 'admin', '管理员', 'lidongliang', '2017-07-19 13:27:04', 'lidongliang', '2017-07-19 13:27:04', '0'), ('2', '90001', '用户角色', 'user', '用户', 'lidongliang', '2017-07-19 13:29:05', 'lidongliang', '2017-07-19 13:29:05', '0'), ('7', '90001', '用户角色2', 'user1', '用户4', 'lidongliang', '2017-07-19 20:27:22', 'lidongliang', '2017-07-19 20:27:22', '0'), ('8', '90001', '用户角色2', 'user1', '用户4', 'lidongliang', '2017-07-24 20:25:11', 'lidongliang', '2017-07-24 20:25:11', '0'), ('9', '90001', '用户角色2', 'user1', '用户4', 'lidongliang', '2017-07-24 20:25:30', 'lidongliang', '2017-07-24 20:25:30', '0'), ('10', '90001', '用户角色2', 'user1', '用户4', 'lidongliang', '2017-07-24 20:27:45', 'lidongliang', '2017-07-24 20:27:45', '0'), ('11', '90001', '用户角色2', 'user1', '用户4', 'lidongliang', '2017-07-24 20:32:51', 'lidongliang', '2017-07-24 20:32:51', '0');
-COMMIT;
+INSERT INTO `hk_sys_dictionary_info_t` VALUES ('1', '90001', '用户角色', 'admin', '管理员', 'lidongliang', '2017-07-19 13:27:04', 'lidongliang', '2017-07-19 13:27:04', '0');
+INSERT INTO `hk_sys_dictionary_info_t` VALUES ('2', '90001', '用户角色', 'user', '用户', 'lidongliang', '2017-07-19 13:29:05', 'lidongliang', '2017-07-19 13:29:05', '0');
+INSERT INTO `hk_sys_dictionary_info_t` VALUES ('7', '90001', '用户角色2', 'user1', '用户4', 'lidongliang', '2017-07-19 20:27:22', 'lidongliang', '2017-07-19 20:27:22', '0');
+INSERT INTO `hk_sys_dictionary_info_t` VALUES ('8', '90001', '用户角色2', 'user1', '用户4', 'lidongliang', '2017-07-24 20:25:11', 'lidongliang', '2017-07-24 20:25:11', '0');
+INSERT INTO `hk_sys_dictionary_info_t` VALUES ('9', '90001', '用户角色2', 'user1', '用户4', 'lidongliang', '2017-07-24 20:25:30', 'lidongliang', '2017-07-24 20:25:30', '0');
+INSERT INTO `hk_sys_dictionary_info_t` VALUES ('10', '90001', '用户角色2', 'user1', '用户4', 'lidongliang', '2017-07-24 20:27:45', 'lidongliang', '2017-07-24 20:27:45', '0');
+INSERT INTO `hk_sys_dictionary_info_t` VALUES ('11', '90001', '用户角色2', 'user1', '用户4', 'lidongliang', '2017-07-24 20:32:51', 'lidongliang', '2017-07-24 20:32:51', '0');
+INSERT INTO `hk_sys_dictionary_info_t` VALUES ('12', '90001', '用户角色2', 'user1', '用户4', 'lidongliang', '2017-07-24 20:57:26', 'lidongliang', '2017-07-24 20:57:26', '0');
+INSERT INTO `hk_sys_dictionary_info_t` VALUES ('13', '90001', '用户角色2', 'user1', '用户4', 'lidongliang', '2017-07-25 10:34:41', 'lidongliang', '2017-07-25 10:34:41', '0');
 
 -- ----------------------------
---  Table structure for `hk_sys_menu_info_t`
+-- Table structure for `hk_sys_menu_info_t`
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_sys_menu_info_t`;
 CREATE TABLE `hk_sys_menu_info_t` (
@@ -227,44 +277,63 @@ CREATE TABLE `hk_sys_menu_info_t` (
   `UPDATE_DATE_TIME` datetime DEFAULT NULL,
   `STATUS` int(1) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1019 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1036 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Records of `hk_sys_menu_info_t`
+-- Records of hk_sys_menu_info_t
 -- ----------------------------
-BEGIN;
-INSERT INTO `hk_sys_menu_info_t` VALUES ('1001', '系统管理', '/system', 'layout/Layout', '', 'zujian', '0', 'admin,user', null, 'admin', '2017-07-16 16:26:48', 'admin', '2017-07-19 16:26:02', '0'), ('1003', '用户管理', 'user', 'system/user', '', '', '1', 'admin', '1001', 'admin', '2017-07-16 16:26:48', '', '2017-07-19 15:03:21', '0'), ('1004', '菜单管理', 'menu', 'system/menu', '', '', '1', 'admin', '1001', 'admin', '2017-07-16 16:26:48', '', '2017-07-19 15:03:34', '0'), ('1007', '门店管理', 'store', 'system/menu', null, null, '0', 'user', '1001', '', '2017-07-19 15:08:00', '', '2017-07-19 15:08:00', '0'), ('1009', '样例', '/example', 'layout/Layout', '', 'zujian', '0', 'admin', null, 'admin', '2017-07-19 15:56:15', 'admin', '2017-07-19 16:25:55', '0'), ('1010', '表格样例', 'table', 'example/table/table', null, null, '0', 'admin', '1009', 'admin', '2017-07-19 15:57:28', 'admin', '2017-07-19 15:57:28', '0'), ('1015', '123', '123', 'dasdd', null, '123', '0', 'admin, user', null, 'lll', '2017-07-24 20:25:11', 'llll', '2017-07-24 20:25:11', '0'), ('1016', '123', '123', 'dasdd', null, '123', '0', 'admin, user', null, 'lll', '2017-07-24 20:25:30', 'llll', '2017-07-24 20:25:30', '0'), ('1017', '123', '123', 'dasdd', null, '123', '0', 'admin, user', null, 'lll', '2017-07-24 20:27:45', 'llll', '2017-07-24 20:27:45', '0'), ('1018', '123', '123', 'dasdd', null, '123', '0', 'admin, user', null, 'lll', '2017-07-24 20:32:51', 'llll', '2017-07-24 20:32:51', '0');
-COMMIT;
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1001', '系统管理', 'system', 'layout/Layout', '', 'zujian', '1', 'admin,boss', null, 'admin', '2017-07-16 16:26:48', 'admin', '2017-08-08 14:51:38', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1003', '用户管理', 'user', 'system/user', '', '', '1', 'admin,boss', '1001', 'admin', '2017-07-16 16:26:48', 'admin', '2017-08-08 14:51:56', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1004', '菜单管理', 'menu', 'system/menu', '', '', '1', 'admin', '1001', 'admin', '2017-07-16 16:26:48', '', '2017-07-19 15:03:34', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1007', '门店管理', 'store', 'layout/Layout', '', 'zonghe', '1', 'admin,boss,user', null, '', '2017-07-19 15:08:00', 'admin', '2017-08-08 14:58:42', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1009', '综合实例', 'example', 'layout/Layout', '', 'zujian', '1', 'develop', null, 'admin', '2017-07-19 15:56:15', 'admin', '2017-08-08 14:50:40', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1010', '表格样例', 'table', 'example/table/table', null, null, '1', 'develop', '1009', 'admin', '2017-07-19 15:57:28', 'admin', '2017-08-08 14:50:34', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1020', '门店管理', 'store', 'store/store', null, null, '1', 'boss,admin', '1007', 'admin', '2017-07-24 21:04:46', 'admin', '2017-08-08 17:37:10', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1021', '菜品管理', 'menuInfo', 'store/menu', null, null, '0', 'admin,boss', '1007', 'admin', '2017-07-24 21:35:46', 'admin', '2017-08-08 17:32:35', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1023', '组件', 'components', 'layout/Layout', null, 'zujian', '1', 'develop', null, 'admin', '2017-07-26 10:02:47', 'admin', '2017-08-08 14:51:16', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1024', '头像上传', 'avatarupload', 'components/avatarUpload', null, null, '1', 'develop', '1023', 'admin', '2017-07-26 10:03:49', 'admin', '2017-08-08 14:51:10', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1025', 'Dropzone', 'dropzone', 'components/dropzone', null, null, '1', 'develop', '1023', 'admin', '2017-07-26 10:05:01', 'admin', '2017-08-08 14:51:05', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1026', 'Sticky', 'sticky', 'components/sticky', null, null, '1', 'develop', '1023', 'admin', '2017-07-26 10:07:34', 'admin', '2017-08-08 14:50:59', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1027', 'CountTo', 'countTo', 'components/countTo', null, null, '1', 'develop', '1023', 'admin', '2017-07-26 10:08:14', 'admin', '2017-08-08 14:50:52', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1028', '小组件', 'mixin', 'components/mixin', null, null, '1', 'develop', '1023', 'admin', '2017-07-26 10:09:02', 'admin', '2017-08-08 14:50:46', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1030', '创建Form', 'form/create', 'example/form', null, null, '1', 'develop', '1009', 'admin', '2017-07-26 10:14:47', 'admin', '2017-08-08 14:49:03', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1031', 'Tab页签', 'tab/index', 'example/tab/index', null, null, '1', 'develop', '1009', 'admin', '2017-07-26 10:15:43', 'admin', '2017-08-08 14:48:56', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1032', '编辑门店', 'storeInfo/:storeId', 'store/storeInfo', null, null, '0', 'admin,boss', '1007', 'admin', '2017-07-28 10:33:02', 'admin', '2017-08-08 18:48:36', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1033', '门店信息', 'storeInfo', 'store/storeInfo', null, null, '1', 'user', '1007', 'admin', '2017-08-08 15:05:31', 'admin', '2017-08-08 15:05:31', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1034', '菜品管理', 'menuInfo', 'store/menuInfo', null, null, '1', 'user', '1007', 'admin', '2017-08-08 15:06:49', 'admin', '2017-08-08 17:32:58', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1035', '创建门店', 'storeInfo', 'store/storeInfo', null, null, '0', 'boss', '1007', 'admin', '2017-08-08 18:48:08', 'admin', '2017-08-09 11:21:06', '0');
 
 -- ----------------------------
---  Table structure for `hk_sys_user_info_t`
+-- Table structure for `hk_sys_user_info_t`
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_sys_user_info_t`;
 CREATE TABLE `hk_sys_user_info_t` (
   `USER_ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户编号',
   `USER_NAME` varchar(16) DEFAULT NULL COMMENT '用户名字',
   `USER_PASSWORD` varchar(16) DEFAULT NULL COMMENT '用户密码',
-  `USER_ROLE` varchar(30) DEFAULT NULL,
+  `USER_ROLE` varchar(30) DEFAULT NULL COMMENT '用户角色',
   `USER_PHONE` bigint(11) DEFAULT NULL COMMENT '用户电话',
   `USER_SEX` int(1) DEFAULT NULL COMMENT '用户性别',
   `USER_ADDRESS` varchar(50) DEFAULT NULL COMMENT '用户地址',
+  `USER_TYPE` varchar(2) DEFAULT NULL COMMENT '用户类型',
+  `PARENT_ID` bigint(30) DEFAULT NULL COMMENT '所属关系',
   `CREATER` varchar(16) DEFAULT NULL COMMENT '创建者',
   `CREATE_DATE_TIME` datetime DEFAULT NULL COMMENT '创建时间',
   `MODIFY` varchar(16) DEFAULT NULL COMMENT '修改者',
   `UPDATE_DATE_TIME` datetime DEFAULT NULL COMMENT '修改时间',
   `STATUS` int(1) DEFAULT NULL COMMENT '状态（0：不可用，1：可用）',
   PRIMARY KEY (`USER_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Records of `hk_sys_user_info_t`
+-- Records of hk_sys_user_info_t
 -- ----------------------------
-BEGIN;
-INSERT INTO `hk_sys_user_info_t` VALUES ('4', 'admin', '123456', 'admin', '13478824245', '1', 'beijiang', 'admin', '2017-07-18 15:57:03', '', '2017-07-19 15:19:17', '0'), ('6', 'boss', '123456', 'user', '13478824245', '1', 'beijiang', 'admin', '2017-07-18 20:10:11', 'admin', '2017-07-18 20:10:11', '0'), ('17', '123123', 'a', 'admin, user', '13478824245', '1', 'beijiang', 'ldl', '2017-07-24 20:25:11', 'xiaoming', '2017-07-24 20:25:11', '0'), ('18', '123123', 'a', 'admin, user', '13478824245', '1', 'beijiang', 'ldl', '2017-07-24 20:25:30', 'xiaoming', '2017-07-24 20:25:30', '0'), ('19', '123123', 'a', 'admin, user', '13478824245', '1', 'beijiang', 'ldl', '2017-07-24 20:27:45', 'xiaoming', '2017-07-24 20:27:45', '0'), ('20', '123123', 'a', 'admin, user', '13478824245', '1', 'beijiang', 'ldl', '2017-07-24 20:32:51', 'xiaoming', '2017-07-24 20:32:51', '0');
-COMMIT;
+INSERT INTO `hk_sys_user_info_t` VALUES ('1', 'admin', '123456', 'admin,develop', null, '1', null, '0', null, 'admin', '2017-08-08 14:41:30', 'admin', '2017-08-08 14:41:30', '0');
+INSERT INTO `hk_sys_user_info_t` VALUES ('36', 'boss1', '123456', 'boss', '1234', '0', '大连\n', '1', '1', 'admin', '2017-08-08 15:50:57', 'admin', '2017-08-08 15:50:57', '0');
+INSERT INTO `hk_sys_user_info_t` VALUES ('37', 'user1', '123456', 'user', '1234', '1', '大连\n\n', '2', '36', 'boss1', '2017-08-08 15:51:40', 'boss1', '2017-08-08 15:51:40', '0');
 
 -- ----------------------------
---  Table structure for `hk_table_info_t`
+-- Table structure for `hk_table_info_t`
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_table_info_t`;
 CREATE TABLE `hk_table_info_t` (
@@ -278,17 +347,15 @@ CREATE TABLE `hk_table_info_t` (
   `UPDATE_DATE_TIME` datetime DEFAULT NULL COMMENT '修改时间',
   `STATUS` int(1) DEFAULT NULL COMMENT '状态（0：不可用，1：可用）',
   PRIMARY KEY (`TABLE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Records of `hk_table_info_t`
+-- Records of hk_table_info_t
 -- ----------------------------
-BEGIN;
-INSERT INTO `hk_table_info_t` VALUES ('1', '2', '0', 'a123eaa', null, '2017-07-18 13:24:34', 'xiaomin1g', '2017-07-24 20:32:51', '0');
-COMMIT;
+INSERT INTO `hk_table_info_t` VALUES ('1', '2', '0', 'a123eaa', null, '2017-07-18 13:24:34', 'xiaomin1g', '2017-07-25 10:34:42', '0');
 
 -- ----------------------------
---  Table structure for `hk_user_store_info_t`
+-- Table structure for `hk_user_store_info_t`
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_user_store_info_t`;
 CREATE TABLE `hk_user_store_info_t` (
@@ -298,14 +365,13 @@ CREATE TABLE `hk_user_store_info_t` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Records of `hk_user_store_info_t`
+-- Records of hk_user_store_info_t
 -- ----------------------------
-BEGIN;
-INSERT INTO `hk_user_store_info_t` VALUES ('100001', '7'), ('100003', '10'), ('100003', '11'), ('100003', '12'), ('100003', '13');
-COMMIT;
+INSERT INTO `hk_user_store_info_t` VALUES ('36', '17');
+INSERT INTO `hk_user_store_info_t` VALUES ('36', '23');
 
 -- ----------------------------
---  Table structure for `hk_user_sys_menu_info_t`
+-- Table structure for `hk_user_sys_menu_info_t`
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_user_sys_menu_info_t`;
 CREATE TABLE `hk_user_sys_menu_info_t` (
@@ -313,4 +379,6 @@ CREATE TABLE `hk_user_sys_menu_info_t` (
   `MENU_ID` bigint(20) DEFAULT NULL COMMENT '系统菜单ID'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-SET FOREIGN_KEY_CHECKS = 1;
+-- ----------------------------
+-- Records of hk_user_sys_menu_info_t
+-- ----------------------------

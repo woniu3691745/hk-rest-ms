@@ -25,10 +25,10 @@ public class StoreInfo extends CommonEntity {
     private int storeType;              // 餐厅类型
     private Float seatCost;             // 茶位费
     private String serviceCost;         // 服务费
-    private Date storeBusinessAmStartHours;         // 餐厅营业上午营业开始时间
-    private Date storeBusinessAmEndHours;           // 餐厅营业上午闭店结束时间
-    private Date storeBusinessPmStartHours;         // 餐厅营业下午营业开始时间
-    private Date storeBusinessPmEndHours;           // 餐厅营业下午闭店结束时间
+    private String storeBusinessAmStartHours;         // 餐厅营业上午营业开始时间
+    private String storeBusinessAmEndHours;           // 餐厅营业上午闭店结束时间
+    private String storeBusinessPmStartHours;         // 餐厅营业下午营业开始时间
+    private String storeBusinessPmEndHours;           // 餐厅营业下午闭店结束时间
     private String storeBusinessDay;                // 餐厅营业日
 
 
@@ -146,35 +146,35 @@ public class StoreInfo extends CommonEntity {
         this.serviceCost = serviceCost;
     }
 
-    public Date getStoreBusinessAmStartHours() {
+    public String getStoreBusinessAmStartHours() {
         return storeBusinessAmStartHours;
     }
 
-    public void setStoreBusinessAmStartHours(Date storeBusinessAmStartHours) {
+    public void setStoreBusinessAmStartHours(String storeBusinessAmStartHours) {
         this.storeBusinessAmStartHours = storeBusinessAmStartHours;
     }
 
-    public Date getStoreBusinessAmEndHours() {
+    public String getStoreBusinessAmEndHours() {
         return storeBusinessAmEndHours;
     }
 
-    public void setStoreBusinessAmEndHours(Date storeBusinessAmEndHours) {
+    public void setStoreBusinessAmEndHours(String storeBusinessAmEndHours) {
         this.storeBusinessAmEndHours = storeBusinessAmEndHours;
     }
 
-    public Date getStoreBusinessPmStartHours() {
+    public String getStoreBusinessPmStartHours() {
         return storeBusinessPmStartHours;
     }
 
-    public void setStoreBusinessPmStartHours(Date storeBusinessPmStartHours) {
+    public void setStoreBusinessPmStartHours(String storeBusinessPmStartHours) {
         this.storeBusinessPmStartHours = storeBusinessPmStartHours;
     }
 
-    public Date getStoreBusinessPmEndHours() {
+    public String getStoreBusinessPmEndHours() {
         return storeBusinessPmEndHours;
     }
 
-    public void setStoreBusinessPmEndHours(Date storeBusinessPmEndHours) {
+    public void setStoreBusinessPmEndHours(String storeBusinessPmEndHours) {
         this.storeBusinessPmEndHours = storeBusinessPmEndHours;
     }
 

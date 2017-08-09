@@ -14,7 +14,6 @@
         SI.STORE_STATUS AS storeStatus,
         SI.STORE_LOGO AS storeLogo,
         SI.STORE_NOTICE AS storeNotice,
-        SI.STORE_IMG AS storeImg,
         SI.STORE_TYPE AS storeType,
         SI.SEAT_COST AS seatCost,
         SI.SERVICE_COST AS serviceCost,
@@ -97,6 +96,18 @@
         </where>
     </select>
 
+    <!--查询门店图片 -->
+    <select id="getStoreImg" parameterType="Long" resultType="java.lang.String">
+        SELECT
+        IMG.IMG_URL
+        FROM HK_STORE_IMG_T IMG
+        <where>
+            <if test="#{0} != null">
+                IMG.STORE_ID = #{0}
+            </if>
+        </where>
+    </select>
+
     <!-- 更新 -->
     <update id="update" parameterType="MenuInfo">
         UPDATE HK_STORE_INFO_T
@@ -133,7 +144,6 @@
                 STORE_STATUS,
                 STORE_LOGO,
                 STORE_NOTICE,
-                STORE_IMG,
                 STORE_TYPE,
                 SEAT_COST,
                 SERVICE_COST,
@@ -158,7 +168,6 @@
                #{storeStatus},
                #{storeLogo},
                #{storeNotice},
-               #{storeImg},
                #{storeType},
                #{seatCost},
                #{serviceCost},
@@ -175,7 +184,7 @@
             )
     </insert>
 
-    <!-- 增加 -->
+    <!-- 增加用户门店关联信息 -->
     <insert id="addStoreUserInfo" parameterType="StoreUserInfo" useGeneratedKeys="true" keyProperty="userId">
         INSERT into HK_USER_STORE_INFO_T(
         USER_ID,
@@ -187,6 +196,19 @@
         #{storeId}
         )
     </insert>
+
+    <!-- 增加门店图片 -->
+    <insert id="addStoreImg" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        INSERT into HK_STORE_IMG_T(
+        IMG_URL,
+        STORE_ID
+        )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.imgUrl},#{item.storeId})
+        </foreach>
+    </insert>
+
     <!-- 删除 -->
     <delete id="deleteById" parameterType="Long">
         DELETE FROM HK_STORE_INFO_T WHERE STORE_ID = #{0}
@@ -209,5 +231,8 @@
         </foreach>
     </delete>
 
-    <!-- 登陆做好记得加 user_id 条件删除关联表 -->
+    <!-- 删除门店图片 -->
+    <delete id="deleteStoreImg" parameterType="String">
+        DELETE FROM HK_STORE_IMG_T WHERE IMG_URL = #{0}
+    </delete>
 </mapper>

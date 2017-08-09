@@ -10,17 +10,8 @@ public class StoreImg {
 
     private Long id;        // 主键ID
     private Long storeId;   // 餐厅编号
-    private Long imgUrl;     // 餐厅相片
+    private String imgUrl;     // 餐厅相片
 
-
-    @Override
-    public String toString() {
-        return "StoreImg{" +
-                "id=" + id +
-                ", storeId=" + storeId +
-                ", imgUrl=" + imgUrl +
-                '}';
-    }
 
     public StoreImg() {
     }
@@ -42,11 +33,20 @@ public class StoreImg {
         this.storeId = storeId;
     }
 
-    public Long getImgUrl() {
+    public String getImgUrl() {
         return imgUrl;
     }
 
-    public void setImgUrl(Long imgUrl) {
+    public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "StoreImg{" +
+                "id=" + id +
+                ", storeId=" + storeId +
+                ", imgUrl='" + imgUrl + '\'' +
+                '}';
     }
 }

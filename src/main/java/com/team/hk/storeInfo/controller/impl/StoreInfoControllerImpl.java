@@ -3,6 +3,7 @@ package com.team.hk.storeInfo.controller.impl;
 import com.team.hk.common.Constant;
 import com.team.hk.common.RedisEntity;
 import com.team.hk.storeInfo.controller.StoreInfoController;
+import com.team.hk.storeInfo.entity.StoreImg;
 import com.team.hk.storeInfo.entity.StoreInfo;
 import com.team.hk.storeInfo.service.StoreInfoService;
 import com.team.hk.sys.entity.MessageInfo;
@@ -63,7 +64,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
         String userRole = (String) request.getSession().getAttribute(Constant.KEY3);
 
         // admin登陆查询全部信息
-        if(userRole != null && userRole.contains(Constant.ROULE_ADMIN)){
+        if (userRole != null && userRole.contains(Constant.ROULE_ADMIN)) {
             storeInfo.setUserId(null);
         }
         List<StoreInfo> menuInfos = storeInfoService.getAllStoreInfoByPageService(storeInfo, pageNo, pageSize);
@@ -87,7 +88,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
         Long userId = Long.valueOf(request.getSession().getAttribute(Constant.KEY1).toString());
         String userRole = (String) request.getSession().getAttribute(Constant.KEY3);
 
-        if(userRole != null && userRole.contains(Constant.ROULE_BOSS)){
+        if (userRole != null && userRole.contains(Constant.ROULE_BOSS)) {
             storeInfo.setUserId(userId);
         }
         return storeInfoService.getAllStoreInfoService(storeInfo);
@@ -147,6 +148,20 @@ public class StoreInfoControllerImpl implements StoreInfoController {
         return storeInfoService.deleteStoreInfoByIdsService(storeId);
     }
 
+    /**
+     * 删除门店图片
+     *
+     * @param storeImg 文件路径
+     * @return rowsAffected
+     */
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.DELETE, value = "/delStoreImg")
+    @Override
+    public int deleteStoreImg(@RequestBody StoreImg storeImg) {
+        logger.debug("====> 删除门店图片 " + storeImg.getImgUrl());
+        return storeInfoService.deleteStoreImg(storeImg.getImgUrl());
+    }
+
 
     /**
      * 获得门店logo
@@ -155,7 +170,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
      * @return ResponseEntity
      */
     @RequestMapping(method = RequestMethod.GET, value = "/storeLogoDown/{filename:.+}")
-    public ResponseEntity<?> gettoreLogoDown(HttpServletRequest request, @PathVariable String filename) {
+    public ResponseEntity<?> getStoreLogoDown(HttpServletRequest request, @PathVariable String filename) {
         try {
             String username = (String) request.getSession().getAttribute("username");
             return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get(ROOT + "/" + username
@@ -202,12 +217,12 @@ public class StoreInfoControllerImpl implements StoreInfoController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            logger.debug("上传成功");
+            logger.debug("====> 上传成功");
             messageInfo.setCode(200);
             messageInfo.setMsg("上传成功.");
             return messageInfo;
         }
-        logger.debug("上传失败,文件为空.");
+        logger.debug("====> 上传失败,文件为空.");
         messageInfo.setCode(500);
         messageInfo.setMsg("上传失败,文件为空.");
         return messageInfo;
@@ -229,19 +244,19 @@ public class StoreInfoControllerImpl implements StoreInfoController {
             try {
                 String username = (String) request.getSession().getAttribute("username");
                 FileUtils.copyInputStreamToFile(file.getInputStream(),
-                        new File(String.valueOf(Paths.get(ROOT)) + "/" + username + "/storeImg/",
-                                file.getOriginalFilename()));
+                        new File(String.valueOf(Paths.get(ROOT)) + "/" + username + "/storeImg/"
+                                , System.currentTimeMillis() + file.getOriginalFilename()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
             messageInfo.setCode(200);
             messageInfo.setMsg("上传成功.");
-            logger.debug("上传成功");
+            logger.debug("====> 上传成功");
             return messageInfo;
         }
         messageInfo.setCode(500);
         messageInfo.setMsg("上传失败,文件为空.");
-        logger.debug("上传失败,文件为空.");
+        logger.debug("====> 上传失败,文件为空.");
         return messageInfo;
     }
 
@@ -249,20 +264,12 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     /**
      * 获得门店图片请求
      *
-     * @param request 请求
      * @return 门店图片的集合
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/storeImgDowns")
+    @RequestMapping(method = RequestMethod.POST, value = "/storeImgDowns")
     @ResponseBody
-    public List getFiles(HttpServletRequest request) {
-
-        List<String> list = new ArrayList<>();
-        String username = (String) request.getSession().getAttribute("username");
-        list.add("api/store/storeImgDown/img.jpg");
-        list.add("api/store/storeImgDown/b1.jpg");
-        list.add("api/store/storeImgDown/me2.jpg");
-        list.add("api/store/storeImgDown/me.jpg");
-        return list;
+    public List getFiles(@RequestBody StoreImg storeImg) {
+        return storeInfoService.getStoreImg(storeImg.getStoreId());
     }
 
 }

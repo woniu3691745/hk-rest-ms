@@ -1,5 +1,6 @@
 package com.team.hk.storeInfo.service.impl;
 
+import com.team.hk.storeInfo.entity.StoreImg;
 import com.team.hk.storeInfo.entity.StoreInfo;
 import com.team.hk.storeInfo.entity.StoreUserInfo;
 import com.team.hk.storeInfo.mapper.StoreInfoMapper;
@@ -28,14 +29,8 @@ public class StoreInfoServiceImpl implements StoreInfoService {
 
     private static Logger logger = Logger.getLogger(StoreInfoServiceImpl.class);
 
-    private final String KEY_PREFIX = "store_";
-
     @Autowired
     private StoreInfoMapper storeInfoMapper;
-
-    @Autowired
-    private RedisTemplate redisTemplate;
-
 
     @Override
     public List<StoreInfo> getAllStoreInfoByPageService(StoreInfo storeInfo, Long pageNo, Long pageSize) {
@@ -53,34 +48,49 @@ public class StoreInfoServiceImpl implements StoreInfoService {
 
     @Override
     public List<StoreInfo> getAllStoreInfoService(StoreInfo storeInfo) {
-//        ListOperations valueOperations = redisTemplate.opsForList();
-//        String key = KEY_PREFIX + storeInfo.getStoreId();
-//        boolean hasKey = redisTemplate.hasKey(key);
-//        if(hasKey){
-//            List storeInfos = new ArrayList();
-//            storeInfos.add(valueOperations.getOperations());
-//            return storeInfos;
-//        }
-        List<StoreInfo> storeInfos = storeInfoMapper.list(storeInfo);
-//        valueOperations.set(key, 0, storeInfos);
-        return storeInfos;
+        return storeInfoMapper.list(storeInfo);
     }
 
+    /**
+     * 1.保门店信息
+     * 2.保存门店,用户关联信息
+     * 3.保存门店图片信息
+     *
+     * @param storeInfo 菜单实体
+     * @return rowsAffected
+     */
     @Override
     public List<StoreInfo> addStoreInfoService(StoreInfo storeInfo) {
-        storeInfoMapper.add(storeInfo);
+
+        String url = "api/store/storeImgDown/" + System.currentTimeMillis();
+        int si = storeInfoMapper.add(storeInfo);
+        logger.debug("====> 门店基本信息保存成功!:" + si);
+
         // 保存门店用户关联信息
         StoreUserInfo storeUserInfo = new StoreUserInfo();
         storeUserInfo.setUserId(storeInfo.getUserId());
         storeUserInfo.setStoreId(storeInfo.getStoreId());
-        storeInfoMapper.addStoreUserInfo(storeUserInfo);
+        int sj = storeInfoMapper.addStoreUserInfo(storeUserInfo);
+        logger.debug("====> 门店信息用户关联信息保存成功!:" + sj);
+
+        // 保存门店图片
+        List<StoreImg> storeImgList = new ArrayList<>();
+        for (String img : storeInfo.getStoreImg()) {
+            StoreImg storeImg = new StoreImg();
+            storeImg.setStoreId(storeInfo.getStoreId());
+            storeImg.setImgUrl(url + img);
+            storeImgList.add(storeImg);
+        }
+        int num = storeInfoMapper.addStoreImg(storeImgList);
+        logger.debug("====> 保存门店图片数量:" + num);
+
         if (storeInfo.getStoreId() != null) {
-            logger.debug("添加门店信息成功,返回STOREID : " + storeInfo.getStoreId());
             StoreInfo sif = new StoreInfo();
             sif.setStoreId(storeInfo.getStoreId());
+            logger.debug("====> 添加门店信息成功,返回STOREID : " + storeInfo.getStoreId());
             return storeInfoMapper.list(sif);
         } else {
-            logger.error("添加门店信息失败,返回STOREID : " + storeInfo.getStoreId());
+            logger.error("====> 添加门店信息失败,返回STOREID : " + storeInfo.getStoreId());
             return null;
         }
     }
@@ -121,7 +131,29 @@ public class StoreInfoServiceImpl implements StoreInfoService {
      * @return 门店ID
      */
     @Override
-    public Long getStoreIdbyUser(Long id){
+    public Long getStoreIdbyUser(Long id) {
         return storeInfoMapper.getStoreIdbyUser(id);
+    }
+
+    /**
+     * 获得门店图片
+     *
+     * @param id 门店ID
+     * @return 门店图片
+     */
+    @Override
+    public List<String> getStoreImg(Long id) {
+        return storeInfoMapper.getStoreImg(id);
+    }
+
+    /**
+     * 删除门店图片
+     *
+     * @param imgUrl 文件路径
+     * @return rowsAffected
+     */
+    @Override
+    public int deleteStoreImg(String imgUrl) {
+        return storeInfoMapper.deleteStoreImg(imgUrl);
     }
 }

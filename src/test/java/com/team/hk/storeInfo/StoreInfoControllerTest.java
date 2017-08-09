@@ -84,6 +84,7 @@ public class StoreInfoControllerTest {
     public void addStoreInfo() throws Exception {
 
         StoreInfo storeInfo = new StoreInfo();
+        String[] img = {"15k.jpg", "me.jpg"};
         storeInfo.setUserId(100003L);
         storeInfo.setStoreName("好利来1");
         storeInfo.setStorePhone(13478824245L);
@@ -93,7 +94,7 @@ public class StoreInfoControllerTest {
         storeInfo.setStoreLogo("D:\\asd");
         storeInfo.setStoreStatus(1);
         storeInfo.setStoreNotice("aaaa");
-        storeInfo.setStoreImg("D:\\asd");
+        storeInfo.setStoreImg(img);
         storeInfo.setStoreType(1);
         storeInfo.setSeatCost(22.11f);
         storeInfo.setServiceCost("10%");
@@ -151,6 +152,7 @@ public class StoreInfoControllerTest {
     public void updateStoreInfo() throws Exception {
 
         StoreInfo storeInfo = new StoreInfo();
+        String[] img = {"D:\1"};
         storeInfo.setStoreId(5L);
 //        storeInfo.setUserId(1001L);
         storeInfo.setStoreName("李栋梁1111");
@@ -161,7 +163,7 @@ public class StoreInfoControllerTest {
         storeInfo.setStoreLogo("D:\\asd");
         storeInfo.setStoreStatus(1);
         storeInfo.setStoreNotice("123213");
-        storeInfo.setStoreImg("123123213");
+        storeInfo.setStoreImg(img);
         storeInfo.setStoreType(1);
         storeInfo.setSeatCost(12.4f);
         storeInfo.setServiceCost("10%");

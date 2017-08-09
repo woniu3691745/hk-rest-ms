@@ -1,5 +1,6 @@
 package com.team.hk.storeInfo.controller;
 
+import com.team.hk.storeInfo.entity.StoreImg;
 import com.team.hk.storeInfo.entity.StoreInfo;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,4 +62,12 @@ public interface StoreInfoController {
      * @return rowsAffected
      */
     int deleteStoreInfoByIds(List<Long> id);
+
+    /**
+     * 删除门店图片
+     *
+     * @param storeImg 文件路径
+     * @return rowsAffected
+     */
+    int deleteStoreImg(StoreImg storeImg);
 }

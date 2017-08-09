@@ -2,6 +2,7 @@ package com.team.hk.storeInfo.entity;
 
 import com.team.hk.common.CommonEntity;
 
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -21,7 +22,6 @@ public class StoreInfo extends CommonEntity {
     private int storeStatus;            // 餐厅状态
     private String storeLogo;           // 餐厅LOGO
     private String storeNotice;         // 餐厅公告
-    private String storeImg;            // 餐厅相片
     private int storeType;              // 餐厅类型
     private Float seatCost;             // 茶位费
     private String serviceCost;         // 服务费
@@ -31,6 +31,7 @@ public class StoreInfo extends CommonEntity {
     private String storeBusinessPmEndHours;           // 餐厅营业下午闭店结束时间
     private String storeBusinessDay;                // 餐厅营业日
 
+    private String[] storeImg;          // 餐厅相片
 
     private Long userId;                // 用户编号
 
@@ -114,11 +115,11 @@ public class StoreInfo extends CommonEntity {
         this.storeNotice = storeNotice;
     }
 
-    public String getStoreImg() {
+    public String[] getStoreImg() {
         return storeImg;
     }
 
-    public void setStoreImg(String storeImg) {
+    public void setStoreImg(String[] storeImg) {
         this.storeImg = storeImg;
     }
 
@@ -190,7 +191,6 @@ public class StoreInfo extends CommonEntity {
     public String toString() {
         return "StoreInfo{" +
                 "storeId=" + storeId +
-                ", userId=" + userId +
                 ", storeName='" + storeName + '\'' +
                 ", storePhone=" + storePhone +
                 ", storeAddress='" + storeAddress + '\'' +
@@ -199,15 +199,16 @@ public class StoreInfo extends CommonEntity {
                 ", storeStatus=" + storeStatus +
                 ", storeLogo='" + storeLogo + '\'' +
                 ", storeNotice='" + storeNotice + '\'' +
-                ", storeImg='" + storeImg + '\'' +
+                ", storeImg=" + Arrays.toString(storeImg) +
                 ", storeType=" + storeType +
                 ", seatCost=" + seatCost +
-                ", serviceCost=" + serviceCost +
-                ", storeBusinessAmStartHours=" + storeBusinessAmStartHours +
-                ", storeBusinessAmEndHours=" + storeBusinessAmEndHours +
-                ", storeBusinessPmStartHours=" + storeBusinessPmStartHours +
-                ", storeBusinessPmEndHours=" + storeBusinessPmEndHours +
+                ", serviceCost='" + serviceCost + '\'' +
+                ", storeBusinessAmStartHours='" + storeBusinessAmStartHours + '\'' +
+                ", storeBusinessAmEndHours='" + storeBusinessAmEndHours + '\'' +
+                ", storeBusinessPmStartHours='" + storeBusinessPmStartHours + '\'' +
+                ", storeBusinessPmEndHours='" + storeBusinessPmEndHours + '\'' +
                 ", storeBusinessDay='" + storeBusinessDay + '\'' +
+                ", userId=" + userId +
                 '}';
     }
 

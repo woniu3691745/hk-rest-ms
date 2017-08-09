@@ -1,6 +1,7 @@
 package com.team.hk.storeInfo.mapper;
 
 import com.team.hk.common.CommonMapper;
+import com.team.hk.storeInfo.entity.StoreImg;
 import com.team.hk.storeInfo.entity.StoreInfo;
 import com.team.hk.storeInfo.entity.StoreUserInfo;
 
@@ -51,4 +52,28 @@ public interface StoreInfoMapper extends CommonMapper<StoreInfo> {
      * @return 门店ID
      */
     Long getStoreIdbyUser(Long id);
+
+    /**
+     * 添加门店图片
+     *
+     * @param storeImg 门店图片
+     * @return rowsAffected
+     */
+    int addStoreImg(List<StoreImg> storeImg);
+
+    /**
+     * 获得门店图片
+     *
+     * @param id 门店ID
+     * @return 门店图片
+     */
+    List<String> getStoreImg(Long id);
+
+    /**
+     * 删除门店图片
+     *
+     * @param imgUrl 文件路径
+     * @return rowsAffected
+     */
+    int deleteStoreImg(String imgUrl);
 }

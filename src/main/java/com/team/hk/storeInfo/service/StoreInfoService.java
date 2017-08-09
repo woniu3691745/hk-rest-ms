@@ -71,4 +71,20 @@ public interface StoreInfoService {
      * @return 门店ID
      */
     Long getStoreIdbyUser(Long id);
+
+    /**
+     * 获得门店图片
+     *
+     * @param id 门店ID
+     * @return 门店图片
+     */
+    List<String> getStoreImg(Long id);
+
+    /**
+     * 删除门店图片
+     *
+     * @param imgUrl 文件路径
+     * @return rowsAffected
+     */
+    int deleteStoreImg(String imgUrl);
 }

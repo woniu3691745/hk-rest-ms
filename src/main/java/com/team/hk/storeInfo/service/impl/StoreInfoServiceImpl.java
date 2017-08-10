@@ -80,7 +80,7 @@ public class StoreInfoServiceImpl implements StoreInfoService {
             for (String img : storeInfo.getStoreImg()) {
                 StoreImg storeImg = new StoreImg();
                 storeImg.setStoreId(storeInfo.getStoreId());
-                storeImg.setImgUrl(this.url + storeInfo.getPath() + "/" + img);
+                storeImg.setImgUrl(this.url + img);
                 storeImgList.add(storeImg);
             }
             storeInfoMapper.addStoreImg(storeImgList);
@@ -116,7 +116,7 @@ public class StoreInfoServiceImpl implements StoreInfoService {
             if (img.contains(".")) {
                 StoreImg storeImg = new StoreImg();
                 storeImg.setStoreId(storeInfo.getStoreId());
-                storeImg.setImgUrl(this.url + storeInfo.getPath() + "/" + img);
+                storeImg.setImgUrl(this.url + img);
                 storeImgList.add(storeImg);
             }
         }

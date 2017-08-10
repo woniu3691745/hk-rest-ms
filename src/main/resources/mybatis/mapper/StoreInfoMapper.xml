@@ -119,7 +119,6 @@
               STORE_STATUS = #{storeStatus},
               STORE_LOGO = #{storeLogo},
               STORE_NOTICE = #{storeNotice},
-              STORE_IMG = #{storeImg},
               STORE_TYPE = #{storeType},
               SEAT_COST = #{seatCost},
               SERVICE_COST = #{serviceCost},

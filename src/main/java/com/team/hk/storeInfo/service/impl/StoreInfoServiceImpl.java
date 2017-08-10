@@ -76,15 +76,17 @@ public class StoreInfoServiceImpl implements StoreInfoService {
             storeInfoMapper.addStoreUserInfo(storeUserInfo);
             logger.debug("====> 门店信息用户关联信息保存成功!:");
             // 保存门店图片
-            List<StoreImg> storeImgList = new ArrayList<>();
-            for (String img : storeInfo.getStoreImg()) {
-                StoreImg storeImg = new StoreImg();
-                storeImg.setStoreId(storeInfo.getStoreId());
-                storeImg.setImgUrl(this.url + img);
-                storeImgList.add(storeImg);
+            if (storeInfo.getStoreImg() != null) {
+                List<StoreImg> storeImgList = new ArrayList<>();
+                for (String img : storeInfo.getStoreImg()) {
+                    StoreImg storeImg = new StoreImg();
+                    storeImg.setStoreId(storeInfo.getStoreId());
+                    storeImg.setImgUrl(this.url + img);
+                    storeImgList.add(storeImg);
+                }
+                storeInfoMapper.addStoreImg(storeImgList);
+                logger.debug("====> 保存门店图片路径:" + storeImgList.toString());
             }
-            storeInfoMapper.addStoreImg(storeImgList);
-            logger.debug("====> 保存门店图片路径:" + storeImgList.toString());
         }
 
         if (storeInfo.getStoreId() != null) {
@@ -109,9 +111,9 @@ public class StoreInfoServiceImpl implements StoreInfoService {
     public int updateStoreInfoService(StoreInfo storeInfo) {
         int num = storeInfoMapper.update(storeInfo);
         logger.debug("====> 更新门店信息成功!");
-        List<StoreImg> storeImgList = new ArrayList<>();
 
-        if(storeInfo.getStoreImg() != null){
+        if (storeInfo.getStoreImg() != null) {
+            List<StoreImg> storeImgList = new ArrayList<>();
             for (String img : storeInfo.getStoreImg()) {
                 // 去掉已经存在的图片
                 if (img.contains(".")) {

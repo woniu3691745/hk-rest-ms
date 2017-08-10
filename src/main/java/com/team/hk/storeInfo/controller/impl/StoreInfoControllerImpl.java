@@ -1,12 +1,11 @@
 package com.team.hk.storeInfo.controller.impl;
 
 import com.team.hk.common.Constant;
-import com.team.hk.common.RedisEntity;
 import com.team.hk.storeInfo.controller.StoreInfoController;
 import com.team.hk.storeInfo.entity.StoreImg;
 import com.team.hk.storeInfo.entity.StoreInfo;
 import com.team.hk.storeInfo.service.StoreInfoService;
-import com.team.hk.sys.entity.MessageInfo;
+import com.team.hk.common.MessageInfo;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +21,6 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.sun.tools.doclets.internal.toolkit.builders.ClassBuilder.ROOT;
 
 /**
  * Created by lidongliang on 2017/7/8.
@@ -162,9 +159,13 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     @ResponseBody
     @RequestMapping(method = RequestMethod.DELETE, value = "/delStoreImg")
     @Override
-    public int deleteStoreImg(@RequestBody StoreImg storeImg) {
+    public MessageInfo deleteStoreImg(@RequestBody StoreImg storeImg) {
         logger.debug("====> 删除门店图片 " + storeImg.toString());
-        return storeInfoService.deleteStoreImg(storeImg);
+        storeInfoService.deleteStoreImg(storeImg);
+        MessageInfo messageInfo = new MessageInfo();
+        String[] split = storeImg.getImgUrl().split("/");
+        messageInfo.setMsg(split[3]+"/"+split[4]);
+        return messageInfo;
     }
 
 

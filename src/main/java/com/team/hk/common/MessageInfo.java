@@ -1,4 +1,4 @@
-package com.team.hk.sys.entity;
+package com.team.hk.common;
 
 import java.io.Serializable;
 

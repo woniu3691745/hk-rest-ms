@@ -1,6 +1,6 @@
 package com.team.hk.sys.contorller;
 
-import com.team.hk.sys.entity.MessageInfo;
+import com.team.hk.common.MessageInfo;
 import com.team.hk.sys.entity.SysUserInfo;
 
 import javax.servlet.http.HttpServletRequest;

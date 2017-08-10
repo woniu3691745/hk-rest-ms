@@ -1,10 +1,9 @@
 package com.team.hk.sys.contorller.impl;
 
 import com.team.hk.common.RedisEntity;
-import com.team.hk.storeInfo.entity.StoreInfo;
 import com.team.hk.storeInfo.service.StoreInfoService;
 import com.team.hk.sys.contorller.SysLoginController;
-import com.team.hk.sys.entity.MessageInfo;
+import com.team.hk.common.MessageInfo;
 import com.team.hk.sys.entity.SysUserInfo;
 import com.team.hk.sys.entity.SysUserInfoByLogin;
 import com.team.hk.sys.server.SysLoginInfoService;

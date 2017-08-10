@@ -1,5 +1,6 @@
 package com.team.hk.storeInfo.controller;
 
+import com.team.hk.common.MessageInfo;
 import com.team.hk.storeInfo.entity.StoreImg;
 import com.team.hk.storeInfo.entity.StoreInfo;
 
@@ -69,5 +70,5 @@ public interface StoreInfoController {
      * @param storeImg 文件路径
      * @return rowsAffected
      */
-    int deleteStoreImg(StoreImg storeImg);
+    MessageInfo deleteStoreImg(StoreImg storeImg);
 }

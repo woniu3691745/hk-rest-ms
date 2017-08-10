@@ -111,19 +111,21 @@ public class StoreInfoServiceImpl implements StoreInfoService {
         logger.debug("====> 更新门店信息成功!");
         List<StoreImg> storeImgList = new ArrayList<>();
 
-        for (String img : storeInfo.getStoreImg()) {
-            // 去掉已经存在的图片
-            if (img.contains(".")) {
-                StoreImg storeImg = new StoreImg();
-                storeImg.setStoreId(storeInfo.getStoreId());
-                storeImg.setImgUrl(this.url + img);
-                storeImgList.add(storeImg);
+        if(storeInfo.getStoreImg() != null){
+            for (String img : storeInfo.getStoreImg()) {
+                // 去掉已经存在的图片
+                if (img.contains(".")) {
+                    StoreImg storeImg = new StoreImg();
+                    storeImg.setStoreId(storeInfo.getStoreId());
+                    storeImg.setImgUrl(this.url + img);
+                    storeImgList.add(storeImg);
+                }
             }
-        }
-        if (num != 0 && storeImgList.size() != 0) {
-            storeInfoMapper.addStoreImg(storeImgList);
+            if (num != 0 && storeImgList.size() != 0) {
+                storeInfoMapper.addStoreImg(storeImgList);
 //            storeInfoMapper.updateStoreImg(storeImgList);
-            logger.debug("====> 更新门店图片信息成功!");
+                logger.debug("====> 更新门店图片信息成功!");
+            }
         }
         return num;
     }

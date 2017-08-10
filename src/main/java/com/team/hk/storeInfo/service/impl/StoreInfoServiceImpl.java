@@ -62,7 +62,7 @@ public class StoreInfoServiceImpl implements StoreInfoService {
     @Override
     public List<StoreInfo> addStoreInfoService(StoreInfo storeInfo) {
 
-        String url = "api/store/storeImgDown/" + System.currentTimeMillis();
+        String url = "api/store/storeImgDown/";
         int si = storeInfoMapper.add(storeInfo);
         logger.debug("====> 门店基本信息保存成功!:" + si);
 
@@ -97,6 +97,13 @@ public class StoreInfoServiceImpl implements StoreInfoService {
 
     @Override
     public int updateStoreInfoService(StoreInfo storeInfo) {
+//        List<StoreImg> storeImgList = new ArrayList<>();
+//        for (String img : storeInfo.getStoreImg()) {
+//            StoreImg storeImg = new StoreImg();
+//            storeImg.setStoreId(storeInfo.getStoreId());
+//            storeImg.setImgUrl(img);
+//            storeImgList.add(storeImg);
+//        }
         return storeInfoMapper.update(storeInfo);
     }
 

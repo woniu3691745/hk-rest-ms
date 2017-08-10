@@ -96,18 +96,6 @@
         </where>
     </select>
 
-    <!--查询门店图片 -->
-    <select id="getStoreImg" parameterType="Long" resultType="java.lang.String">
-        SELECT
-        IMG.IMG_URL
-        FROM HK_STORE_IMG_T IMG
-        <where>
-            <if test="#{0} != null">
-                IMG.STORE_ID = #{0}
-            </if>
-        </where>
-    </select>
-
     <!-- 更新 -->
     <update id="update" parameterType="MenuInfo">
         UPDATE HK_STORE_INFO_T
@@ -196,18 +184,6 @@
         )
     </insert>
 
-    <!-- 增加门店图片 -->
-    <insert id="addStoreImg" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
-        INSERT into HK_STORE_IMG_T(
-        IMG_URL,
-        STORE_ID
-        )
-        VALUES
-        <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.imgUrl},#{item.storeId})
-        </foreach>
-    </insert>
-
     <!-- 删除 -->
     <delete id="deleteById" parameterType="Long">
         DELETE FROM HK_STORE_INFO_T WHERE STORE_ID = #{0}
@@ -229,6 +205,43 @@
             #{item}
         </foreach>
     </delete>
+
+    <!-- 门店图片操作 -->
+
+    <!--查询门店图片 -->
+    <select id="getStoreImg" parameterType="Long" resultType="java.lang.String">
+        SELECT
+        IMG.IMG_URL
+        FROM HK_STORE_IMG_T IMG
+        <where>
+            <if test="#{0} != null">
+                IMG.STORE_ID = #{0}
+            </if>
+        </where>
+    </select>
+
+    <!-- 增加门店图片 -->
+    <insert id="addStoreImg" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        INSERT into HK_STORE_IMG_T(
+        IMG_URL,
+        STORE_ID
+        )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.imgUrl},#{item.storeId})
+        </foreach>
+    </insert>
+
+    <!-- 更新 -->
+    <update id="updateStoreImg" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            UPDATE HK_STORE_IMG_T
+            <set>
+                IMG_URL = #{item.imgUrl},
+            </set>
+            where STORE_ID = ${item.storeId}
+        </foreach>
+    </update>
 
     <!-- 删除门店图片 -->
     <delete id="deleteStoreImg" parameterType="String">

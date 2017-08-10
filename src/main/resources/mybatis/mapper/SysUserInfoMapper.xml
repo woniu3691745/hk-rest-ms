@@ -111,7 +111,7 @@
               USER_ADDRESS = #{userAddress},
               MODIFY = #{modify},
               UPDATE_DATE_TIME = now()
-           WHERE USER_ID = #{userId}
+          WHERE USER_ID = #{userId}
     </update>
 
     <!-- 增加 -->

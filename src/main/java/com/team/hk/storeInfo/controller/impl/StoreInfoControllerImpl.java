@@ -245,7 +245,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
                 String username = (String) request.getSession().getAttribute("username");
                 FileUtils.copyInputStreamToFile(file.getInputStream(),
                         new File(String.valueOf(Paths.get(ROOT)) + "/" + username + "/storeImg/"
-                                , System.currentTimeMillis() + file.getOriginalFilename()));
+                                , file.getOriginalFilename()));
             } catch (IOException e) {
                 e.printStackTrace();
             }

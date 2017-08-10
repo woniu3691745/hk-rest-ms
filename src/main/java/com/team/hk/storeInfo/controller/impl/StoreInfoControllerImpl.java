@@ -60,6 +60,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     @Override
     public List<StoreInfo> getAllStoreInfoByPage(@RequestBody StoreInfo storeInfo, @PathVariable("pageNo") Long pageNo,
                                                  @PathVariable("pageSize") Long pageSize, HttpServletRequest request) {
+        logger.debug("====> " + storeInfo.toString());
         List list = new ArrayList();
         String userRole = (String) request.getSession().getAttribute(Constant.KEY3);
 
@@ -104,6 +105,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @Override
     public List<StoreInfo> addStoreInfo(@RequestBody StoreInfo storeInfo, HttpServletRequest request) {
+        logger.debug("====> 保存门店信息 " + storeInfo.toString());
         storeInfo.setUserId(Long.valueOf(request.getSession().getAttribute(Constant.KEY1).toString()));
         return storeInfoService.addStoreInfoService(storeInfo);
     }
@@ -118,6 +120,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @Override
     public int updateStoreInfo(@RequestBody StoreInfo storeInfo) {
+        logger.debug("====> 修改门店信息 " + storeInfo.toString());
         return storeInfoService.updateStoreInfoService(storeInfo);
     }
 
@@ -132,6 +135,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     @RequestMapping(value = "/delete/{storeId}", method = RequestMethod.DELETE)
     @Override
     public int deleteStoreInfoById(@PathVariable("storeId") Long storeId) {
+        logger.debug("====> 删除门店ID " + storeId);
         return storeInfoService.deleteStoreInfoByIdService(storeId);
     }
 
@@ -145,6 +149,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     @RequestMapping(value = "/deleteAll", method = RequestMethod.DELETE)
     @Override
     public int deleteStoreInfoByIds(@RequestParam("storeId") List<Long> storeId) {
+        logger.debug("====> 删除门店ID " + storeId.toString());
         return storeInfoService.deleteStoreInfoByIdsService(storeId);
     }
 
@@ -158,8 +163,8 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     @RequestMapping(method = RequestMethod.DELETE, value = "/delStoreImg")
     @Override
     public int deleteStoreImg(@RequestBody StoreImg storeImg) {
-        logger.debug("====> 删除门店图片 " + storeImg.getImgUrl());
-        return storeInfoService.deleteStoreImg(storeImg.getImgUrl());
+        logger.debug("====> 删除门店图片 " + storeImg.toString());
+        return storeInfoService.deleteStoreImg(storeImg);
     }
 
 
@@ -186,12 +191,15 @@ public class StoreInfoControllerImpl implements StoreInfoController {
      * @param filename 门店图片名字
      * @return ResponseEntity
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/storeImgDown/{filename:.+}")
-    public ResponseEntity<?> getStoreImgDown(HttpServletRequest request, @PathVariable String filename) {
+    @RequestMapping(method = RequestMethod.GET, value = "/storeImgDown/{path}/{filename:.+}")
+    public ResponseEntity<?> getStoreImgDown(HttpServletRequest request,
+                                             @PathVariable Long path,
+                                             @PathVariable String filename) {
         try {
             String username = (String) request.getSession().getAttribute("username");
-            return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get(ROOT + "/" + username
-                    + "/storeImg/", filename).toString()));
+            String filePath = Paths.get(ROOT + "/" + username
+                    + "/storeImg/" + path).toString();
+            return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get(filePath, filename).toString()));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
@@ -209,17 +217,19 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     public MessageInfo doUploadHeadImg(HttpServletRequest request, @RequestParam("img") MultipartFile img) {
         MessageInfo messageInfo = new MessageInfo();
         if (!img.isEmpty()) {
+            String username = (String) request.getSession().getAttribute("username");
             try {
-                String username = (String) request.getSession().getAttribute("username");
                 FileUtils.copyInputStreamToFile(img.getInputStream(),
                         new File(String.valueOf(Paths.get(ROOT)) + "/" + username + "/storeLogo/",
                                 img.getOriginalFilename()));
+                logger.debug("====> 上传头像成功 " + String.valueOf(Paths.get(ROOT)) + "/" + username + "/storeLogo/" +
+                        img.getOriginalFilename());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            logger.debug("====> 上传成功");
+
             messageInfo.setCode(200);
-            messageInfo.setMsg("上传成功.");
+            messageInfo.setMsg("上传头像成功.");
             return messageInfo;
         }
         logger.debug("====> 上传失败,文件为空.");
@@ -240,18 +250,22 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     @RequestMapping(value = "/storeImgUpload", method = RequestMethod.POST)
     public MessageInfo doUploadStoreImgs(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
         MessageInfo messageInfo = new MessageInfo();
+        String path = String.valueOf(System.currentTimeMillis());
         if (!file.isEmpty()) {
+            String username = (String) request.getSession().getAttribute("username");
             try {
-                String username = (String) request.getSession().getAttribute("username");
                 FileUtils.copyInputStreamToFile(file.getInputStream(),
                         new File(String.valueOf(Paths.get(ROOT)) + "/" + username + "/storeImg/"
-                                , file.getOriginalFilename()));
+                                + path, file.getOriginalFilename()));
+                logger.debug("====> 上传门店图片成功 " + String.valueOf(Paths.get(ROOT)) + "/" + username + "/storeImg/"
+                        + path + "/" + file.getOriginalFilename());
             } catch (IOException e) {
                 e.printStackTrace();
             }
             messageInfo.setCode(200);
-            messageInfo.setMsg("上传成功.");
-            logger.debug("====> 上传成功");
+            // 用于唯一文件名
+            messageInfo.setMsg1(path);
+            messageInfo.setMsg("上传门店图片成功.");
             return messageInfo;
         }
         messageInfo.setCode(500);

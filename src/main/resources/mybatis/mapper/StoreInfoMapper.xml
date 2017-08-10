@@ -244,7 +244,7 @@
     </update>
 
     <!-- 删除门店图片 -->
-    <delete id="deleteStoreImg" parameterType="String">
-        DELETE FROM HK_STORE_IMG_T WHERE IMG_URL = #{0}
+    <delete id="deleteStoreImg" parameterType="StoreInfo">
+        DELETE FROM HK_STORE_IMG_T WHERE IMG_URL = #{imgUrl} AND STORE_ID = #{storeId}
     </delete>
 </mapper>

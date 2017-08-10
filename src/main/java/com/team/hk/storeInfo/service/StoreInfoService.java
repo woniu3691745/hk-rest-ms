@@ -1,6 +1,7 @@
 package com.team.hk.storeInfo.service;
 
 
+import com.team.hk.storeInfo.entity.StoreImg;
 import com.team.hk.storeInfo.entity.StoreInfo;
 
 import java.util.List;
@@ -83,8 +84,9 @@ public interface StoreInfoService {
     /**
      * 删除门店图片
      *
-     * @param imgUrl 文件路径
+     * @param storeImg 门店图片
      * @return rowsAffected
      */
-    int deleteStoreImg(String imgUrl);
+    int deleteStoreImg(StoreImg storeImg);
+
 }

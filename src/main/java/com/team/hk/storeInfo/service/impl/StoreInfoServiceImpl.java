@@ -5,6 +5,7 @@ import com.team.hk.storeInfo.entity.StoreInfo;
 import com.team.hk.storeInfo.entity.StoreUserInfo;
 import com.team.hk.storeInfo.mapper.StoreInfoMapper;
 import com.team.hk.storeInfo.service.StoreInfoService;
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
@@ -31,6 +32,8 @@ public class StoreInfoServiceImpl implements StoreInfoService {
 
     @Autowired
     private StoreInfoMapper storeInfoMapper;
+
+    private String url = "api/store/storeImgDown/";
 
     @Override
     public List<StoreInfo> getAllStoreInfoByPageService(StoreInfo storeInfo, Long pageNo, Long pageSize) {
@@ -62,27 +65,27 @@ public class StoreInfoServiceImpl implements StoreInfoService {
     @Override
     public List<StoreInfo> addStoreInfoService(StoreInfo storeInfo) {
 
-        String url = "api/store/storeImgDown/";
-        int si = storeInfoMapper.add(storeInfo);
-        logger.debug("====> 门店基本信息保存成功!:" + si);
+        int baseInfo = storeInfoMapper.add(storeInfo);
+        logger.debug("====> 门店基本信息保存成功!:" + baseInfo);
 
         // 保存门店用户关联信息
         StoreUserInfo storeUserInfo = new StoreUserInfo();
         storeUserInfo.setUserId(storeInfo.getUserId());
         storeUserInfo.setStoreId(storeInfo.getStoreId());
-        int sj = storeInfoMapper.addStoreUserInfo(storeUserInfo);
-        logger.debug("====> 门店信息用户关联信息保存成功!:" + sj);
-
-        // 保存门店图片
-        List<StoreImg> storeImgList = new ArrayList<>();
-        for (String img : storeInfo.getStoreImg()) {
-            StoreImg storeImg = new StoreImg();
-            storeImg.setStoreId(storeInfo.getStoreId());
-            storeImg.setImgUrl(url + img);
-            storeImgList.add(storeImg);
+        if (baseInfo != 0) {
+            storeInfoMapper.addStoreUserInfo(storeUserInfo);
+            logger.debug("====> 门店信息用户关联信息保存成功!:");
+            // 保存门店图片
+            List<StoreImg> storeImgList = new ArrayList<>();
+            for (String img : storeInfo.getStoreImg()) {
+                StoreImg storeImg = new StoreImg();
+                storeImg.setStoreId(storeInfo.getStoreId());
+                storeImg.setImgUrl(this.url + storeInfo.getPath() + "/" + img);
+                storeImgList.add(storeImg);
+            }
+            storeInfoMapper.addStoreImg(storeImgList);
+            logger.debug("====> 保存门店图片路径:" + storeImgList.toString());
         }
-        int num = storeInfoMapper.addStoreImg(storeImgList);
-        logger.debug("====> 保存门店图片数量:" + num);
 
         if (storeInfo.getStoreId() != null) {
             StoreInfo sif = new StoreInfo();
@@ -95,16 +98,34 @@ public class StoreInfoServiceImpl implements StoreInfoService {
         }
     }
 
+    /**
+     * 1.更新门店信息
+     * 2.更新门店图片
+     *
+     * @param storeInfo 菜单实体
+     * @return rowsAffected
+     */
     @Override
     public int updateStoreInfoService(StoreInfo storeInfo) {
-//        List<StoreImg> storeImgList = new ArrayList<>();
-//        for (String img : storeInfo.getStoreImg()) {
-//            StoreImg storeImg = new StoreImg();
-//            storeImg.setStoreId(storeInfo.getStoreId());
-//            storeImg.setImgUrl(img);
-//            storeImgList.add(storeImg);
-//        }
-        return storeInfoMapper.update(storeInfo);
+        int num = storeInfoMapper.update(storeInfo);
+        logger.debug("====> 更新门店信息成功!");
+        List<StoreImg> storeImgList = new ArrayList<>();
+
+        for (String img : storeInfo.getStoreImg()) {
+            // 去掉已经存在的图片
+            if (img.contains(".")) {
+                StoreImg storeImg = new StoreImg();
+                storeImg.setStoreId(storeInfo.getStoreId());
+                storeImg.setImgUrl(this.url + storeInfo.getPath() + "/" + img);
+                storeImgList.add(storeImg);
+            }
+        }
+        if (num != 0 && storeImgList.size() != 0) {
+            storeInfoMapper.addStoreImg(storeImgList);
+//            storeInfoMapper.updateStoreImg(storeImgList);
+            logger.debug("====> 更新门店图片信息成功!");
+        }
+        return num;
     }
 
     /**
@@ -156,11 +177,11 @@ public class StoreInfoServiceImpl implements StoreInfoService {
     /**
      * 删除门店图片
      *
-     * @param imgUrl 文件路径
+     * @param storeImg 门店图片
      * @return rowsAffected
      */
     @Override
-    public int deleteStoreImg(String imgUrl) {
-        return storeInfoMapper.deleteStoreImg(imgUrl);
+    public int deleteStoreImg(StoreImg storeImg) {
+        return storeInfoMapper.deleteStoreImg(storeImg);
     }
 }

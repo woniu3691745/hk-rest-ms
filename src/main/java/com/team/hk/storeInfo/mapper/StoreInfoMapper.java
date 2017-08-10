@@ -72,8 +72,16 @@ public interface StoreInfoMapper extends CommonMapper<StoreInfo> {
     /**
      * 删除门店图片
      *
-     * @param imgUrl 文件路径
+     * @param storeImg 门店图片
      * @return rowsAffected
      */
-    int deleteStoreImg(String imgUrl);
+    int deleteStoreImg(StoreImg storeImg);
+
+    /**
+     * 更新门店图片
+     *
+     * @param imgUrl 图片路径
+     * @return rowsAffected
+     */
+    int updateStoreImg(List<StoreImg> imgUrl);
 }

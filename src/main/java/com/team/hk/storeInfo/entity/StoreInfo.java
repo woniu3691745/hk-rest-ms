@@ -29,9 +29,10 @@ public class StoreInfo extends CommonEntity {
     private String storeBusinessAmEndHours;           // 餐厅营业上午闭店结束时间
     private String storeBusinessPmStartHours;         // 餐厅营业下午营业开始时间
     private String storeBusinessPmEndHours;           // 餐厅营业下午闭店结束时间
-    private String storeBusinessDay;                // 餐厅营业日
+    private String storeBusinessDay;                  // 餐厅营业日
 
     private String[] storeImg;          // 餐厅相片
+    private String path;                // 文件路径
 
     private Long userId;                // 用户编号
 
@@ -187,6 +188,14 @@ public class StoreInfo extends CommonEntity {
         this.storeBusinessDay = storeBusinessDay;
     }
 
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
     @Override
     public String toString() {
         return "StoreInfo{" +
@@ -199,7 +208,6 @@ public class StoreInfo extends CommonEntity {
                 ", storeStatus=" + storeStatus +
                 ", storeLogo='" + storeLogo + '\'' +
                 ", storeNotice='" + storeNotice + '\'' +
-                ", storeImg=" + Arrays.toString(storeImg) +
                 ", storeType=" + storeType +
                 ", seatCost=" + seatCost +
                 ", serviceCost='" + serviceCost + '\'' +
@@ -208,6 +216,8 @@ public class StoreInfo extends CommonEntity {
                 ", storeBusinessPmStartHours='" + storeBusinessPmStartHours + '\'' +
                 ", storeBusinessPmEndHours='" + storeBusinessPmEndHours + '\'' +
                 ", storeBusinessDay='" + storeBusinessDay + '\'' +
+                ", storeImg=" + Arrays.toString(storeImg) +
+                ", path='" + path + '\'' +
                 ", userId=" + userId +
                 '}';
     }

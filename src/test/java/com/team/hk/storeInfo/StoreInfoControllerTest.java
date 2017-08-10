@@ -89,6 +89,7 @@ public class StoreInfoControllerTest {
         storeInfo.setStoreName("好利来1");
         storeInfo.setStorePhone(13478824245L);
         storeInfo.setStoreAddress("北京");
+        storeInfo.setPath(String.valueOf(System.currentTimeMillis()));
         storeInfo.setStoreAdmin("李栋梁");
         storeInfo.setStoreDescription("环境优雅");
         storeInfo.setStoreLogo("D:\\asd");

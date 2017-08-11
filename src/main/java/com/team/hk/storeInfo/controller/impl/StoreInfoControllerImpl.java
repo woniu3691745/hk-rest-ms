@@ -40,8 +40,8 @@ public class StoreInfoControllerImpl implements StoreInfoController {
 
     private final ResourceLoader resourceLoader;
 
-    private static final String ROOT = "store/storeImg/";
-    private static final String ROOT_LOGO = "storeLogo";
+    private static final String ROOT_IMG = "store/img/";
+    private static final String ROOT_LOGO = "store/logo/";
 
     @Autowired
     public StoreInfoControllerImpl(ResourceLoader resourceLoader) {
@@ -188,9 +188,9 @@ public class StoreInfoControllerImpl implements StoreInfoController {
                                               @PathVariable String path) {
         try {
             logger.debug("====> logo名字 " + resourceLoader.getResource("file:" +
-                    Paths.get(ROOT_LOGO + "/" + path, filename).toString()));
+                    Paths.get(ROOT_LOGO + path, filename).toString()));
             return ResponseEntity.ok(resourceLoader.getResource("file:" +
-                    Paths.get(ROOT_LOGO + "/" + path, filename).toString()));
+                    Paths.get(ROOT_LOGO + path, filename).toString()));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
@@ -219,8 +219,8 @@ public class StoreInfoControllerImpl implements StoreInfoController {
                 }
             }
             logger.debug("====> logo名字 " +
-                    resourceLoader.getResource("file:" + ROOT_LOGO + "/" + storeLogPath));
-            return ResponseEntity.ok(resourceLoader.getResource("file:" + ROOT_LOGO + "/" + storeLogPath));
+                    resourceLoader.getResource("file:" + ROOT_LOGO + storeLogPath));
+            return ResponseEntity.ok(resourceLoader.getResource("file:" + ROOT_LOGO + storeLogPath));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
@@ -238,9 +238,9 @@ public class StoreInfoControllerImpl implements StoreInfoController {
                                              @PathVariable String filename) {
         try {
             logger.debug("====> 门店图片名字 " +
-                    resourceLoader.getResource("file:" + Paths.get(ROOT + path, filename).toString()));
+                    resourceLoader.getResource("file:" + Paths.get(ROOT_IMG + path, filename).toString()));
             return ResponseEntity.ok(
-                    resourceLoader.getResource("file:" + Paths.get(ROOT + path, filename).toString()));
+                    resourceLoader.getResource("file:" + Paths.get(ROOT_IMG + path, filename).toString()));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
@@ -262,8 +262,8 @@ public class StoreInfoControllerImpl implements StoreInfoController {
         if (!img.isEmpty()) {
             try {
                 FileUtils.copyInputStreamToFile(img.getInputStream(),
-                        new File(ROOT_LOGO + "/" + path, img.getOriginalFilename()));
-                logger.debug("====> 上传头像成功 " + ROOT_LOGO + "/" + path + "/" + img.getOriginalFilename());
+                        new File(ROOT_LOGO + path, img.getOriginalFilename()));
+                logger.debug("====> 上传头像成功 " + ROOT_LOGO + path + "/" + img.getOriginalFilename());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -294,8 +294,8 @@ public class StoreInfoControllerImpl implements StoreInfoController {
         if (!file.isEmpty()) {
             try {
                 FileUtils.copyInputStreamToFile(file.getInputStream(),
-                        new File(ROOT + path, file.getOriginalFilename()));
-                logger.debug("====> 上传门店图片成功 " + ROOT + path + "/" + file.getOriginalFilename());
+                        new File(ROOT_IMG + path, file.getOriginalFilename()));
+                logger.debug("====> 上传门店图片成功 " + ROOT_IMG + path + "/" + file.getOriginalFilename());
             } catch (IOException e) {
                 e.printStackTrace();
             }

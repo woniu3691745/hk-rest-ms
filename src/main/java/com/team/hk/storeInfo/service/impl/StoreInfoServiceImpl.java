@@ -141,6 +141,7 @@ public class StoreInfoServiceImpl implements StoreInfoService {
     @Override
     public int deleteStoreInfoByIdService(Long storeId) {
         storeInfoMapper.deleteByIdOne(storeId);
+        storeInfoMapper.deleteByIdTwo(storeId);
         return storeInfoMapper.deleteById(storeId);
     }
 
@@ -152,6 +153,7 @@ public class StoreInfoServiceImpl implements StoreInfoService {
      */
     @Override
     public int deleteStoreInfoByIdsService(List<Long> storeId) {
+        storeInfoMapper.deleteByIdsOne(storeId);
         storeInfoMapper.deleteByIdsOne(storeId);
         return storeInfoMapper.deleteByIds(storeId);
     }

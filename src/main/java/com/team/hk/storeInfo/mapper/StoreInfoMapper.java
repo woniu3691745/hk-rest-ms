@@ -30,7 +30,7 @@ public interface StoreInfoMapper extends CommonMapper<StoreInfo> {
     int addStoreUserInfo(StoreUserInfo storeUserInfo);
 
     /**
-     * 删除一条记录
+     * 删除一条记录（门店用户关联信息）
      *
      * @param id 门店信息ID
      * @return rowsAffected
@@ -38,12 +38,28 @@ public interface StoreInfoMapper extends CommonMapper<StoreInfo> {
     int deleteByIdOne(Long id);
 
     /**
-     * 删除多条
+     * 删除多条（门店图片）
+     *
+     * @param id 门店信息ID
+     * @return rowsAffected
+     */
+    int deleteByIdTwo(Long id);
+
+    /**
+     * 删除多条（门店用户关联信息）
      *
      * @param id 门店信息ID
      * @return rowsAffected
      */
     int deleteByIdsOne(List<Long> id);
+
+    /**
+     * 删除多条（门店图片）
+     *
+     * @param id 门店信息ID
+     * @return rowsAffected
+     */
+    int deleteByIdsTwo(List<Long> id);
 
     /**
      * 通过用户ID获得门店ID

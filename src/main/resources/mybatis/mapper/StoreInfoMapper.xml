@@ -191,6 +191,9 @@
     <delete id="deleteByIdOne" parameterType="Long">
         DELETE FROM HK_USER_STORE_INFO_T WHERE STORE_ID = #{0}
     </delete>
+    <delete id="deleteByIdTwo" parameterType="Long">
+        DELETE FROM HK_STORE_IMG_T WHERE STORE_ID = #{0}
+    </delete>
 
     <!-- 删除全部-->
     <delete id="deleteByIds" parameterType="java.util.List">
@@ -201,6 +204,12 @@
     </delete>
     <delete id="deleteByIdsOne" parameterType="java.util.List">
         DELETE FROM HK_USER_STORE_INFO_T WHERE STORE_ID in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+    <delete id="deleteByIdsTwo" parameterType="java.util.List">
+        DELETE FROM HK_STORE_IMG_T WHERE STORE_ID in
         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
             #{item}
         </foreach>

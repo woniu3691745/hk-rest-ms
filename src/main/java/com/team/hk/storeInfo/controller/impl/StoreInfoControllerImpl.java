@@ -7,11 +7,13 @@ import com.team.hk.storeInfo.entity.StoreInfo;
 import com.team.hk.storeInfo.service.StoreInfoService;
 import com.team.hk.common.MessageInfo;
 import org.apache.commons.io.FileUtils;
+import org.apache.ibatis.jdbc.Null;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +23,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by lidongliang on 2017/7/8.
@@ -37,7 +40,8 @@ public class StoreInfoControllerImpl implements StoreInfoController {
 
     private final ResourceLoader resourceLoader;
 
-    private static final String ROOT = "storeImg";
+    private static final String ROOT = "store/storeImg/";
+    private static final String ROOT_LOGO = "storeLogo";
 
     @Autowired
     public StoreInfoControllerImpl(ResourceLoader resourceLoader) {
@@ -82,6 +86,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     @Override
     public List<StoreInfo> getAllStoreInfo(@RequestBody StoreInfo storeInfo, HttpServletRequest request) {
+        logger.debug("====> " + storeInfo.toString());
 
         Long userId = Long.valueOf(request.getSession().getAttribute(Constant.KEY1).toString());
         String userRole = (String) request.getSession().getAttribute(Constant.KEY3);
@@ -164,23 +169,58 @@ public class StoreInfoControllerImpl implements StoreInfoController {
         storeInfoService.deleteStoreImg(storeImg);
         MessageInfo messageInfo = new MessageInfo();
         String[] split = storeImg.getImgUrl().split("/");
-        messageInfo.setMsg(split[3]+"/"+split[4]);
+        messageInfo.setMsg(split[3] + "/" + split[4]);
         return messageInfo;
     }
 
 
     /**
      * 获得门店logo
+     * 新增页面
      *
      * @param filename logo名字
+     * @param path     图片路径
      * @return ResponseEntity
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/storeLogoDown/{filename:.+}")
-    public ResponseEntity<?> getStoreLogoDown(HttpServletRequest request, @PathVariable String filename) {
+    @RequestMapping(method = RequestMethod.GET, value = "/add/storeLogoDown/{path}/{filename:.+}")
+    public ResponseEntity<?> addStoreLogoDown(HttpServletRequest request,
+                                              @PathVariable String filename,
+                                              @PathVariable String path) {
         try {
-            String username = (String) request.getSession().getAttribute("username");
-            return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get(ROOT + "/" + username
-                    + "/storeLogo/", filename).toString()));
+            logger.debug("====> logo名字 " + resourceLoader.getResource("file:" +
+                    Paths.get(ROOT_LOGO + "/" + path, filename).toString()));
+            return ResponseEntity.ok(resourceLoader.getResource("file:" +
+                    Paths.get(ROOT_LOGO + "/" + path, filename).toString()));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    /**
+     * 获得门店logo
+     * 编辑页面
+     *
+     * @param filename logo名字
+     * @param storeId  门店ID
+     * @return ResponseEntity
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/edit/storeLogoDown/{storeId}/{filename:.+}")
+    public ResponseEntity<?> editStoreLogoDown(HttpServletRequest request,
+                                               @PathVariable String filename,
+                                               @PathVariable String storeId) {
+        try {
+            StoreInfo storeInfo = new StoreInfo();
+            storeInfo.setStoreId(Long.valueOf(storeId));
+            List<StoreInfo> allStoreInfoService = storeInfoService.getAllStoreInfoService(storeInfo);
+            String storeLogPath = "";
+            if (allStoreInfoService.size() != 0) {
+                if (allStoreInfoService.get(0).getStoreLogo() != null) {
+                    storeLogPath = allStoreInfoService.get(0).getStoreLogo();
+                }
+            }
+            logger.debug("====> logo名字 " +
+                    resourceLoader.getResource("file:" + ROOT_LOGO + "/" + storeLogPath));
+            return ResponseEntity.ok(resourceLoader.getResource("file:" + ROOT_LOGO + "/" + storeLogPath));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
@@ -197,10 +237,10 @@ public class StoreInfoControllerImpl implements StoreInfoController {
                                              @PathVariable Long path,
                                              @PathVariable String filename) {
         try {
-            String username = (String) request.getSession().getAttribute("username");
-            String filePath = Paths.get(ROOT + "/" + username
-                    + "/storeImg/" + path).toString();
-            return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get(filePath, filename).toString()));
+            logger.debug("====> 门店图片名字 " +
+                    resourceLoader.getResource("file:" + Paths.get(ROOT + path, filename).toString()));
+            return ResponseEntity.ok(
+                    resourceLoader.getResource("file:" + Paths.get(ROOT + path, filename).toString()));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
@@ -214,17 +254,16 @@ public class StoreInfoControllerImpl implements StoreInfoController {
      * @return messageInfo
      */
     @ResponseBody
-    @RequestMapping(value = "/storeLogoUpload", method = RequestMethod.POST)
-    public MessageInfo doUploadHeadImg(HttpServletRequest request, @RequestParam("img") MultipartFile img) {
+    @RequestMapping(value = "/storeLogoUpload/{path}", method = RequestMethod.POST)
+    public MessageInfo doUploadHeadImg(HttpServletRequest request,
+                                       @RequestParam("img") MultipartFile img,
+                                       @PathVariable String path) {
         MessageInfo messageInfo = new MessageInfo();
         if (!img.isEmpty()) {
-            String username = (String) request.getSession().getAttribute("username");
             try {
                 FileUtils.copyInputStreamToFile(img.getInputStream(),
-                        new File(String.valueOf(Paths.get(ROOT)) + "/" + username + "/storeLogo/",
-                                img.getOriginalFilename()));
-                logger.debug("====> 上传头像成功 " + String.valueOf(Paths.get(ROOT)) + "/" + username + "/storeLogo/" +
-                        img.getOriginalFilename());
+                        new File(ROOT_LOGO + "/" + path, img.getOriginalFilename()));
+                logger.debug("====> 上传头像成功 " + ROOT_LOGO + "/" + path + "/" + img.getOriginalFilename());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -253,13 +292,10 @@ public class StoreInfoControllerImpl implements StoreInfoController {
         MessageInfo messageInfo = new MessageInfo();
         String path = String.valueOf(System.currentTimeMillis());
         if (!file.isEmpty()) {
-            String username = (String) request.getSession().getAttribute("username");
             try {
                 FileUtils.copyInputStreamToFile(file.getInputStream(),
-                        new File(String.valueOf(Paths.get(ROOT)) + "/" + username + "/storeImg/"
-                                + path, file.getOriginalFilename()));
-                logger.debug("====> 上传门店图片成功 " + String.valueOf(Paths.get(ROOT)) + "/" + username + "/storeImg/"
-                        + path + "/" + file.getOriginalFilename());
+                        new File(ROOT + path, file.getOriginalFilename()));
+                logger.debug("====> 上传门店图片成功 " + ROOT + path + "/" + file.getOriginalFilename());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -283,7 +319,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
      */
     @RequestMapping(method = RequestMethod.POST, value = "/storeImgDowns")
     @ResponseBody
-    public List getFiles(@RequestBody StoreImg storeImg) {
+    public List getStoreImgPath(@RequestBody StoreImg storeImg) {
         return storeInfoService.getStoreImg(storeImg.getStoreId());
     }
 

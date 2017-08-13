@@ -20,6 +20,8 @@ public class SysUserInfo extends CommonEntity {
     private String userType;        // 用户类型
     private Long parentId;          // 父亲ID
 
+    private Long storeId;           // 门店ID
+
     public Long getUserId() {
         return userId;
     }
@@ -92,6 +94,14 @@ public class SysUserInfo extends CommonEntity {
         this.parentId = parentId;
     }
 
+    public Long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
+    }
+
     public SysUserInfo() {
     }
 
@@ -107,6 +117,7 @@ public class SysUserInfo extends CommonEntity {
                 ", userRole='" + userRole + '\'' +
                 ", userType='" + userType + '\'' +
                 ", parentId=" + parentId +
+                ", storeId=" + storeId +
                 '}';
     }
 }

@@ -1,6 +1,6 @@
 package com.team.hk.storeInfo.controller.impl;
 
-import com.team.hk.common.Constant;
+import com.team.hk.common.ConstantUtil;
 import com.team.hk.storeInfo.controller.StoreInfoController;
 import com.team.hk.storeInfo.entity.StoreImg;
 import com.team.hk.storeInfo.entity.StoreInfo;
@@ -8,13 +8,11 @@ import com.team.hk.storeInfo.service.StoreInfoService;
 import com.team.hk.common.MessageInfo;
 import com.team.hk.util.FileUtil;
 import org.apache.commons.io.FileUtils;
-import org.apache.ibatis.jdbc.Null;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,7 +22,6 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by lidongliang on 2017/7/8.
@@ -69,10 +66,10 @@ public class StoreInfoControllerImpl implements StoreInfoController {
 
         logger.debug("====> " + storeInfo.toString());
         List list = new ArrayList();
-        String userRole = (String) request.getSession().getAttribute(Constant.KEY3);
+        String userRole = (String) request.getSession().getAttribute(ConstantUtil.KEY3);
 
         /* admin登录查询全部信息 */
-        if (userRole != null && userRole.contains(Constant.ROULE_ADMIN)) {
+        if (userRole != null && userRole.contains(ConstantUtil.ROLE_ADMIN)) {
             storeInfo.setUserId(null);
         }
         List<StoreInfo> menuInfos = storeInfoService.getAllStoreInfoByPageService(storeInfo, pageNo, pageSize);
@@ -95,11 +92,11 @@ public class StoreInfoControllerImpl implements StoreInfoController {
 
         logger.debug("====> " + storeInfo.toString());
 
-        Long userId = Long.valueOf(request.getSession().getAttribute(Constant.KEY1).toString());
-        String userRole = (String) request.getSession().getAttribute(Constant.KEY3);
+        Long userId = Long.valueOf(request.getSession().getAttribute(ConstantUtil.KEY1).toString());
+        String userRole = (String) request.getSession().getAttribute(ConstantUtil.KEY3);
 
         /* boss登录 */
-        if (userRole != null && userRole.contains(Constant.ROULE_BOSS)) {
+        if (userRole != null && userRole.contains(ConstantUtil.ROLE_BOSS)) {
             storeInfo.setUserId(userId);
         }
         return storeInfoService.getAllStoreInfoService(storeInfo);
@@ -117,7 +114,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     public List<StoreInfo> addStoreInfo(@RequestBody StoreInfo storeInfo, HttpServletRequest request) {
 
         logger.debug("====> 保存门店信息: " + storeInfo.toString());
-        storeInfo.setUserId(Long.valueOf(request.getSession().getAttribute(Constant.KEY1).toString()));
+        storeInfo.setUserId(Long.valueOf(request.getSession().getAttribute(ConstantUtil.KEY1).toString()));
         return storeInfoService.addStoreInfoService(storeInfo);
     }
 

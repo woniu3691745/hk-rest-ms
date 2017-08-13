@@ -1,5 +1,7 @@
 package com.team.hk.sys.server.impl;
 
+import com.team.hk.storeInfo.entity.StoreUserInfo;
+import com.team.hk.storeInfo.mapper.StoreInfoMapper;
 import com.team.hk.sys.entity.SysUserInfo;
 import com.team.hk.sys.mapper.SysUserInfoMapper;
 import com.team.hk.sys.server.SysUserInfoService;
@@ -9,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by lidongliang on 2017/7/16.
@@ -23,6 +24,9 @@ public class SysUserInfoServiceImpl implements SysUserInfoService {
 
     @Autowired
     private SysUserInfoMapper sysUserInfoMapper;
+
+    @Autowired
+    private StoreInfoMapper storeInfoMapper;
 
     @Override
     public List<SysUserInfo> getAllSysUserInfoByPageService(SysUserInfo sysUserInfo, Long pageNo, Long pageSize) {
@@ -51,7 +55,16 @@ public class SysUserInfoServiceImpl implements SysUserInfoService {
      */
     @Override
     public List<SysUserInfo> addSysUserInfoService(SysUserInfo sysUserInfo) {
+
+        /* 保存用户信息 */
         sysUserInfoMapper.add(sysUserInfo);
+
+        /* 保存用户和门店关系信息 */
+        StoreUserInfo storeUserInfo = new StoreUserInfo();
+        storeUserInfo.setUserId(sysUserInfo.getUserId());
+        storeUserInfo.setStoreId(sysUserInfo.getStoreId());
+        storeInfoMapper.addStoreUserInfo(storeUserInfo);
+
         if (sysUserInfo.getUserId() != null) {
             logger.debug("添加系统用户信息成功,返回USER_ID : " + sysUserInfo.getUserId());
             SysUserInfo sui = new SysUserInfo();
@@ -65,6 +78,13 @@ public class SysUserInfoServiceImpl implements SysUserInfoService {
 
     @Override
     public int updateSysUserInfoService(SysUserInfo sysUserInfo) {
+
+        /* 更新用户和门店关系信息 */
+        StoreUserInfo storeUserInfo = new StoreUserInfo();
+        storeUserInfo.setUserId(sysUserInfo.getUserId());
+        storeUserInfo.setStoreId(sysUserInfo.getStoreId());
+        storeInfoMapper.updateStoreIdByUser(storeUserInfo);
+
         return sysUserInfoMapper.update(sysUserInfo);
     }
 

@@ -5,45 +5,48 @@
 
     <!-- 基本字段 -->
     <sql id="Base_Column_List">
-        USER_ID AS userId,
-        USER_NAME AS userName,
-        USER_PASSWORD AS userPassword,
-        USER_PHONE AS userPhone,
-        USER_SEX AS userSex,
-        USER_ADDRESS AS userAddress,
-        USER_ROLE AS userRole,
-        USER_TYPE AS userType,
-        PARENT_ID AS parentId,
-        CREATER AS creater,
-        CREATE_DATE_TIME AS createDateTime,
-        MODIFY AS modify,
-        UPDATE_DATE_TIME AS updateDateTime,
-        STATUS AS status
+        U.USER_ID             AS userId,
+        U.USER_NAME           AS userName,
+        U.USER_PASSWORD       AS userPassword,
+        U.USER_PHONE          AS userPhone,
+        U.USER_SEX            AS userSex,
+        U.USER_ADDRESS        AS userAddress,
+        U.USER_ROLE           AS userRole,
+        U.USER_TYPE           AS userType,
+        U.PARENT_ID           AS parentId,
+        S.STORE_ID            AS storeId,
+        U.CREATER             AS creater,
+        U.CREATE_DATE_TIME    AS createDateTime,
+        U.MODIFY              AS modify,
+        U.UPDATE_DATE_TIME    AS updateDateTime,
+        U.STATUS              AS status
     </sql>
 
     <!-- 查询 -->
     <select id="listByPage" parameterType="SysUserInfo" resultType="SysUserInfo">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM HK_SYS_USER_INFO_T
+        FROM HK_SYS_USER_INFO_T U
+        LEFT JOIN HK_USER_STORE_INFO_T S
+        ON U.USER_ID = S.USER_ID
         <where>
             <if test="userId != null">
-                USER_ID = #{userId}
+                U.USER_ID = #{userId}
             </if>
             <if test="userName != null">
-                AND USER_NAME = #{userName}
+                AND U.USER_NAME = #{userName}
             </if>
             <if test="userPassword != null">
-                AND USER_PASSWORD = #{userPassword}
+                AND U.USER_PASSWORD = #{userPassword}
             </if>
             <if test="userType != null">
-                AND USER_TYPE = #{userType}
+                AND U.USER_TYPE = #{userType}
             </if>
             <if test="parentId != null">
-                AND PARENT_ID = #{parentId}
+                AND U.PARENT_ID = #{parentId}
             </if>
         </where>
-        ORDER BY UPDATE_DATE_TIME DESC
+        ORDER BY U.UPDATE_DATE_TIME DESC
         <if test="pageNo != null and pageSize != null">
             LIMIT #{pageNo}, #{pageSize}
         </if>
@@ -53,22 +56,24 @@
     <select id="listCountByPage" parameterType="SysUserInfo" resultType="int">
         SELECT
         count(*)
-        FROM HK_SYS_USER_INFO_T
+        FROM HK_SYS_USER_INFO_T U
+        LEFT JOIN HK_USER_STORE_INFO_T S
+        ON U.USER_ID = S.USER_ID
         <where>
             <if test="userId != null">
-                USER_ID = #{userId}
+                U.USER_ID = #{userId}
             </if>
             <if test="userName != null">
-                AND USER_NAME = #{userName}
+                AND U.USER_NAME = #{userName}
             </if>
             <if test="userPassword != null">
-                AND USER_PASSWORD = #{userPassword}
+                AND U.USER_PASSWORD = #{userPassword}
             </if>
             <if test="userType != null">
-                AND USER_TYPE = #{userType}
+                AND U.USER_TYPE = #{userType}
             </if>
             <if test="parentId != null">
-                AND PARENT_ID = #{parentId}
+                AND U.PARENT_ID = #{parentId}
             </if>
         </where>
         <if test="pageNo != null and pageSize != null">
@@ -80,22 +85,24 @@
     <select id="list" parameterType="SysUserInfo" resultType="SysUserInfo">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM HK_SYS_USER_INFO_T
+        FROM HK_SYS_USER_INFO_T U
+        LEFT JOIN HK_USER_STORE_INFO_T S
+        ON U.USER_ID = S.USER_ID
         <where>
             <if test="userId != null">
-                USER_ID = #{userId}
+                U.USER_ID = #{userId}
             </if>
             <if test="userName != null">
-                AND USER_NAME = #{userName}
+                AND U.USER_NAME = #{userName}
             </if>
             <if test="userPassword != null">
-                AND USER_PASSWORD = #{userPassword}
+                AND U.USER_PASSWORD = #{userPassword}
             </if>
             <if test="userType != null">
-                AND USER_TYPE = #{userType}
+                AND U.USER_TYPE = #{userType}
             </if>
             <if test="parentId != null">
-                AND PARENT_ID = #{parentId}
+                AND U.PARENT_ID = #{parentId}
             </if>
         </where>
     </select>

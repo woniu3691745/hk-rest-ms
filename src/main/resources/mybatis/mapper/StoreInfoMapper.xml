@@ -26,7 +26,7 @@
         SI.CREATE_DATE_TIME           AS createDateTime,
         SI.MODIFY                     AS modify,
         SI.UPDATE_DATE_TIME           AS updateDateTime,
-        STATUS                        AS status
+        SI.STATUS                     AS status
     </sql>
 
     <!-- 查询 -->
@@ -95,6 +95,13 @@
             </if>
         </where>
     </select>
+
+    <!-- 修改门店对应的用户 -->
+    <update id="updateStoreIdByUser" parameterType="StoreUserInfo">
+        UPDATE HK_USER_STORE_INFO_T
+          SET STORE_ID = #{storeId}
+        WHERE USER_ID = #{userId}
+    </update>
 
     <!-- 更新 -->
     <update id="update" parameterType="MenuInfo">

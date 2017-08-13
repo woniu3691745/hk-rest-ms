@@ -10,15 +10,15 @@ public class SysUserInfo extends CommonEntity {
 
     private static final long serialVersionUID = 1L;
 
-    private Long userId;
-    private String userName;
-    private String userPassword;
-    private Long userPhone;
-    private int userSex;
-    private String userAddress;
-    private String userRole;
-    private String userType;
-    private Long parentId;
+    private Long userId;            // 用户ID
+    private String userName;        // 用户名称
+    private String userPassword;    // 用户密码
+    private Long userPhone;         // 用户电话
+    private int userSex;            // 用户性别
+    private String userAddress;     // 用户地址
+    private String userRole;        // 用户角色
+    private String userType;        // 用户类型
+    private Long parentId;          // 父亲ID
 
     public Long getUserId() {
         return userId;

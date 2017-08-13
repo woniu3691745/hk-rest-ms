@@ -6,23 +6,23 @@ import java.util.List;
 
 /**
  * Created by lidongliang on 2017/7/16.
- * 返回vue-router菜单格式
+ * 返回vue-router路由菜单格式
  */
 public class MenuFormatInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
-    private String path;
-    private String component;
-    private String redirect;
-    private String name;
-    private String icon;
-    private Long parent;
-    private String[] role;
-    private int type;
+    private Long id;            // 主键
+    private String path;        // 路径
+    private String component;   // 组件
+    private String redirect;    // 请求方式
+    private String name;        // 名字
+    private String icon;        // 图标
+    private Long parent;        // 父类菜单
+    private String[] role;      // 角色
+    private int type;           // 类型
 
-    private List<MenuFormatInfo> children;
+    private List<MenuFormatInfo> children;      // 子类菜单
 
     public Long getId() {
         return id;

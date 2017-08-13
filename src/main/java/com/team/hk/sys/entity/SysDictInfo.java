@@ -10,11 +10,11 @@ public class SysDictInfo extends CommonEntity {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
-    private Long typeId;
-    private String typeName;
-    private String value;
-    private String name;
+    private Long id;            // 主键
+    private Long typeId;        // 类型ID
+    private String typeName;    // 类型名字
+    private String value;       // 值
+    private String name;        // 名字
 
     public SysDictInfo() {
     }

@@ -10,11 +10,11 @@ public class SysUserInfoByLogin implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long userId;
-    private String userName;
-    private String userRole;
-    private Long storeId;
-    private String storeLogo;
+    private Long userId;        // 用户ID
+    private String userName;    // 用户名称
+    private String userRole;    // 用户角色
+    private Long storeId;       // 门店ID
+    private String storeLogo;   // 门店logo
 
     public SysUserInfoByLogin() {
     }

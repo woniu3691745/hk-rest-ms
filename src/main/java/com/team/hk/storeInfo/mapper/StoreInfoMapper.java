@@ -100,4 +100,12 @@ public interface StoreInfoMapper extends CommonMapper<StoreInfo> {
      * @return rowsAffected
      */
     int updateStoreImg(List<StoreImg> imgUrl);
+
+    /**
+     * 修改门店对应的用户
+     *
+     * @param storeUserInfo 用户门店关联实体
+     * @return rowsAffected
+     */
+    int updateStoreIdByUser(StoreUserInfo storeUserInfo);
 }

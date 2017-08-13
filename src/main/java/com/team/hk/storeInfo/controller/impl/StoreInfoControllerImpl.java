@@ -6,6 +6,7 @@ import com.team.hk.storeInfo.entity.StoreImg;
 import com.team.hk.storeInfo.entity.StoreInfo;
 import com.team.hk.storeInfo.service.StoreInfoService;
 import com.team.hk.common.MessageInfo;
+import com.team.hk.util.FileUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.ibatis.jdbc.Null;
 import org.apache.log4j.Logger;
@@ -38,7 +39,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     @Autowired
     private StoreInfoService storeInfoService;
 
-    // class path: "classpath:"
+    /* class path: "classpath:" */
     private final ResourceLoader resourceLoader;
 
     /**
@@ -70,7 +71,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
         List list = new ArrayList();
         String userRole = (String) request.getSession().getAttribute(Constant.KEY3);
 
-        // admin登录查询全部信息
+        /* admin登录查询全部信息 */
         if (userRole != null && userRole.contains(Constant.ROULE_ADMIN)) {
             storeInfo.setUserId(null);
         }
@@ -97,7 +98,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
         Long userId = Long.valueOf(request.getSession().getAttribute(Constant.KEY1).toString());
         String userRole = (String) request.getSession().getAttribute(Constant.KEY3);
 
-        // boss登录
+        /* boss登录 */
         if (userRole != null && userRole.contains(Constant.ROULE_BOSS)) {
             storeInfo.setUserId(userId);
         }
@@ -148,7 +149,28 @@ public class StoreInfoControllerImpl implements StoreInfoController {
     public int deleteStoreInfoById(@PathVariable("storeId") Long storeId) {
 
         logger.debug("====> 删除门店ID: " + storeId);
-        return storeInfoService.deleteStoreInfoByIdService(storeId);
+
+        List<String> storeImg = storeInfoService.getStoreImg(storeId);
+        StoreInfo storeInfo = new StoreInfo();
+        storeInfo.setStoreId(storeId);
+
+        List<StoreInfo> storeInfoList = storeInfoService.getAllStoreInfoService(storeInfo);
+        int num = storeInfoService.deleteStoreInfoByIdService(storeId);
+        /* 删除门店成功后 */
+        if (num != 0) {
+            if (storeImg.size() > 0) {
+                for (String path : storeImg) {
+                    String[] filePath = path.split("/");
+                    /* 删除门店图片 */
+                    FileUtil.deleteFolder(new File(ROOT_IMG + filePath[3]));
+                }
+            }
+            if (storeInfoList.size() > 0 && storeInfoList.get(0).getStoreLogo() != null) {
+                /* 删除门店logo */
+                FileUtil.deleteFolder(new File(ROOT_LOGO + storeInfoList.get(0).getStoreLogo().split("/")[0]));
+            }
+        }
+        return num;
     }
 
     /**
@@ -183,6 +205,11 @@ public class StoreInfoControllerImpl implements StoreInfoController {
         MessageInfo messageInfo = new MessageInfo();
         String[] split = storeImg.getImgUrl().split("/");
         messageInfo.setMsg(split[3] + "/" + split[4]);
+
+        /* 物理删除 */
+        String delPath = split[3];
+        FileUtil.deleteFolder(new File(ROOT_IMG + delPath));
+
         return messageInfo;
     }
 
@@ -310,7 +337,7 @@ public class StoreInfoControllerImpl implements StoreInfoController {
                 e.printStackTrace();
             }
             messageInfo.setCode(200);
-            // 用于唯一文件名,前端需要
+            /* 用于唯一文件名,前端需要 */
             messageInfo.setMsg1(path);
             messageInfo.setMsg("上传门店图片成功.");
             return messageInfo;

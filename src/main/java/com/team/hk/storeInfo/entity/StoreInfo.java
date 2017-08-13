@@ -3,7 +3,6 @@ package com.team.hk.storeInfo.entity;
 import com.team.hk.common.CommonEntity;
 
 import java.util.Arrays;
-import java.util.Date;
 
 /**
  * Created by lidongliang on 2017/7/8.
@@ -32,6 +31,7 @@ public class StoreInfo extends CommonEntity {
     private String storeBusinessDay;                  // 餐厅营业日
 
     private String[] storeImg;          // 餐厅相片
+
     private Long userId;                // 用户编号
 
     public Long getStoreId() {

@@ -13,54 +13,54 @@ import java.util.List;
 public interface StoreInfoService {
 
     /**
-     * 获得菜单信息（通过分页)
+     * 获得门店信息（通过分页)
      *
      * @return List<StoreInfo>
      */
     List<StoreInfo> getAllStoreInfoByPageService(StoreInfo storeInfo, Long pageNo, Long pageSize);
 
     /**
-     * 获得菜单信息数量
+     * 获得门店信息数量
      *
      * @return List<StoreInfo>
      */
     int getAllStoreInfoCountByPageService(StoreInfo storeInfo, Long pageNo, Long pageSize);
 
     /**
-     * 获得菜单信息
+     * 获得门店信息
      *
      * @return List<StoreInfo>
      */
     List<StoreInfo> getAllStoreInfoService(StoreInfo storeInfo);
 
     /**
-     * 增加菜单信息
+     * 增加门店信息
      *
-     * @param storeInfo 菜单实体
+     * @param storeInfo 门店实体
      * @return List<StoreInfo>
      */
     List<StoreInfo> addStoreInfoService(StoreInfo storeInfo);
 
     /**
-     * 修改菜单信息
+     * 修改门店信息
      *
-     * @param storeInfo 菜单实体
+     * @param storeInfo 门店实体
      * @return rowsAffected
      */
     int updateStoreInfoService(StoreInfo storeInfo);
 
     /**
-     * 删除一条菜单信息
+     * 删除一条门店信息
      *
-     * @param id 菜单ID
+     * @param id 门店ID
      * @return rowsAffected
      */
     int deleteStoreInfoByIdService(Long id);
 
     /**
-     * 删除多条菜单信息
+     * 删除多条门店信息
      *
-     * @param id 菜单ID
+     * @param id 门店ID
      * @return rowsAffected
      */
     int deleteStoreInfoByIdsService(List<Long> id);

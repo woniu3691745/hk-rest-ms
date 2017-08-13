@@ -17,6 +17,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/api/sysDict")
+
 public class SysDictInfoControllerImpl implements SysDictInfoController {
 
     private static Logger logger = Logger.getLogger(SysDictInfoControllerImpl.class);
@@ -35,10 +36,15 @@ public class SysDictInfoControllerImpl implements SysDictInfoController {
     @ResponseBody
     @RequestMapping(value = "/getAll/{pageNo}/{pageSize}", method = RequestMethod.POST)
     @Override
-    public List<SysDictInfo> getAllSysDictInfoByPage(@RequestBody SysDictInfo sysDictInfo, @PathVariable("pageNo") Long pageNo,
+    public List<SysDictInfo> getAllSysDictInfoByPage(@RequestBody SysDictInfo sysDictInfo,
+                                                     @PathVariable("pageNo") Long pageNo,
                                                      @PathVariable("pageSize") Long pageSize) {
+
+        logger.debug("====>系统字典信息: " + sysDictInfo.toString());
+
         List list = new ArrayList();
-        List<SysDictInfo> sysDictInfos = sysDictInfoService.getAllSysDictInfoByPageService(sysDictInfo, pageNo, pageSize);
+        List<SysDictInfo> sysDictInfos =
+                sysDictInfoService.getAllSysDictInfoByPageService(sysDictInfo, pageNo, pageSize);
         int count = sysDictInfoService.getAllSysDictInfoCountByPageService(sysDictInfo, pageNo, pageSize);
         list.add(sysDictInfos);
         list.add(count);
@@ -55,6 +61,7 @@ public class SysDictInfoControllerImpl implements SysDictInfoController {
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     @Override
     public List<SysDictInfo> getAllSysDictInfo(@RequestBody SysDictInfo sysDictInfo) {
+        logger.debug("====>系统字典信息: " + sysDictInfo.toString());
         return sysDictInfoService.getAllSysDictInfoService(sysDictInfo);
     }
 
@@ -69,6 +76,7 @@ public class SysDictInfoControllerImpl implements SysDictInfoController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @Override
     public List<SysDictInfo> addSysDictInfo(@RequestBody SysDictInfo sysDictInfo) {
+        logger.debug("====>增加系统字典信息: " + sysDictInfo.toString());
         return sysDictInfoService.addSysDictInfoService(sysDictInfo);
     }
 
@@ -82,6 +90,7 @@ public class SysDictInfoControllerImpl implements SysDictInfoController {
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @Override
     public int updateSysDictInfo(@RequestBody SysDictInfo sysDictInfo) {
+        logger.debug("====>修改系统字典信息: " + sysDictInfo.toString());
         return sysDictInfoService.updateSysDictInfoService(sysDictInfo);
     }
 
@@ -95,6 +104,7 @@ public class SysDictInfoControllerImpl implements SysDictInfoController {
     @RequestMapping(value = "/delete/{dictId}", method = RequestMethod.DELETE)
     @Override
     public int deleteSysDictInfoById(@PathVariable("dictId") Long dictId) {
+        logger.debug("====>删除系统字典信息: " + dictId.toString());
         return sysDictInfoService.deleteSysDictInfoByIdService(dictId);
     }
 
@@ -108,6 +118,7 @@ public class SysDictInfoControllerImpl implements SysDictInfoController {
     @RequestMapping(value = "/deleteAll", method = RequestMethod.DELETE)
     @Override
     public int deleteSysDictInfoByIds(@RequestParam("dictId") List<Long> dictId) {
+        logger.debug("====>删除系统字典信息: " + dictId.toString());
         return sysDictInfoService.deleteSysDictInfoByIdsService(dictId);
     }
 }

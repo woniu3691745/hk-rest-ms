@@ -35,18 +35,17 @@ public class SysMenuInfoControllerImpl implements SysMenuInfoController {
      */
     @ResponseBody
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public List<MenuFormatInfo> getAllSysMenuInfo(HttpServletRequest request) {
-        List<MenuFormatInfo> listInfo = new ArrayList<>();
+    public List<MenuFormatInfo> getAllSysMenuInfo() {
 
+
+        List<MenuFormatInfo> listInfo = new ArrayList<>();
         // 获得数据
         List<SysMenuInfo> sysMenuInfosBase = sysMenuInfoService.getAllSysMenuInfoService(new SysMenuInfo());
-
         // 过滤掉子菜单
         List<SysMenuInfo> sysMenuInfos = sysMenuInfosBase
                 .stream()
                 .filter(sysMenuInfo -> sysMenuInfo.getParent() == null)
                 .collect(Collectors.toList());
-
         // 保存菜单
         for (SysMenuInfo i : sysMenuInfos) {
             MenuFormatInfo menuFormat = new MenuFormatInfo();
@@ -86,6 +85,7 @@ public class SysMenuInfoControllerImpl implements SysMenuInfoController {
                     });
         }
 
+        logger.debug("====>系统菜单信息: " + listInfo.toString());
         return listInfo;
     }
 
@@ -101,10 +101,15 @@ public class SysMenuInfoControllerImpl implements SysMenuInfoController {
     @ResponseBody
     @RequestMapping(value = "/getAll/{pageNo}/{pageSize}", method = RequestMethod.POST)
     @Override
-    public List<SysMenuInfo> getAllSysMenuInfoByPage(@RequestBody SysMenuInfo sysMenuInfo, @PathVariable("pageNo") Long pageNo,
+    public List<SysMenuInfo> getAllSysMenuInfoByPage(@RequestBody SysMenuInfo sysMenuInfo,
+                                                     @PathVariable("pageNo") Long pageNo,
                                                      @PathVariable("pageSize") Long pageSize) {
+
+        logger.debug("====>系统菜单信息: " + sysMenuInfo.toString());
+
         List list = new ArrayList();
-        List<SysMenuInfo> sysMenuInfos = sysMenuInfoService.getAllSysMenuInfoByPageService(sysMenuInfo, pageNo, pageSize);
+        List<SysMenuInfo> sysMenuInfos =
+                sysMenuInfoService.getAllSysMenuInfoByPageService(sysMenuInfo, pageNo, pageSize);
         int count = sysMenuInfoService.getAllSysMenuInfoCountByPageService(sysMenuInfo, pageNo, pageSize);
         list.add(sysMenuInfos);
         list.add(count);
@@ -121,6 +126,7 @@ public class SysMenuInfoControllerImpl implements SysMenuInfoController {
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     @Override
     public List<SysMenuInfo> getAllSysMenuInfo(@RequestBody SysMenuInfo sysMenuInfo) {
+        logger.debug("====>系统菜单信息: " + sysMenuInfo.toString());
         return sysMenuInfoService.getAllSysMenuInfoService(sysMenuInfo);
     }
 
@@ -135,6 +141,7 @@ public class SysMenuInfoControllerImpl implements SysMenuInfoController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @Override
     public List<SysMenuInfo> addSysMenuInfo(@RequestBody SysMenuInfo sysMenuInfo) {
+        logger.debug("====>添加系统菜单信息: " + sysMenuInfo.toString());
         return sysMenuInfoService.addSysMenuInfoService(sysMenuInfo);
     }
 
@@ -148,6 +155,7 @@ public class SysMenuInfoControllerImpl implements SysMenuInfoController {
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @Override
     public int updateSysMenuInfo(@RequestBody SysMenuInfo sysMenuInfo) {
+        logger.debug("====>修改菜单信息: " + sysMenuInfo.toString());
         return sysMenuInfoService.updateSysMenuInfoService(sysMenuInfo);
     }
 
@@ -161,6 +169,7 @@ public class SysMenuInfoControllerImpl implements SysMenuInfoController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @Override
     public int deleteSysMenuInfoById(@PathVariable("id") Long id) {
+        logger.debug("====>系统菜单信息: " + id);
         return sysMenuInfoService.deleteSysMenuInfoByIdService(id);
     }
 
@@ -174,6 +183,7 @@ public class SysMenuInfoControllerImpl implements SysMenuInfoController {
     @RequestMapping(value = "/deleteAll", method = RequestMethod.DELETE)
     @Override
     public int deleteSysMenuInfoByIds(@RequestParam("id") List<Long> id) {
+        logger.debug("====>系统菜单信息: " + id.toString());
         return sysMenuInfoService.deleteSysMenuInfoByIdsService(id);
     }
 }

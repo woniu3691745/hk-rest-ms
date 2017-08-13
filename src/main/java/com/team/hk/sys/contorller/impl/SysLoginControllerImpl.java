@@ -1,5 +1,6 @@
 package com.team.hk.sys.contorller.impl;
 
+import com.team.hk.common.ConstantUtil;
 import com.team.hk.common.RedisEntity;
 import com.team.hk.storeInfo.service.StoreInfoService;
 import com.team.hk.sys.contorller.SysLoginController;
@@ -52,21 +53,25 @@ public class SysLoginControllerImpl implements SysLoginController {
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @Override
-    public MessageInfo login(@RequestBody SysUserInfo sysUserInfo, HttpServletRequest request,
+    public MessageInfo login(@RequestBody SysUserInfo sysUserInfo,
+                             HttpServletRequest request,
                              HttpServletResponse response) {
+
+        logger.debug("====>用户登录信息: " + sysUserInfo.toString());
+
         MessageInfo messageInfo = new MessageInfo();
         SysUserInfo userInfo = sysLoginInfoService.login(sysUserInfo);
         if (Objects.nonNull(userInfo)) {
+
             // 获得sessionId
             String seid = request.getSession().getId();
-            logger.debug("seid = " + seid);
-            request.getSession().setAttribute("seid", seid);
+            request.getSession().setAttribute(ConstantUtil.KEY0, seid);
 
             SysUserInfoByLogin sysUserInfoByLogin = new SysUserInfoByLogin();
             sysUserInfoByLogin.setUserId(userInfo.getUserId());
 
             // 设置当前用户的门店ID
-            if(userInfo.getUserRole().contains("user")){
+            if(userInfo.getUserRole().contains(ConstantUtil.ROLE_USER)){
                 sysUserInfoByLogin.setStoreId(storeInfoService.getStoreIdbyUser(userInfo.getUserId()));
             }
 

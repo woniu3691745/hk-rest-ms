@@ -6,8 +6,8 @@ package com.team.hk.storeInfo.entity;
  */
 public class StoreUserInfo {
 
-    private long userId;
-    private long storeId;
+    private long userId;        // 用户ID
+    private long storeId;       // 门店ID
 
     public StoreUserInfo() {
     }

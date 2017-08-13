@@ -20,7 +20,6 @@ public interface StoreInfoController {
      * @param pageNo    页数
      * @param pageSize  数量
      * @return List<storeInfo>
-     *
      */
     List<StoreInfo> getAllStoreInfoByPage(StoreInfo storeInfo, Long pageNo, Long pageSize, HttpServletRequest request);
 

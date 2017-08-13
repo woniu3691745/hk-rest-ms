@@ -5,28 +5,28 @@
 
     <!-- 基本字段 -->
     <sql id="Base_Column_List">
-        SI.STORE_ID AS storeId,
-        SI.STORE_NAME AS storeName,
-        SI.STORE_PHONE AS storePhone,
-        SI.STORE_ADDRESS AS storeAddress,
-        SI.STORE_ADMIN AS storeAdmin,
-        SI.STORE_DESCRIPTION AS storeDescription,
-        SI.STORE_STATUS AS storeStatus,
-        SI.STORE_LOGO AS storeLogo,
-        SI.STORE_NOTICE AS storeNotice,
-        SI.STORE_TYPE AS storeType,
-        SI.SEAT_COST AS seatCost,
-        SI.SERVICE_COST AS serviceCost,
-        SI.STORE_BUSINESS_AM_START_HOURS AS storeBusinessAmStartHours,
-        SI.STORE_BUSINESS_AM_END_HOURS AS storeBusinessAmEndHours,
-        SI.STORE_BUSINESS_PM_START_HOURS AS storeBusinessPmStartHours,
-        SI.STORE_BUSINESS_PM_END_HOURS AS storeBusinessPmEndHours,
-        SI.STORE_BUSINESS_DAY AS storeBusinessDay,
-        SI.CREATER AS creater,
-        SI.CREATE_DATE_TIME AS createDateTime,
-        SI.MODIFY AS modify,
-        SI.UPDATE_DATE_TIME AS updateDateTime,
-        STATUS AS status
+        SI.STORE_ID                   AS storeId,
+        SI.STORE_NAME                 AS storeName,
+        SI.STORE_PHONE                AS storePhone,
+        SI.STORE_ADDRESS              AS storeAddress,
+        SI.STORE_ADMIN                AS storeAdmin,
+        SI.STORE_DESCRIPTION          AS storeDescription,
+        SI.STORE_STATUS               AS storeStatus,
+        SI.STORE_LOGO                 AS storeLogo,
+        SI.STORE_NOTICE               AS storeNotice,
+        SI.STORE_TYPE                 AS storeType,
+        SI.SEAT_COST                  AS seatCost,
+        SI.SERVICE_COST               AS serviceCost,
+        SI.STORE_BUSINESS_AM_START_HOURS      AS storeBusinessAmStartHours,
+        SI.STORE_BUSINESS_AM_END_HOURS        AS storeBusinessAmEndHours,
+        SI.STORE_BUSINESS_PM_START_HOURS      AS storeBusinessPmStartHours,
+        SI.STORE_BUSINESS_PM_END_HOURS        AS storeBusinessPmEndHours,
+        SI.STORE_BUSINESS_DAY                 AS storeBusinessDay,
+        SI.CREATER                    AS creater,
+        SI.CREATE_DATE_TIME           AS createDateTime,
+        SI.MODIFY                     AS modify,
+        SI.UPDATE_DATE_TIME           AS updateDateTime,
+        STATUS                        AS status
     </sql>
 
     <!-- 查询 -->
@@ -174,13 +174,13 @@
     <!-- 增加用户门店关联信息 -->
     <insert id="addStoreUserInfo" parameterType="StoreUserInfo" useGeneratedKeys="true" keyProperty="userId">
         INSERT into HK_USER_STORE_INFO_T(
-        USER_ID,
-        STORE_ID
+          USER_ID,
+          STORE_ID
         )
         VALUES
         (
-        #{userId},
-        #{storeId}
+          #{userId},
+          #{storeId}
         )
     </insert>
 
@@ -216,7 +216,6 @@
     </delete>
 
     <!-- 门店图片操作 -->
-
     <!--查询门店图片 -->
     <select id="getStoreImg" parameterType="Long" resultType="java.lang.String">
         SELECT
@@ -241,7 +240,7 @@
         </foreach>
     </insert>
 
-    <!-- 更新 -->
+    <!-- 更新门店图片 -->
     <update id="updateStoreImg" parameterType="java.util.List">
         <foreach collection="list" item="item" index="index" open="" close="" separator=";">
             UPDATE HK_STORE_IMG_T
@@ -256,4 +255,5 @@
     <delete id="deleteStoreImg" parameterType="StoreInfo">
         DELETE FROM HK_STORE_IMG_T WHERE IMG_URL = #{imgUrl} AND STORE_ID = #{storeId}
     </delete>
+
 </mapper>

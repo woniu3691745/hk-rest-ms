@@ -33,6 +33,7 @@ public class StoreInfoServiceImpl implements StoreInfoService {
     @Autowired
     private StoreInfoMapper storeInfoMapper;
 
+    // 图片请求路径
     private String url = "api/store/storeImgDown/";
 
     @Override
@@ -72,6 +73,7 @@ public class StoreInfoServiceImpl implements StoreInfoService {
         StoreUserInfo storeUserInfo = new StoreUserInfo();
         storeUserInfo.setUserId(storeInfo.getUserId());
         storeUserInfo.setStoreId(storeInfo.getStoreId());
+
         if (baseInfo != 0) {
             storeInfoMapper.addStoreUserInfo(storeUserInfo);
             logger.debug("====> 门店信息用户关联信息保存成功!:");
@@ -89,20 +91,21 @@ public class StoreInfoServiceImpl implements StoreInfoService {
             }
         }
 
+        // 返回门店ID
         if (storeInfo.getStoreId() != null) {
             StoreInfo sif = new StoreInfo();
             sif.setStoreId(storeInfo.getStoreId());
-            logger.debug("====> 添加门店信息成功,返回STOREID : " + storeInfo.getStoreId());
+            logger.debug("====> 添加门店信息成功,返回STORE_ID: " + storeInfo.getStoreId());
             return storeInfoMapper.list(sif);
         } else {
-            logger.error("====> 添加门店信息失败,返回STOREID : " + storeInfo.getStoreId());
+            logger.error("====> 添加门店信息失败,返回STORE_ID: " + storeInfo.getStoreId());
             return null;
         }
     }
 
     /**
      * 1.更新门店信息
-     * 2.更新门店图片
+     * 2.更新门店图片（用add代替update）
      *
      * @param storeInfo 菜单实体
      * @return rowsAffected
@@ -112,10 +115,12 @@ public class StoreInfoServiceImpl implements StoreInfoService {
         int num = storeInfoMapper.update(storeInfo);
         logger.debug("====> 更新门店信息成功!");
 
+        // 更新门店图片
         if (storeInfo.getStoreImg() != null) {
             List<StoreImg> storeImgList = new ArrayList<>();
             for (String img : storeInfo.getStoreImg()) {
-                // 去掉已经存在的图片
+
+                // 去掉已经存在的图片,其余的增加
                 if (img.contains(".")) {
                     StoreImg storeImg = new StoreImg();
                     storeImg.setStoreId(storeInfo.getStoreId());
@@ -133,7 +138,7 @@ public class StoreInfoServiceImpl implements StoreInfoService {
     }
 
     /**
-     * 删除 HK_STORE_INFO_T HK_USER_STORE_INFO_T 一条数据
+     * 删除（关联删除）
      *
      * @param storeId 门店ID
      * @return rowsAffected
@@ -146,7 +151,7 @@ public class StoreInfoServiceImpl implements StoreInfoService {
     }
 
     /**
-     * 删除 HK_STORE_INFO_T HK_USER_STORE_INFO_T 多条数据
+     * 删除（关联删除）
      *
      * @param storeId 门店ID
      * @return rowsAffected

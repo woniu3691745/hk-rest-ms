@@ -8,9 +8,9 @@ public class StoreImg {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;        // 主键ID
-    private Long storeId;   // 餐厅编号
-    private String imgUrl;     // 餐厅相片
+    private Long id;            // 主键ID
+    private Long storeId;       // 餐厅编号
+    private String imgUrl;      // 餐厅相片
 
 
     public StoreImg() {

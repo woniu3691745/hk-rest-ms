@@ -4,7 +4,7 @@ package com.team.hk.common;
  * Created by lidongliang on 2017/8/8.
  * 常量类
  */
-public class Constant {
+public class ConstantUtil {
 
     /**
      * 用户类型
@@ -16,9 +16,9 @@ public class Constant {
     /**
      * 用户角色
      */
-    public static final String ROULE_BOSS = "boss";
-    public static final String ROULE_USER = "user";
-    public static final String ROULE_ADMIN = "admin";
+    public static final String ROLE_BOSS = "boss";
+    public static final String ROLE_USER = "user";
+    public static final String ROLE_ADMIN = "admin";
 
     /**
      * Redis

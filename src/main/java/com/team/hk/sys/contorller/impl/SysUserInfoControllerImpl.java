@@ -84,8 +84,16 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
 
         logger.debug("====>系统用户信息: " + sysUserInfo.toString());
         String userId = (String) request.getSession().getAttribute(ConstantUtil.KEY1);
+        String userRole = (String) request.getSession().getAttribute(ConstantUtil.KEY3);
         sysUserInfo.setUserId(Long.parseLong(userId));
-        return sysUserInfoService.getAllSysUserInfoService(sysUserInfo);
+
+        if (userRole != null && userRole.contains(ConstantUtil.ROLE_USER)) {
+            return sysUserInfoService.getAllSysUserInfoService(sysUserInfo);
+        } else {
+            List<SysUserInfo> allSysUserInfoService = sysUserInfoService.getAllSysUserInfoService(sysUserInfo);
+            allSysUserInfoService.get(0).setStoreId(null);
+            return allSysUserInfoService;
+        }
     }
 
 

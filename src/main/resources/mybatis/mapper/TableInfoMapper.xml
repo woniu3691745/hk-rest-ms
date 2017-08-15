@@ -25,6 +25,9 @@
             <if test="tableId != null">
                 TABLE_ID = #{tableId}
             </if>
+            <if test="storeId != null">
+                STORE_ID = #{storeId}
+            </if>
         </where>
         ORDER BY UPDATE_DATE_TIME DESC
         <if test="pageNo != null and pageSize != null">
@@ -40,6 +43,9 @@
         <where>
             <if test="tableId != null">
                 TABLE_ID = #{tableId}
+            </if>
+            <if test="storeId != null">
+                STORE_ID = #{storeId}
             </if>
         </where>
         <!--<if test="pageNo != null and pageSize != null">-->

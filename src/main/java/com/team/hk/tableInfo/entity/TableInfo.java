@@ -12,6 +12,7 @@ public class TableInfo extends CommonEntity {
 
     private Long tableId;       // 餐桌编号
     private Long storeId;       // 门店标号
+    private int tableNum;       // 桌子数量
     private int tableStatus;    // 餐桌状态
     private String tableDescription;    // 餐桌描述
 
@@ -51,11 +52,20 @@ public class TableInfo extends CommonEntity {
         this.tableDescription = tableDescription;
     }
 
+    public int getTableNum() {
+        return tableNum;
+    }
+
+    public void setTableNum(int tableNum) {
+        this.tableNum = tableNum;
+    }
+
     @Override
     public String toString() {
         return "TableInfo{" +
                 "tableId=" + tableId +
                 ", storeId=" + storeId +
+                ", tableNum=" + tableNum +
                 ", tableStatus=" + tableStatus +
                 ", tableDescription='" + tableDescription + '\'' +
                 '}';

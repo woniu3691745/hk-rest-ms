@@ -37,6 +37,8 @@ public class TableInfoControllerImpl implements TableInfoController {
     @Override
     public List<TableInfo> getAllTableInfoByPage(@RequestBody TableInfo tableInfo, @PathVariable("pageNo") Long pageNo,
                                                  @PathVariable("pageSize") Long pageSize) {
+
+        logger.debug("====>桌子信息: " + tableInfo.toString());
         List list = new ArrayList();
         List<TableInfo> tableInfos = tableInfoService.getAllTableInfoByPageService(tableInfo, pageNo, pageSize);
         int count = tableInfoService.getAllTableInfoCountByPageService(tableInfo, pageNo, pageSize);
@@ -55,6 +57,8 @@ public class TableInfoControllerImpl implements TableInfoController {
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     @Override
     public List<TableInfo> getAllTableInfo(@RequestBody TableInfo tableInfo) {
+
+        logger.debug("====>桌子信息: " + tableInfo.toString());
         return tableInfoService.getAllTableInfoService(tableInfo);
     }
 
@@ -68,6 +72,8 @@ public class TableInfoControllerImpl implements TableInfoController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @Override
     public List<TableInfo> addTableInfo(@RequestBody TableInfo tableInfo) {
+
+        logger.debug("====>添加桌子信息: " + tableInfo.toString());
         return tableInfoService.addTableInfoService(tableInfo);
     }
 
@@ -81,6 +87,8 @@ public class TableInfoControllerImpl implements TableInfoController {
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @Override
     public int updateTableInfo(@RequestBody TableInfo tableInfo) {
+
+        logger.debug("====>修改桌子信息: " + tableInfo.toString());
         return tableInfoService.updateTableInfoService(tableInfo);
     }
 
@@ -94,6 +102,8 @@ public class TableInfoControllerImpl implements TableInfoController {
     @RequestMapping(value = "/delete/{tableId}", method = RequestMethod.DELETE)
     @Override
     public int deleteTableInfoById(@PathVariable("tableId") Long tableId) {
+
+        logger.debug("====>删除桌子: " + tableId);
         return tableInfoService.deleteTableInfoByIdService(tableId);
     }
 
@@ -107,6 +117,8 @@ public class TableInfoControllerImpl implements TableInfoController {
     @RequestMapping(value = "/deleteAll", method = RequestMethod.DELETE)
     @Override
     public int deleteTableInfoByIds(@RequestParam("tableId") List<Long> tableId) {
+
+        logger.debug("====>删除桌子: " + tableId);
         return tableInfoService.deleteTableInfoByIdsService(tableId);
     }
 

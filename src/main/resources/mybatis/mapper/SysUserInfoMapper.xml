@@ -73,9 +73,9 @@
                 AND U.PARENT_ID = #{parentId}
             </if>
         </where>
-        <if test="pageNo != null and pageSize != null">
-            LIMIT #{pageNo}, #{pageSize}
-        </if>
+        <!--<if test="pageNo != null and pageSize != null">-->
+            <!--LIMIT #{pageNo}, #{pageSize}-->
+        <!--</if>-->
     </select>
 
     <!-- 角色是user结果带storeId-->
@@ -135,9 +135,9 @@
                 AND U.PARENT_ID = #{parentId}
             </if>
         </where>
-        <if test="pageNo != null and pageSize != null">
-            LIMIT #{pageNo}, #{pageSize}
-        </if>
+        <!--<if test="pageNo != null and pageSize != null">-->
+            <!--LIMIT #{pageNo}, #{pageSize}-->
+        <!--</if>-->
     </select>
 
     <!-- 查询（无分页）-->

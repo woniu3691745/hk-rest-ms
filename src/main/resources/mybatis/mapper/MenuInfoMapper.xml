@@ -57,9 +57,9 @@
                 MENU_ID = #{menuId}
             </if>
         </where>
-        <if test="pageNo != null and pageSize != null">
+        <!--<if test="pageNo != null and pageSize != null">
             LIMIT #{pageNo}, #{pageSize}
-        </if>
+        </if>-->
     </select>
 
     <!-- 查询（无分页）-->

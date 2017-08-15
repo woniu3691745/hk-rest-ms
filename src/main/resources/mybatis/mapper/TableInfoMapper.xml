@@ -42,9 +42,9 @@
                 TABLE_ID = #{tableId}
             </if>
         </where>
-        <if test="pageNo != null and pageSize != null">
-            LIMIT #{pageNo}, #{pageSize}
-        </if>
+        <!--<if test="pageNo != null and pageSize != null">-->
+            <!--LIMIT #{pageNo}, #{pageSize}-->
+        <!--</if>-->
     </select>
 
     <!-- 查询（无分页）-->

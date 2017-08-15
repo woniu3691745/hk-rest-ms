@@ -59,11 +59,13 @@ public class SysUserInfoServiceImpl implements SysUserInfoService {
         /* 保存用户信息 */
         sysUserInfoMapper.add(sysUserInfo);
 
-        /* 保存用户和门店关系信息 */
-        StoreUserInfo storeUserInfo = new StoreUserInfo();
-        storeUserInfo.setUserId(sysUserInfo.getUserId());
-        storeUserInfo.setStoreId(sysUserInfo.getStoreId());
-        storeInfoMapper.addStoreUserInfo(storeUserInfo);
+        /* 保存用户和门店关系信息,仅user用户 */
+        if (sysUserInfo.getStoreId() != null) {
+            StoreUserInfo storeUserInfo = new StoreUserInfo();
+            storeUserInfo.setUserId(sysUserInfo.getUserId());
+            storeUserInfo.setStoreId(sysUserInfo.getStoreId());
+            storeInfoMapper.addStoreUserInfo(storeUserInfo);
+        }
 
         if (sysUserInfo.getUserId() != null) {
             logger.debug("添加系统用户信息成功,返回USER_ID : " + sysUserInfo.getUserId());

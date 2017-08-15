@@ -14,21 +14,20 @@
         U.USER_ROLE           AS userRole,
         U.USER_TYPE           AS userType,
         U.PARENT_ID           AS parentId,
-        S.STORE_ID            AS storeId,
         U.CREATER             AS creater,
         U.CREATE_DATE_TIME    AS createDateTime,
         U.MODIFY              AS modify,
         U.UPDATE_DATE_TIME    AS updateDateTime,
         U.STATUS              AS status
     </sql>
-
+    <sql id="Base_Column_List_Store">
+        S.STORE_ID            AS storeId
+    </sql>
     <!-- 查询 -->
     <select id="listByPage" parameterType="SysUserInfo" resultType="SysUserInfo">
         SELECT
         <include refid="Base_Column_List"/>
         FROM HK_SYS_USER_INFO_T U
-        LEFT JOIN HK_USER_STORE_INFO_T S
-        ON U.USER_ID = S.USER_ID
         <where>
             <if test="userId != null">
                 U.USER_ID = #{userId}
@@ -57,8 +56,6 @@
         SELECT
         count(*)
         FROM HK_SYS_USER_INFO_T U
-        LEFT JOIN HK_USER_STORE_INFO_T S
-        ON U.USER_ID = S.USER_ID
         <where>
             <if test="userId != null">
                 U.USER_ID = #{userId}
@@ -85,6 +82,8 @@
     <select id="list" parameterType="SysUserInfo" resultType="SysUserInfo">
         SELECT
         <include refid="Base_Column_List"/>
+        ,
+        <include refid="Base_Column_List_Store"/>
         FROM HK_SYS_USER_INFO_T U
         LEFT JOIN HK_USER_STORE_INFO_T S
         ON U.USER_ID = S.USER_ID

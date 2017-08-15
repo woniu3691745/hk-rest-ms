@@ -2,6 +2,7 @@ package com.team.hk.sys.contorller.impl;
 
 import com.team.hk.common.ConstantUtil;
 import com.team.hk.sys.contorller.SysUserInfoController;
+import com.team.hk.sys.entity.SysMenuInfo;
 import com.team.hk.sys.entity.SysUserInfo;
 import com.team.hk.sys.server.SysUserInfoService;
 import org.apache.log4j.Logger;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by lidongliang on 2017/7/16.
@@ -52,13 +55,20 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
         Long userId = Long.valueOf(request.getSession().getAttribute(ConstantUtil.KEY1).toString());
         String userRole = (String) request.getSession().getAttribute(ConstantUtil.KEY3);
 
+        /**
+         * 1.角色是admin登录，查询boss用户
+         * 2.角色是boss登录，查询user用户
+         */
         if (userRole != null && userRole.contains(ConstantUtil.ROLE_ADMIN)) {
             sysUserInfo.setParentId(userId);
+            sysUserInfo.setUserRole(userRole);
             sysUserInfo.setUserType(ConstantUtil.USER_TYPE_BOSS);
         } else if (userRole != null && userRole.contains(ConstantUtil.ROLE_BOSS)) {
             sysUserInfo.setParentId(userId);
+            sysUserInfo.setUserRole(userRole);
             sysUserInfo.setUserType(ConstantUtil.USER_TYPE_STORE);
         } else if (userRole != null && userRole.contains(ConstantUtil.ROLE_USER)) {
+            sysUserInfo.setUserRole(userRole);
             sysUserInfo.setUserId(userId);
         }
 
@@ -87,11 +97,15 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
         String userRole = (String) request.getSession().getAttribute(ConstantUtil.KEY3);
         sysUserInfo.setUserId(Long.parseLong(userId));
 
+        /* 角色是user的需要返回storeId */
         if (userRole != null && userRole.contains(ConstantUtil.ROLE_USER)) {
             return sysUserInfoService.getAllSysUserInfoService(sysUserInfo);
         } else {
             List<SysUserInfo> allSysUserInfoService = sysUserInfoService.getAllSysUserInfoService(sysUserInfo);
-            allSysUserInfoService.get(0).setStoreId(null);
+            // 其他用户可能包含多个门店，因为只需要返回用户信息，所以如下coding
+            if (allSysUserInfoService.size() > 0) {
+                allSysUserInfoService.get(0).setStoreId(null);
+            }
             return allSysUserInfoService;
         }
     }
@@ -152,9 +166,9 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
     @ResponseBody
     @RequestMapping(value = "/delete/{userId}", method = RequestMethod.DELETE)
     @Override
-    public int deleteSysUserInfoById(@PathVariable("userId") Long userId) {
+    public int deleteSysUserInfoById(@PathVariable("userId") Long userId, HttpServletRequest request) {
         logger.debug("====>删除系统用户: " + userId);
-        return sysUserInfoService.deleteSysUserInfoByIdService(userId);
+        return sysUserInfoService.deleteSysUserInfoByIdService(userId, request);
     }
 
     /**
@@ -166,8 +180,8 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
     @ResponseBody
     @RequestMapping(value = "/deleteAll", method = RequestMethod.DELETE)
     @Override
-    public int deleteSysUserInfoByIds(@RequestParam("userId") List<Long> userId) {
+    public int deleteSysUserInfoByIds(@RequestParam("userId") List<Long> userId, HttpServletRequest request) {
         logger.debug("====>删除系统用户: " + userId.toString());
-        return sysUserInfoService.deleteSysUserInfoByIdsService(userId);
+        return sysUserInfoService.deleteSysUserInfoByIdsService(userId, request);
     }
 }

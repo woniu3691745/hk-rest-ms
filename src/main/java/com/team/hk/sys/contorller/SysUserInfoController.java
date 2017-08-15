@@ -52,7 +52,7 @@ public interface SysUserInfoController {
      * @param id 系统用户ID
      * @return rowsAffected
      */
-    int deleteSysUserInfoById(Long id);
+    int deleteSysUserInfoById(Long id, HttpServletRequest request);
 
     /**
      * 删除多个系统用户
@@ -60,6 +60,6 @@ public interface SysUserInfoController {
      * @param id 系统用户ID
      * @return rowsAffected
      */
-    int deleteSysUserInfoByIds(List<Long> id);
+    int deleteSysUserInfoByIds(List<Long> id, HttpServletRequest request);
 
 }

@@ -78,6 +78,68 @@
         </if>
     </select>
 
+    <!-- 角色是user结果带storeId-->
+    <!-- 查询 -->
+    <select id="userListByPage" parameterType="SysUserInfo" resultType="SysUserInfo">
+        SELECT
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Base_Column_List_Store"/>
+        FROM HK_SYS_USER_INFO_T U
+        LEFT JOIN HK_USER_STORE_INFO_T S
+        ON U.USER_ID = S.USER_ID
+        <where>
+            <if test="userId != null">
+                U.USER_ID = #{userId}
+            </if>
+            <if test="userName != null">
+                AND U.USER_NAME = #{userName}
+            </if>
+            <if test="userPassword != null">
+                AND U.USER_PASSWORD = #{userPassword}
+            </if>
+            <if test="userType != null">
+                AND U.USER_TYPE = #{userType}
+            </if>
+            <if test="parentId != null">
+                AND U.PARENT_ID = #{parentId}
+            </if>
+        </where>
+        ORDER BY U.UPDATE_DATE_TIME DESC
+        <if test="pageNo != null and pageSize != null">
+            LIMIT #{pageNo}, #{pageSize}
+        </if>
+    </select>
+
+    <!-- 总数 -->
+    <select id="userListCountByPage" parameterType="SysUserInfo" resultType="int">
+        SELECT
+        count(*)
+        FROM HK_SYS_USER_INFO_T U
+        LEFT JOIN HK_USER_STORE_INFO_T S
+        ON U.USER_ID = S.USER_ID
+        <where>
+            <if test="userId != null">
+                U.USER_ID = #{userId}
+            </if>
+            <if test="userName != null">
+                AND U.USER_NAME = #{userName}
+            </if>
+            <if test="userPassword != null">
+                AND U.USER_PASSWORD = #{userPassword}
+            </if>
+            <if test="userType != null">
+                AND U.USER_TYPE = #{userType}
+            </if>
+            <if test="parentId != null">
+                AND U.PARENT_ID = #{parentId}
+            </if>
+        </where>
+        <if test="pageNo != null and pageSize != null">
+            LIMIT #{pageNo}, #{pageSize}
+        </if>
+    </select>
+
     <!-- 查询（无分页）-->
     <select id="list" parameterType="SysUserInfo" resultType="SysUserInfo">
         SELECT
@@ -159,6 +221,10 @@
     <delete id="deleteById" parameterType="Long">
         DELETE FROM HK_SYS_USER_INFO_T WHERE USER_ID = #{0}
     </delete>
+    <!-- 关联删除 -->
+    <delete id="deleteByIdChild" parameterType="Long">
+        DELETE FROM HK_SYS_USER_INFO_T WHERE PARENT_ID = #{0}
+    </delete>
 
     <!-- 删除全部-->
     <delete id="deleteByIds" parameterType="java.util.List">
@@ -167,5 +233,11 @@
             #{item}
         </foreach>
     </delete>
-
+    <!-- 关联删除全部-->
+    <delete id="deleteByIdsChild" parameterType="java.util.List">
+        DELETE FROM HK_SYS_USER_INFO_T WHERE PARENT_ID in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
 </mapper>

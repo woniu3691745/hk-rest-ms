@@ -1,5 +1,6 @@
 package com.team.hk.sys.server.impl;
 
+import com.team.hk.common.ConstantUtil;
 import com.team.hk.storeInfo.entity.StoreUserInfo;
 import com.team.hk.storeInfo.mapper.StoreInfoMapper;
 import com.team.hk.sys.entity.SysUserInfo;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -32,14 +34,24 @@ public class SysUserInfoServiceImpl implements SysUserInfoService {
     public List<SysUserInfo> getAllSysUserInfoByPageService(SysUserInfo sysUserInfo, Long pageNo, Long pageSize) {
         sysUserInfo.setPageNo(pageNo);
         sysUserInfo.setPageSize(pageSize);
-        return sysUserInfoMapper.listByPage(sysUserInfo);
+        /* boss角色登录，返回需storeId */
+        if (sysUserInfo.getUserRole().contains(ConstantUtil.ROLE_BOSS)) {
+            return sysUserInfoMapper.userListByPage(sysUserInfo);
+        } else {
+            return sysUserInfoMapper.listByPage(sysUserInfo);
+        }
     }
 
     @Override
     public int getAllSysUserInfoCountByPageService(SysUserInfo sysUserInfo, Long pageNo, Long pageSize) {
         sysUserInfo.setPageNo(pageNo);
         sysUserInfo.setPageSize(pageSize);
-        return sysUserInfoMapper.listCountByPage(sysUserInfo);
+         /* user角色返回带storeId */
+        if (sysUserInfo.getUserRole().contains(ConstantUtil.ROLE_BOSS)) {
+            return sysUserInfoMapper.userListCountByPage(sysUserInfo);
+        } else {
+            return sysUserInfoMapper.listCountByPage(sysUserInfo);
+        }
     }
 
     @Override
@@ -49,6 +61,8 @@ public class SysUserInfoServiceImpl implements SysUserInfoService {
 
     /**
      * 添加之后查询
+     * storeId == null 给boss用户做修改信息
+     * storeId != null 给user用户做修改
      *
      * @param sysUserInfo 系统用户实体
      * @return SysUserInfo
@@ -78,25 +92,49 @@ public class SysUserInfoServiceImpl implements SysUserInfoService {
         }
     }
 
+    /**
+     * storeId == null 给boss用户做修改信息
+     * storeId != null 给user用户做修改
+     *
+     * @param sysUserInfo 系统用户实体
+     * @return 用户更新后的信息
+     */
     @Override
     public int updateSysUserInfoService(SysUserInfo sysUserInfo) {
 
         /* 更新用户和门店关系信息 */
-        StoreUserInfo storeUserInfo = new StoreUserInfo();
-        storeUserInfo.setUserId(sysUserInfo.getUserId());
-        storeUserInfo.setStoreId(sysUserInfo.getStoreId());
-        storeInfoMapper.updateStoreIdByUser(storeUserInfo);
-
+        if (sysUserInfo.getStoreId() != null) {
+            StoreUserInfo storeUserInfo = new StoreUserInfo();
+            storeUserInfo.setUserId(sysUserInfo.getUserId());
+            storeUserInfo.setStoreId(sysUserInfo.getStoreId());
+            storeInfoMapper.updateStoreIdByUser(storeUserInfo);
+        }
         return sysUserInfoMapper.update(sysUserInfo);
     }
 
     @Override
-    public int deleteSysUserInfoByIdService(Long userId) {
-        return sysUserInfoMapper.deleteById(userId);
+    public int deleteSysUserInfoByIdService(Long userId, HttpServletRequest request) {
+        String userRole = (String) request.getSession().getAttribute(ConstantUtil.KEY3);
+        int delNum = sysUserInfoMapper.deleteById(userId);
+        if (delNum > 0) {
+            /* 角色是admin的，删除boss和boss下的用户 */
+            if (userRole.contains(ConstantUtil.ROLE_ADMIN)) {
+                sysUserInfoMapper.deleteByIdChild(userId);
+            }
+        }
+        return delNum;
     }
 
     @Override
-    public int deleteSysUserInfoByIdsService(List<Long> userId) {
-        return sysUserInfoMapper.deleteByIds(userId);
+    public int deleteSysUserInfoByIdsService(List<Long> userId, HttpServletRequest request) {
+        String userRole = (String) request.getSession().getAttribute(ConstantUtil.KEY3);
+        int delNum = sysUserInfoMapper.deleteByIds(userId);
+        if (delNum > 0) {
+             /* 角色是admin的，删除boss和boss下的用户 */
+            if (userRole.contains(ConstantUtil.ROLE_ADMIN)) {
+                sysUserInfoMapper.deleteByIdsChild(userId);
+            }
+        }
+        return delNum;
     }
 }

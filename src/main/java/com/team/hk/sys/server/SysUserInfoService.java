@@ -2,6 +2,7 @@ package com.team.hk.sys.server;
 
 import com.team.hk.sys.entity.SysUserInfo;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -53,7 +54,7 @@ public interface SysUserInfoService {
      * @param id 系统用户ID
      * @return rowsAffected
      */
-    int deleteSysUserInfoByIdService(Long id);
+    int deleteSysUserInfoByIdService(Long id, HttpServletRequest request);
 
     /**
      * 删除多条系统用户信息
@@ -61,5 +62,5 @@ public interface SysUserInfoService {
      * @param id 系统用户ID
      * @return rowsAffected
      */
-    int deleteSysUserInfoByIdsService(List<Long> id);
+    int deleteSysUserInfoByIdsService(List<Long> id, HttpServletRequest request);
 }

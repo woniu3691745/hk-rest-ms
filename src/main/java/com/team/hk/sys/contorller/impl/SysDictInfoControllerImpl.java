@@ -43,8 +43,10 @@ public class SysDictInfoControllerImpl implements SysDictInfoController {
         logger.debug("====>系统字典信息: " + sysDictInfo.toString());
 
         List list = new ArrayList();
+        Long pn = (pageNo - 1) * pageSize;
+        Long ps = pageSize;
         List<SysDictInfo> sysDictInfos =
-                sysDictInfoService.getAllSysDictInfoByPageService(sysDictInfo, pageNo, pageSize);
+                sysDictInfoService.getAllSysDictInfoByPageService(sysDictInfo, pn, ps);
         int count = sysDictInfoService.getAllSysDictInfoCountByPageService(sysDictInfo, pageNo, pageSize);
         list.add(sysDictInfos);
         list.add(count);

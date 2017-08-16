@@ -31,7 +31,7 @@
                 ID = #{id}
             </if>
         </where>
-        ORDER BY UPDATE_DATE_TIME DESC
+        ORDER BY CREATE_DATE_TIME DESC
         <if test="pageNo != null and pageSize != null">
             LIMIT #{pageNo}, #{pageSize}
         </if>

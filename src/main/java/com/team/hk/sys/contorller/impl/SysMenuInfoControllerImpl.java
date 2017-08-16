@@ -108,8 +108,10 @@ public class SysMenuInfoControllerImpl implements SysMenuInfoController {
         logger.debug("====>系统菜单信息: " + sysMenuInfo.toString());
 
         List list = new ArrayList();
+        Long pn = (pageNo - 1) * pageSize;
+        Long ps = pageSize;
         List<SysMenuInfo> sysMenuInfos =
-                sysMenuInfoService.getAllSysMenuInfoByPageService(sysMenuInfo, pageNo, pageSize);
+                sysMenuInfoService.getAllSysMenuInfoByPageService(sysMenuInfo, pn, ps);
         int count = sysMenuInfoService.getAllSysMenuInfoCountByPageService(sysMenuInfo, pageNo, pageSize);
         list.add(sysMenuInfos);
         list.add(count);

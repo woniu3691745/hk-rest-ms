@@ -38,7 +38,9 @@ public class BookInfoControllerImpl implements BookInfoController {
     public List<BookInfo> getAllBookInfoByPage(@RequestBody BookInfo bookInfo, @PathVariable("pageNo") Long pageNo,
                                                @PathVariable("pageSize") Long pageSize) {
         List list = new ArrayList();
-        List<BookInfo> menuInfos = bookInfoService.getAllBookInfoByPageService(bookInfo, pageNo, pageSize);
+        Long pn = (pageNo - 1) * pageSize;
+        Long ps = pageSize;
+        List<BookInfo> menuInfos = bookInfoService.getAllBookInfoByPageService(bookInfo, pn, ps);
         int count = bookInfoService.getAllBookInfoCountByPageService(bookInfo, pageNo, pageSize);
         list.add(menuInfos);
         list.add(count);

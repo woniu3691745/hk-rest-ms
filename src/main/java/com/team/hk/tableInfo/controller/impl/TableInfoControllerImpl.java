@@ -40,7 +40,9 @@ public class TableInfoControllerImpl implements TableInfoController {
 
         logger.debug("====>桌子信息: " + tableInfo.toString());
         List list = new ArrayList();
-        List<TableInfo> tableInfos = tableInfoService.getAllTableInfoByPageService(tableInfo, pageNo, pageSize);
+        Long pn = (pageNo - 1) * pageSize;
+        Long ps = pageSize;
+        List<TableInfo> tableInfos = tableInfoService.getAllTableInfoByPageService(tableInfo, pn, ps);
         int count = tableInfoService.getAllTableInfoCountByPageService(tableInfo, pageNo, pageSize);
         list.add(tableInfos);
         list.add(count);

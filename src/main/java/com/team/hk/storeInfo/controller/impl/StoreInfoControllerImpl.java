@@ -72,7 +72,9 @@ public class StoreInfoControllerImpl implements StoreInfoController {
         if (userRole != null && userRole.contains(ConstantUtil.ROLE_ADMIN)) {
             storeInfo.setUserId(null);
         }
-        List<StoreInfo> menuInfos = storeInfoService.getAllStoreInfoByPageService(storeInfo, pageNo, pageSize);
+        Long pn = (pageNo - 1) * pageSize;
+        Long ps = pageSize;
+        List<StoreInfo> menuInfos = storeInfoService.getAllStoreInfoByPageService(storeInfo, pn, ps);
         int count = storeInfoService.getAllStoreInfoCountByPageService(storeInfo, pageNo, pageSize);
         list.add(menuInfos);
         list.add(count);

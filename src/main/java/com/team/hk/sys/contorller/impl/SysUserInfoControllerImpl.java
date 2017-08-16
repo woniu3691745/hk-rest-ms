@@ -71,9 +71,10 @@ public class SysUserInfoControllerImpl implements SysUserInfoController {
             sysUserInfo.setUserRole(userRole);
             sysUserInfo.setUserId(userId);
         }
-
+        Long pn = (pageNo - 1) * pageSize;
+        Long ps = pageSize;
         List<SysUserInfo> sysUserInfos =
-                sysUserInfoService.getAllSysUserInfoByPageService(sysUserInfo, pageNo, pageSize);
+                sysUserInfoService.getAllSysUserInfoByPageService(sysUserInfo, pn, ps);
         int count = sysUserInfoService.getAllSysUserInfoCountByPageService(sysUserInfo, pageNo, pageSize);
         list.add(sysUserInfos);
         list.add(count);

@@ -41,7 +41,9 @@ public class OrderInfoControllerImpl implements OrderInfoController {
     public List<OrderInfo> getAllOrderInfoByPage(@RequestBody OrderInfo orderInfo, @PathVariable("pageNo") Long pageNo,
                                                  @PathVariable("pageSize") Long pageSize) {
         List list = new ArrayList();
-        List<OrderInfo> orderInfos = orderInfoService.getAllOrderInfoByPageService(orderInfo, pageNo, pageSize);
+        Long pn = (pageNo - 1) * pageSize;
+        Long ps = pageSize;
+        List<OrderInfo> orderInfos = orderInfoService.getAllOrderInfoByPageService(orderInfo, pn, ps);
         int count = orderInfoService.getAllOrderInfoCountByPageService(orderInfo, pageNo, pageSize);
         list.add(orderInfos);
         list.add(count);

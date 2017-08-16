@@ -38,7 +38,9 @@ public class MenuInfoControllerImpl implements MenuInfoController {
     public List<MenuInfo> getAllMenuInfoByPage(@RequestBody MenuInfo menuInfo, @PathVariable("pageNo") Long pageNo,
                                                @PathVariable("pageSize") Long pageSize) {
         List list = new ArrayList();
-        List<MenuInfo> menuInfos = menuInfoService.getAllMenuInfoByPageService(menuInfo, pageNo, pageSize);
+        Long pn = (pageNo - 1) * pageSize;
+        Long ps = pageSize;
+        List<MenuInfo> menuInfos = menuInfoService.getAllMenuInfoByPageService(menuInfo, pn, ps);
         int count = menuInfoService.getAllMenuInfoCountByPageService(menuInfo, pageNo, pageSize);
         list.add(menuInfos);
         list.add(count);

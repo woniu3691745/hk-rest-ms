@@ -104,12 +104,12 @@
 
     <!-- 删除 -->
     <delete id="deleteById" parameterType="Long">
-        DELETE FROM HK_TABLE_INFO_T WHERE STORE_ID = #{0}
+        DELETE FROM HK_TABLE_INFO_T WHERE TABLE_ID = #{0}
     </delete>
 
     <!-- 删除全部-->
     <delete id="deleteByIds" parameterType="java.util.List">
-        DELETE FROM HK_TABLE_INFO_T WHERE STORE_ID in
+        DELETE FROM HK_TABLE_INFO_T WHERE TABLE_ID in
         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
             #{item}
         </foreach>

@@ -16,7 +16,7 @@ public interface CommonMapper<T> {
     List<T> listByPage(T t);
 
     /**
-     * 获得全部数据
+     * 获得全部数据数量
      *
      * @return List<T>
      */

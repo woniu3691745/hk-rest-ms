@@ -3,6 +3,8 @@ package com.team.hk.util;
 import org.apache.log4j.Logger;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lidongliang on 2017/8/13.
@@ -45,5 +47,26 @@ public class FileUtil {
             file.delete();
             logger.debug("删除目录成功: " + file);
         }
+    }
+
+    /**
+     * 获得文件
+     *
+     * @param path 文件路径
+     * @return 文件集合
+     */
+    public static List<String> getFileName(String path) {
+        List<String> list = new ArrayList<>();
+        File fs = new File(path);
+        if (!fs.exists()) {
+            logger.debug("文件不存在!");
+            return list;
+        }
+
+        File f[] = fs.listFiles();
+        for (File i : f) {
+            list.add(i.getName());
+        }
+        return list;
     }
 }

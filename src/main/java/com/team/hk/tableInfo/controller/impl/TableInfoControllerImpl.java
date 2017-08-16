@@ -132,11 +132,16 @@ public class TableInfoControllerImpl implements TableInfoController {
     /**
      * 获得桌子二维码图片
      *
+     * @param qrCode   二维码信息
+     * @param storeId  门店ID
      * @param request
      * @param response
      */
-    @RequestMapping(value = "/getQRCodeZip", method = RequestMethod.POST)
-    public void getQRCodeZip(@RequestBody List<QRCode> qrCode, HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/{storeId}/getQRCodeZip", method = RequestMethod.POST)
+    public void getQRCodeZip(@RequestBody List<QRCode> qrCode,
+                             @PathVariable("storeId") String storeId,
+                             HttpServletRequest request,
+                             HttpServletResponse response) {
 //        download.download(request, response);
 
 //        ZipCompressor zipCompressor = new ZipCompressor("E:/abc/qrimg.zip");

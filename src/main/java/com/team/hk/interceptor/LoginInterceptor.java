@@ -2,8 +2,6 @@ package com.team.hk.interceptor;
 
 import com.alibaba.druid.support.json.JSONUtils;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -39,9 +37,9 @@ public class LoginInterceptor implements HandlerInterceptor {
                 return true;
             }
         }
+        logger.debug("session id = " + seid);
         if (seid == null) {
-            logger.debug("seid = " + seid);
-            logger.debug("addRessUrl = " + addRessUrl + " 被拦截");
+            logger.debug("请求: " + addRessUrl + " 被拦截");
             response.setStatus(500);
             Map<String, String> map = new HashMap<>();
             map.put("code", "500");
@@ -50,7 +48,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             logger.debug(JSONUtils.toJSONString(map));
             return false;
         } else {
-            logger.debug("addRessUrl = " + addRessUrl + " 通过拦截");
+            logger.debug("请求: " + addRessUrl + " 通过拦截");
             return true;
         }
 

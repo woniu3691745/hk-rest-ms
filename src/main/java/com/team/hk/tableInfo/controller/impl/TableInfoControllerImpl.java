@@ -1,13 +1,18 @@
 package com.team.hk.tableInfo.controller.impl;
 
 import com.team.hk.tableInfo.controller.TableInfoController;
+import com.team.hk.tableInfo.entity.QRCode;
 import com.team.hk.tableInfo.entity.TableInfo;
 import com.team.hk.tableInfo.service.TableInfoService;
+import com.team.hk.util.zip.Base64ToImg;
+import com.team.hk.util.zip.ZipCompressor;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,4 +129,22 @@ public class TableInfoControllerImpl implements TableInfoController {
         return tableInfoService.deleteTableInfoByIdsService(tableId);
     }
 
+    /**
+     * 获得桌子二维码图片
+     *
+     * @param request
+     * @param response
+     */
+    @RequestMapping(value = "/getQRCodeZip", method = RequestMethod.POST)
+    public void getQRCodeZip(@RequestBody List<QRCode> qrCode, HttpServletRequest request, HttpServletResponse response) {
+//        download.download(request, response);
+
+//        ZipCompressor zipCompressor = new ZipCompressor("E:/abc/qrimg.zip");
+        for (int i = 0; i < qrCode.size(); i++) {
+            String base64Img = qrCode.get(i).getBase64Img();
+            String tableName = qrCode.get(i).getTableName();
+            Base64ToImg.generateImage(base64Img, tableName);
+        }
+//        zipCompressor.compress("E:/abc/head1.jpeg", "E:/abc/logo60.png");
+    }
 }

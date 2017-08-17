@@ -158,26 +158,32 @@ public class TableInfoControllerImpl implements TableInfoController {
         logger.debug("桌子二维码图片信息: " + qrCode.toString());
         MessageInfo messageInfo = new MessageInfo();
         boolean flag = false;
-        /* 生成二维码图片 */
-        for (QRCode aQrCode : qrCode) {
-            String base64Img = aQrCode.getBase64Img();
-            String tableName = aQrCode.getTableName();
-            flag = Base64ToImg.generateImage(storeId, base64Img, tableName);
-        }
-        if (flag) {
-            /* .zip文件目录 */
-            String zipPath = ConstantUtil.ROOT_QRC_PATH + storeId + ConstantUtil.ZIP_NAME;
+        if (!qrCode.isEmpty()) {
             /* 二维码图片路径 */
             String path = ConstantUtil.ROOT_QRC_PATH + storeId;
-            List<String> fileName = FileUtil.getFileName(path);
-            /* 生成二维码图片压缩包 */
-            ZipCompressor zipCompressor = new ZipCompressor(zipPath);
-            zipCompressor.preCompress(path, fileName);
-            messageInfo.setCode(200);
-            messageInfo.setMsg("二维码图片压缩成功!");
-            logger.debug("二维码图片压缩成功!" + zipPath);
-            return messageInfo;
+            /* 清空已有数据，重新生成 */
+            FileUtil.deleteFolder(new File(path));
+            logger.debug("目录 " + path + " 清空已有二维码图片成功！");
+             /* 生成二维码图片 */
+            for (QRCode aQrCode : qrCode) {
+                String base64Img = aQrCode.getBase64Img();
+                String tableName = aQrCode.getTableName();
+                flag = Base64ToImg.generateImage(storeId, base64Img, tableName);
+            }
+            if (flag) {
+                /* .zip文件目录 */
+                String zipPath = ConstantUtil.ROOT_QRC_PATH + storeId + ConstantUtil.ZIP_NAME;
+                List<String> fileName = FileUtil.getFileName(path);
+                /* 生成二维码图片压缩包 */
+                ZipCompressor zipCompressor = new ZipCompressor(zipPath);
+                zipCompressor.preCompress(path, fileName);
+                messageInfo.setCode(200);
+                messageInfo.setMsg("二维码图片压缩成功!");
+                logger.debug("二维码图片压缩成功!" + zipPath);
+                return messageInfo;
+            }
         }
+
         messageInfo.setCode(500);
         messageInfo.setMsg("二维码图片压缩失败!");
         return messageInfo;

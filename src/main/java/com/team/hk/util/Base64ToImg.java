@@ -55,11 +55,11 @@ public class Base64ToImg {
             out.write(b);
             out.flush();
             out.close();
-            logger.debug("二维码图片成功: " + path);
+            logger.debug("转换二维码图片成功: " + path);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-            logger.debug("二维码图片失败: " + path);
+            logger.debug("转换二维码图片失败: " + path);
             return false;
         }
     }

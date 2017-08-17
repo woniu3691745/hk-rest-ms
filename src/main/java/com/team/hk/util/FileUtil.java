@@ -25,7 +25,6 @@ public class FileUtil {
          * 1.生成File[]数组
          * 2.listFiles()方法获取当前目录里的文件夹和文件
          */
-
         File[] files = file.listFiles();
         /* 判断是否为空 */
         if (files != null) {
@@ -64,8 +63,10 @@ public class FileUtil {
         }
 
         File f[] = fs.listFiles();
-        for (File i : f) {
-            list.add(i.getName());
+        if (f != null) {
+            for (File i : f) {
+                list.add(i.getName());
+            }
         }
         return list;
     }

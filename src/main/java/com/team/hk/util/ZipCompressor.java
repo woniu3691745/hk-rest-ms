@@ -23,7 +23,7 @@ public class ZipCompressor {
     private static Logger logger = Logger.getLogger(ZipCompressor.class);
 
     // 缓冲字节
-    static final int BUFFER = 8192;
+    private static final int BUFFER = 8192;
 
     // 文件类
     private File zipFile;
@@ -54,7 +54,7 @@ public class ZipCompressor {
      *
      * @param pathName 文件名字
      */
-    public void compress(List<String> pathName) {
+    private void compress(List<String> pathName) {
         ZipOutputStream out;
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(zipFile);
@@ -75,7 +75,7 @@ public class ZipCompressor {
      *
      * @param srcPathName 文件名字
      */
-    public void compress(String srcPathName) {
+    private void compress(String srcPathName) {
         File file = new File(srcPathName);
         if (!file.exists())
             throw new RuntimeException(srcPathName + "不存在！");
@@ -100,10 +100,10 @@ public class ZipCompressor {
      */
     private void compress(File file, ZipOutputStream out, String basedir) {
         if (file.isDirectory()) {
-            System.out.println("压缩：" + basedir + file.getName());
+            logger.debug("压缩：" + basedir + file.getName());
             this.compressDirectory(file, out, basedir);
         } else {
-            System.out.println("压缩：" + basedir + file.getName());
+            logger.debug("压缩：" + basedir + file.getName());
             this.compressFile(file, out, basedir);
         }
     }
@@ -120,9 +120,11 @@ public class ZipCompressor {
             return;
 
         File[] files = dir.listFiles();
-        for (File file : files) {
-            /* 递归 */
-            compress(file, out, basedir + dir.getName() + "/");
+        if (files != null) {
+            for (File file : files) {
+                /* 递归 */
+                compress(file, out, basedir + dir.getName() + "/");
+            }
         }
     }
 

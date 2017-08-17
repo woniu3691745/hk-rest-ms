@@ -143,8 +143,8 @@ public class TableInfoControllerImpl implements TableInfoController {
      * 1.生成二维码图片
      * 2.下载二维码.zip包
      *
-     * @param qrCode   二维码信息
-     * @param storeId  门店ID
+     * @param qrCode  二维码信息
+     * @param storeId 门店ID
      */
     @ResponseBody
     @RequestMapping(value = "/{storeId}/makeQRCodeImg", method = RequestMethod.POST)
@@ -207,6 +207,48 @@ public class TableInfoControllerImpl implements TableInfoController {
             e.printStackTrace();
         } finally {
             logger.debug("二维码压缩包下载成功!");
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+
+    @RequestMapping(value = "/{storeId}/test", method = RequestMethod.POST)
+    public ResponseEntity<byte[]> test(@RequestBody List<QRCode> qrCode,
+                                       @PathVariable("storeId") String storeId) {
+
+        logger.debug("桌子二维码图片信息: " + qrCode.toString());
+        boolean flag = false;
+        if (!qrCode.isEmpty()) {
+            /* 二维码图片路径 */
+            String path = ConstantUtil.ROOT_QRC_PATH + storeId;
+            /* 清空已有数据，重新生成 */
+            FileUtil.deleteFolder(new File(path));
+            logger.debug("目录 " + path + " 清空已有二维码图片成功！");
+             /* 生成二维码图片 */
+            for (QRCode aQrCode : qrCode) {
+                String base64Img = aQrCode.getBase64Img();
+                String tableName = aQrCode.getTableName();
+                flag = Base64ToImg.generateImage(storeId, base64Img, tableName);
+            }
+            if (flag) {
+                /* .zip文件目录 */
+                String zipPath = ConstantUtil.ROOT_QRC_PATH + storeId + ConstantUtil.ZIP_NAME;
+                List<String> fileName = FileUtil.getFileName(path);
+                /* 生成二维码图片压缩包 */
+                ZipCompressor zipCompressor = new ZipCompressor(zipPath);
+                zipCompressor.preCompress(path, fileName);
+                logger.debug("二维码图片压缩成功!" + zipPath);
+
+                try {
+                    String file = ConstantUtil.ROOT_QRC_PATH + storeId + ConstantUtil.ZIP_NAME;
+                    HttpHeaders headers = new HttpHeaders();
+                    headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+                    headers.setContentDispositionFormData("attachment", "QRCodeImg.zip");
+                    return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(new File(file)), headers, HttpStatus.OK);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return ResponseEntity.notFound().build();
     }

@@ -145,15 +145,11 @@ public class TableInfoControllerImpl implements TableInfoController {
      *
      * @param qrCode   二维码信息
      * @param storeId  门店ID
-     * @param request
-     * @param response
      */
     @ResponseBody
-    @RequestMapping(value = "/{storeId}/getQRCodeZip", method = RequestMethod.POST)
+    @RequestMapping(value = "/{storeId}/makeQRCodeImg", method = RequestMethod.POST)
     public MessageInfo getQRCodeZip(@RequestBody List<QRCode> qrCode,
-                                    @PathVariable("storeId") String storeId,
-                                    HttpServletRequest request,
-                                    HttpServletResponse response) {
+                                    @PathVariable("storeId") String storeId) {
 
         logger.debug("桌子二维码图片信息: " + qrCode.toString());
         MessageInfo messageInfo = new MessageInfo();
@@ -195,8 +191,8 @@ public class TableInfoControllerImpl implements TableInfoController {
      * @param storeId 门店ID
      * @return 二维码压缩包
      */
-//    @RequestMapping(value = "/{storeId}/getQRCodeZip", method = RequestMethod.POST)
-    public ResponseEntity<byte[]> download(@PathVariable("storeId") String storeId) {
+    @RequestMapping(value = "/{storeId}/downLoadQRCodeZip", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> downloadQRCodeZip(@PathVariable("storeId") String storeId) {
         logger.debug("二维码压缩包开始下载!");
         try {
             String fileName = "QRCodeImg.zip";

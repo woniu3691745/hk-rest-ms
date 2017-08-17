@@ -28,7 +28,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         registry.addMapping("/**")
                 .allowedHeaders("*")
                 .allowedMethods("GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "TRACE")
-                .allowedOrigins("http://localhost:9527")
+                .allowedOrigins("http://localhost:9527", "http://localhost:9528")
                 .exposedHeaders("Set-Cookie")
                 .allowCredentials(true)
                 .maxAge(1800);

@@ -18,4 +18,11 @@ public interface MenuInfoMapper extends CommonMapper<MenuInfo> {
      * @return rowsAffected
      */
     int deleteByIds(List<Long> id);
+
+    /**
+     * 通过菜品种类获得菜单信息
+     *
+     * @return List<MenuInfo>
+     */
+    List<MenuInfo> menuInfoByCategory();
 }

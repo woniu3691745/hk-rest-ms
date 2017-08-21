@@ -72,4 +72,9 @@ public class MenuInfoServiceImpl implements MenuInfoService {
     public int deleteMenuInfoByIdsService(List<Long> dishesId) {
         return menuInfoMapper.deleteByIds(dishesId);
     }
+
+    @Override
+    public List<MenuInfo> getAllMenuInfoByCategory() {
+        return menuInfoMapper.menuInfoByCategory();
+    }
 }

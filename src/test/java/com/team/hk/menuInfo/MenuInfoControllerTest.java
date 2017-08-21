@@ -183,4 +183,22 @@ public class MenuInfoControllerTest {
 
         assertEquals(200, status);
     }
+
+    @Test
+    public void menuInfoByParams() throws Exception {
+
+        MenuInfo menuInfo = new MenuInfo();
+        String url = "/api/menu/menuInfoByCategory";
+
+        ObjectMapper mapper = new ObjectMapper();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        String content = mvcResult.getResponse().getContentAsString();
+        System.out.println(content);
+
+        assertEquals(200, status);
+
+    }
 }

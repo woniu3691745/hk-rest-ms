@@ -63,4 +63,11 @@ public interface MenuInfoService {
      * @return rowsAffected
      */
     int deleteMenuInfoByIdsService(List<Long> id);
+
+    /**
+     * 通过菜品种类获得菜单信息
+     *
+     * @return List<MenuInfo>
+     */
+    List<MenuInfo> getAllMenuInfoByCategory();
 }

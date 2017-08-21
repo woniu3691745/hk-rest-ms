@@ -1,6 +1,7 @@
 package com.team.hk.menuInfo.controller;
 
 import com.team.hk.menuInfo.entity.MenuInfo;
+import com.team.hk.menuInfo.entity.MenuInfoMobile;
 
 import java.util.List;
 
@@ -59,4 +60,11 @@ public interface MenuInfoController {
      * @return rowsAffected
      */
     int deleteMenuInfoByIds(List<Long> id);
+
+    /**
+     * 通过菜品种类获得菜单信息
+     *
+     * @return List<MenuInfo>
+     */
+    List<MenuInfoMobile> getAllMenuInfoByCategory();
 }

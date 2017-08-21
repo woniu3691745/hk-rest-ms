@@ -1,9 +1,14 @@
 package com.team.hk.menuInfo.controller.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.team.hk.common.MessageInfo;
 import com.team.hk.menuInfo.controller.MenuInfoController;
 import com.team.hk.menuInfo.entity.MenuInfo;
+import com.team.hk.menuInfo.entity.MenuInfoMobile;
 import com.team.hk.menuInfo.service.MenuInfoService;
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -110,5 +115,41 @@ public class MenuInfoControllerImpl implements MenuInfoController {
     @Override
     public int deleteMenuInfoByIds(@RequestParam("dishesId") List<Long> dishesId) {
         return menuInfoService.deleteMenuInfoByIdsService(dishesId);
+    }
+
+
+    /**
+     * 通过菜品种类获得菜单信息
+     *
+     * @return MenuInfoMobile
+     */
+    @ResponseBody
+    @RequestMapping(value = "/menuInfoByCategory", method = RequestMethod.GET)
+    @Override
+    public List<MenuInfoMobile> getAllMenuInfoByCategory() {
+
+        List<MenuInfoMobile> base = new ArrayList<>();
+        /* 获得菜肴种类 */
+        List<MenuInfo> listCategory = menuInfoService.getAllMenuInfoByCategory();
+
+        for (MenuInfo category : listCategory) {
+            MenuInfoMobile menuInfoMobile = new MenuInfoMobile();
+
+            List<String> foot = new ArrayList<>();
+            /* 添加菜肴种类 */
+            menuInfoMobile.setName(String.valueOf(category.getDishesCategory()));
+
+            /* 通过菜肴种类获得菜肴信息 */
+            MenuInfo menuInfo = new MenuInfo();
+            menuInfo.setDishesCategory(category.getDishesCategory());
+            List<MenuInfo> allMenuInfoService = menuInfoService.getAllMenuInfoService(menuInfo);
+
+            allMenuInfoService.stream().forEach(x -> foot.add(JSON.toJSONString(x)));
+            menuInfoMobile.setFoods(String.valueOf(foot));
+            base.add(menuInfoMobile);
+        }
+
+        System.out.println(base);
+        return base;
     }
 }

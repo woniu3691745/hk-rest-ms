@@ -74,6 +74,9 @@
             <if test="menuId != null">
                 MENU_ID = #{menuId}
             </if>
+            <if test="dishesCategory != null">
+                DISHES_CATEGORY = #{dishesCategory}
+            </if>
         </where>
     </select>
 
@@ -153,4 +156,11 @@
         </foreach>
     </delete>
 
+    <!-- 查询（通过菜品种类获得菜单信息）-->
+    <select id="menuInfoByCategory" resultType="MenuInfo">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM HK_MENU_INFO_T
+        GROUP BY DISHES_CATEGORY
+    </select>
 </mapper>

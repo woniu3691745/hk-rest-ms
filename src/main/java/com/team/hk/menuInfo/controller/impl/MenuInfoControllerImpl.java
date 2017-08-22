@@ -42,10 +42,10 @@ public class MenuInfoControllerImpl implements MenuInfoController {
     @Override
     public List<MenuInfo> getAllMenuInfoByPage(@RequestBody MenuInfo menuInfo, @PathVariable("pageNo") Long pageNo,
                                                @PathVariable("pageSize") Long pageSize) {
+        logger.debug("====>菜肴信息: " + menuInfo.toString());
         List list = new ArrayList();
         Long pn = (pageNo - 1) * pageSize;
-        Long ps = pageSize;
-        List<MenuInfo> menuInfos = menuInfoService.getAllMenuInfoByPageService(menuInfo, pn, ps);
+        List<MenuInfo> menuInfos = menuInfoService.getAllMenuInfoByPageService(menuInfo, pn, pageSize);
         int count = menuInfoService.getAllMenuInfoCountByPageService(menuInfo, pageNo, pageSize);
         list.add(menuInfos);
         list.add(count);
@@ -62,6 +62,7 @@ public class MenuInfoControllerImpl implements MenuInfoController {
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     @Override
     public List<MenuInfo> getAllMenuInfo(@RequestBody MenuInfo menuInfo) {
+        logger.debug("====>菜肴信息: " + menuInfo.toString());
         return menuInfoService.getAllMenuInfoService(menuInfo);
     }
 
@@ -75,6 +76,7 @@ public class MenuInfoControllerImpl implements MenuInfoController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @Override
     public List<MenuInfo> addMenuInfo(@RequestBody MenuInfo menuInfo) {
+        logger.debug("====>菜肴信息: " + menuInfo.toString());
         return menuInfoService.addMenuInfoService(menuInfo);
     }
 
@@ -88,6 +90,7 @@ public class MenuInfoControllerImpl implements MenuInfoController {
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @Override
     public int updateMenuInfo(@RequestBody MenuInfo menuInfo) {
+        logger.debug("====>菜肴信息: " + menuInfo.toString());
         return menuInfoService.updateMenuInfoService(menuInfo);
     }
 
@@ -101,6 +104,7 @@ public class MenuInfoControllerImpl implements MenuInfoController {
     @RequestMapping(value = "/delete/{dishesId}", method = RequestMethod.DELETE)
     @Override
     public int deleteMenuInfoById(@PathVariable("dishesId") Long dishesId) {
+        logger.debug("====>菜肴ID: " + dishesId.toString());
         return menuInfoService.deleteMenuInfoByIdService(dishesId);
     }
 
@@ -114,6 +118,7 @@ public class MenuInfoControllerImpl implements MenuInfoController {
     @RequestMapping(value = "/deleteAll", method = RequestMethod.DELETE)
     @Override
     public int deleteMenuInfoByIds(@RequestParam("dishesId") List<Long> dishesId) {
+        logger.debug("====>菜肴ID: " + dishesId.toString());
         return menuInfoService.deleteMenuInfoByIdsService(dishesId);
     }
 
@@ -128,27 +133,32 @@ public class MenuInfoControllerImpl implements MenuInfoController {
     @Override
     public List<MenuInfoMobile> getAllMenuInfoByCategory(@PathVariable("storeId") Long storeId) {
 
+        logger.debug("====>门店ID: " + storeId.toString());
         List<MenuInfoMobile> base = new ArrayList<>();
         /* 获得菜肴种类 */
         List<MenuInfo> listCategory = menuInfoService.getAllMenuInfoByCategory(storeId);
 
-        for (MenuInfo category : listCategory) {
-            MenuInfoMobile menuInfoMobile = new MenuInfoMobile();
+        if (listCategory.size() > 0) {
+            logger.debug("====>菜肴种类: " + listCategory.toString());
+            for (MenuInfo category : listCategory) {
+                MenuInfoMobile menuInfoMobile = new MenuInfoMobile();
 
-            List<String> foot = new ArrayList<>();
-            /* 添加菜肴种类 */
-            menuInfoMobile.setName(category.getName());
+                List<String> foot = new ArrayList<>();
+                /* 添加菜肴种类 */
+                menuInfoMobile.setName(category.getName());
 
-            /* 通过菜肴种类获得菜肴信息 */
-            MenuInfo menuInfo = new MenuInfo();
-            menuInfo.setDishesCategory(category.getDishesCategory());
-            menuInfo.setStoreId(storeId);
-            List<MenuInfo> allMenuInfoService = menuInfoService.getAllMenuInfoService(menuInfo);
+                /* 通过菜肴种类获得菜肴信息 */
+                MenuInfo menuInfo = new MenuInfo();
+                menuInfo.setDishesCategory(category.getDishesCategory());
+                menuInfo.setStoreId(storeId);
+                List<MenuInfo> allMenuInfoService = menuInfoService.getAllMenuInfoService(menuInfo);
 
-            allMenuInfoService.forEach(x -> x.setDishesPriceNow(x.getDishesPrice() * Double.valueOf(x.getDishesDiscountPrice())));
-            allMenuInfoService.forEach(x -> foot.add(JSON.toJSONString(x)));
-            menuInfoMobile.setFoods(String.valueOf(foot));
-            base.add(menuInfoMobile);
+                allMenuInfoService.forEach(x -> x.setDishesPriceNow(x.getDishesPrice() * Double.valueOf(x.getDishesDiscountPrice())));
+                allMenuInfoService.forEach(x -> foot.add(JSON.toJSONString(x)));
+                logger.debug("====>菜肴信息: " + foot.toString());
+                menuInfoMobile.setFoods(String.valueOf(foot));
+                base.add(menuInfoMobile);
+            }
         }
 
         return base;

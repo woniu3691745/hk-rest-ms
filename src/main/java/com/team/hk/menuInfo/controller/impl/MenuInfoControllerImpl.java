@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -152,7 +154,8 @@ public class MenuInfoControllerImpl implements MenuInfoController {
                 List<MenuInfo> allMenuInfoService = menuInfoService.getAllMenuInfoService(menuInfo);
 
                 /* 计算最新菜价（菜价*折扣）*/
-                allMenuInfoService.forEach(x -> x.setDishesPriceNow(x.getDishesPrice() * Double.valueOf(x.getDishesDiscountPrice())));
+                DecimalFormat df = new DecimalFormat("#.00");
+                allMenuInfoService.forEach(x -> x.setDishesPriceNow(df.format(new BigDecimal(x.getDishesPrice() * Double.valueOf(x.getDishesDiscountPrice())))));
                 allMenuInfoService.forEach(x -> foot.add(JSON.toJSONString(x)));
                 logger.debug("====>菜肴信息: " + foot.toString());
                 menuInfoMobile.setFoods(String.valueOf(foot));

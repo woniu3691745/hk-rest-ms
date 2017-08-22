@@ -16,7 +16,7 @@ public class MenuInfo extends CommonEntity {
     private String dishesName;          // 菜肴名称
     private Double dishesPrice;         // 菜肴价钱
     private String dishesDiscountPrice; // 菜肴折扣
-    private Double dishesPriceNow;      // 菜肴当前价
+    private String dishesPriceNow;      // 菜肴当前价
     private String dishesDescription;   // 菜肴介绍
     private int dishesCategory;         // 菜系分类
     private Long dishesImg;             // 菜肴图片
@@ -155,11 +155,11 @@ public class MenuInfo extends CommonEntity {
         this.overplusStock = overplusStock;
     }
 
-    public Double getDishesPriceNow() {
+    public String getDishesPriceNow() {
         return dishesPriceNow;
     }
 
-    public void setDishesPriceNow(Double dishesPriceNow) {
+    public void setDishesPriceNow(String dishesPriceNow) {
         this.dishesPriceNow = dishesPriceNow;
     }
 

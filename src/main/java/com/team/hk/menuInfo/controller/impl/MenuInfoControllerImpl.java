@@ -1,14 +1,11 @@
 package com.team.hk.menuInfo.controller.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.team.hk.common.MessageInfo;
 import com.team.hk.menuInfo.controller.MenuInfoController;
 import com.team.hk.menuInfo.entity.MenuInfo;
 import com.team.hk.menuInfo.entity.MenuInfoMobile;
 import com.team.hk.menuInfo.service.MenuInfoService;
 import org.apache.log4j.Logger;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -126,6 +123,7 @@ public class MenuInfoControllerImpl implements MenuInfoController {
     /**
      * 通过菜品种类获得菜单信息
      *
+     * @param storeId 门店ID
      * @return MenuInfoMobile
      */
     @ResponseBody
@@ -153,6 +151,7 @@ public class MenuInfoControllerImpl implements MenuInfoController {
                 menuInfo.setStoreId(storeId);
                 List<MenuInfo> allMenuInfoService = menuInfoService.getAllMenuInfoService(menuInfo);
 
+                /* 计算最新菜价（菜价*折扣）*/
                 allMenuInfoService.forEach(x -> x.setDishesPriceNow(x.getDishesPrice() * Double.valueOf(x.getDishesDiscountPrice())));
                 allMenuInfoService.forEach(x -> foot.add(JSON.toJSONString(x)));
                 logger.debug("====>菜肴信息: " + foot.toString());

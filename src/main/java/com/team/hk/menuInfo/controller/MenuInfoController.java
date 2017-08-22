@@ -66,5 +66,5 @@ public interface MenuInfoController {
      *
      * @return List<MenuInfo>
      */
-    List<MenuInfoMobile> getAllMenuInfoByCategory();
+    List<MenuInfoMobile> getAllMenuInfoByCategory(Long storeId);
 }

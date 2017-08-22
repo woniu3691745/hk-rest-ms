@@ -74,7 +74,7 @@ public class MenuInfoServiceImpl implements MenuInfoService {
     }
 
     @Override
-    public List<MenuInfo> getAllMenuInfoByCategory() {
-        return menuInfoMapper.menuInfoByCategory();
+    public List<MenuInfo> getAllMenuInfoByCategory(Long storeId) {
+        return menuInfoMapper.menuInfoByCategory(storeId);
     }
 }

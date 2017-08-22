@@ -124,32 +124,33 @@ public class MenuInfoControllerImpl implements MenuInfoController {
      * @return MenuInfoMobile
      */
     @ResponseBody
-    @RequestMapping(value = "/menuInfoByCategory", method = RequestMethod.GET)
+    @RequestMapping(value = "/menuInfoByCategory/{storeId}", method = RequestMethod.GET)
     @Override
-    public List<MenuInfoMobile> getAllMenuInfoByCategory() {
+    public List<MenuInfoMobile> getAllMenuInfoByCategory(@PathVariable("storeId") Long storeId) {
 
         List<MenuInfoMobile> base = new ArrayList<>();
         /* 获得菜肴种类 */
-        List<MenuInfo> listCategory = menuInfoService.getAllMenuInfoByCategory();
+        List<MenuInfo> listCategory = menuInfoService.getAllMenuInfoByCategory(storeId);
 
         for (MenuInfo category : listCategory) {
             MenuInfoMobile menuInfoMobile = new MenuInfoMobile();
 
             List<String> foot = new ArrayList<>();
             /* 添加菜肴种类 */
-            menuInfoMobile.setName(String.valueOf(category.getDishesCategory()));
+            menuInfoMobile.setName(category.getName());
 
             /* 通过菜肴种类获得菜肴信息 */
             MenuInfo menuInfo = new MenuInfo();
             menuInfo.setDishesCategory(category.getDishesCategory());
+            menuInfo.setStoreId(storeId);
             List<MenuInfo> allMenuInfoService = menuInfoService.getAllMenuInfoService(menuInfo);
 
-            allMenuInfoService.stream().forEach(x -> foot.add(JSON.toJSONString(x)));
+            allMenuInfoService.forEach(x -> x.setDishesPriceNow(x.getDishesPrice() * Double.valueOf(x.getDishesDiscountPrice())));
+            allMenuInfoService.forEach(x -> foot.add(JSON.toJSONString(x)));
             menuInfoMobile.setFoods(String.valueOf(foot));
             base.add(menuInfoMobile);
         }
 
-        System.out.println(base);
         return base;
     }
 }

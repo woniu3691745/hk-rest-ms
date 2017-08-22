@@ -16,6 +16,7 @@ public class MenuInfo extends CommonEntity {
     private String dishesName;          // 菜肴名称
     private Double dishesPrice;         // 菜肴价钱
     private String dishesDiscountPrice; // 菜肴折扣
+    private Double dishesPriceNow;      // 菜肴当前价
     private String dishesDescription;   // 菜肴介绍
     private int dishesCategory;         // 菜系分类
     private Long dishesImg;             // 菜肴图片
@@ -24,18 +25,21 @@ public class MenuInfo extends CommonEntity {
     private int stock;                  // 库存
     private int overplusStock;          // 剩余库存
 
+    private String name;                // 字典表对应内容
+
     public MenuInfo() {
     }
 
     @Override
     public String toString() {
         return "MenuInfo{" +
-                "menuId=" + menuId +
-                ", dishesId=" + dishesId +
+                "dishesId=" + dishesId +
+                ", menuId=" + menuId +
                 ", storeId=" + storeId +
                 ", dishesName='" + dishesName + '\'' +
                 ", dishesPrice=" + dishesPrice +
                 ", dishesDiscountPrice='" + dishesDiscountPrice + '\'' +
+                ", dishesPriceNow=" + dishesPriceNow +
                 ", dishesDescription='" + dishesDescription + '\'' +
                 ", dishesCategory=" + dishesCategory +
                 ", dishesImg=" + dishesImg +
@@ -43,6 +47,7 @@ public class MenuInfo extends CommonEntity {
                 ", isVegetarian=" + isVegetarian +
                 ", stock=" + stock +
                 ", overplusStock=" + overplusStock +
+                ", name='" + name + '\'' +
                 '}';
     }
 
@@ -148,5 +153,21 @@ public class MenuInfo extends CommonEntity {
 
     public void setOverplusStock(int overplusStock) {
         this.overplusStock = overplusStock;
+    }
+
+    public Double getDishesPriceNow() {
+        return dishesPriceNow;
+    }
+
+    public void setDishesPriceNow(Double dishesPriceNow) {
+        this.dishesPriceNow = dishesPriceNow;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

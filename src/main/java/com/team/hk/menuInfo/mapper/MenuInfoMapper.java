@@ -24,5 +24,5 @@ public interface MenuInfoMapper extends CommonMapper<MenuInfo> {
      *
      * @return List<MenuInfo>
      */
-    List<MenuInfo> menuInfoByCategory();
+    List<MenuInfo> menuInfoByCategory(Long storeId);
 }

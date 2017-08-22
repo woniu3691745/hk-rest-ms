@@ -5,31 +5,31 @@
 
     <!-- 基本字段 -->
     <sql id="Base_Column_List">
-        DISHES_ID AS dishesId,
-        MENU_ID AS menuId,
-        STORE_ID AS storeId,
-        DISHES_NAME AS dishesName,
-        DISHES_PRICE AS dishesPrice,
-        DISHES_DISCOUNT_PRICE AS dishesDiscountPrice,
-        DISHES_DESCRIPTION AS dishesDescription,
-        DISHES_CATEGORY AS dishesCategory,
-        DISHES_IMG AS dishesImg,
-        DISHES_WATER_STATUS AS dishesWaterStatus,
-        IS_VEGETARIAN AS isVegetarian,
-        STOCK AS stock,
-        OVERPLUS_STOCK AS overplusStock,
-        CREATER AS creater,
-        CREATE_DATE_TIME AS createDateTime,
-        MODIFY AS modify,
-        UPDATE_DATE_TIME AS updateDateTime,
-        STATUS AS status
+        MENU.DISHES_ID AS dishesId,
+        MENU.MENU_ID AS menuId,
+        MENU.STORE_ID AS storeId,
+        MENU.DISHES_NAME AS dishesName,
+        MENU.DISHES_PRICE AS dishesPrice,
+        MENU.DISHES_DISCOUNT_PRICE AS dishesDiscountPrice,
+        MENU.DISHES_DESCRIPTION AS dishesDescription,
+        MENU.DISHES_CATEGORY AS dishesCategory,
+        MENU.DISHES_IMG AS dishesImg,
+        MENU.DISHES_WATER_STATUS AS dishesWaterStatus,
+        MENU.IS_VEGETARIAN AS isVegetarian,
+        MENU.STOCK AS stock,
+        MENU.OVERPLUS_STOCK AS overplusStock,
+        MENU.CREATER AS creater,
+        MENU.CREATE_DATE_TIME AS createDateTime,
+        MENU.MODIFY AS modify,
+        MENU.UPDATE_DATE_TIME AS updateDateTime,
+        MENU.STATUS AS status
     </sql>
 
     <!-- 查询 -->
     <select id="listByPage" parameterType="MenuInfo" resultType="MenuInfo">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM HK_MENU_INFO_T
+        FROM HK_MENU_INFO_T MENU
         <where>
             <if test="dishesId != null">
                 DISHES_ID = #{dishesId}
@@ -66,16 +66,19 @@
     <select id="list" parameterType="MenuInfo" resultType="MenuInfo">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM HK_MENU_INFO_T
+        FROM HK_MENU_INFO_T MENU
         <where>
             <if test="dishesId != null">
                 DISHES_ID = #{dishesId}
             </if>
             <if test="menuId != null">
-                MENU_ID = #{menuId}
+                AND MENU_ID = #{menuId}
+            </if>
+            <if test="storeId != null">
+                AND STORE_ID = #{storeId}
             </if>
             <if test="dishesCategory != null">
-                DISHES_CATEGORY = #{dishesCategory}
+                AND DISHES_CATEGORY = #{dishesCategory}
             </if>
         </where>
     </select>
@@ -157,10 +160,20 @@
     </delete>
 
     <!-- 查询（通过菜品种类获得菜单信息）-->
-    <select id="menuInfoByCategory" resultType="MenuInfo">
+    <select id="menuInfoByCategory" parameterType="Long" resultType="MenuInfo">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM HK_MENU_INFO_T
-        GROUP BY DISHES_CATEGORY
+        ,
+        DIC.NAME AS NAME
+        FROM HK_MENU_INFO_T MENU, HK_SYS_DICTIONARY_INFO_T DIC
+        <where>
+            MENU.DISHES_CATEGORY = DIC.VALUE
+            AND DIC.TYPE_ID = '9001'
+            <if test="#{0} != null">
+                AND MENU.STORE_ID = #{0}
+            </if>
+        </where>
+        GROUP BY MENU.DISHES_CATEGORY
+        ORDER BY DIC.VALUE
     </select>
 </mapper>

@@ -69,5 +69,5 @@ public interface MenuInfoService {
      *
      * @return List<MenuInfo>
      */
-    List<MenuInfo> getAllMenuInfoByCategory();
+    List<MenuInfo> getAllMenuInfoByCategory(Long storeId);
 }

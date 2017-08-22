@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-08-09 17:10:31
+Date: 2017-08-22 14:40:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -51,11 +51,11 @@ INSERT INTO `hk_book_info_t` VALUES ('10', 'xiaomingdingdan', '13478824245', '20
 DROP TABLE IF EXISTS `hk_menu_info_t`;
 CREATE TABLE `hk_menu_info_t` (
   `DISHES_ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '菜肴编号',
-  `MENU_ID` bigint(20) NOT NULL COMMENT '菜单ID',
+  `MENU_ID` bigint(20) DEFAULT NULL COMMENT '菜单ID',
   `STORE_ID` bigint(20) NOT NULL COMMENT '餐厅编号',
   `DISHES_NAME` varchar(50) NOT NULL COMMENT '菜肴名称',
   `DISHES_PRICE` float(5,2) NOT NULL COMMENT '菜肴价钱',
-  `DISHES_DISCOUNT_PRICE` varchar(3) DEFAULT NULL COMMENT '菜肴折扣',
+  `DISHES_DISCOUNT_PRICE` varchar(4) DEFAULT NULL COMMENT '菜肴折扣',
   `DISHES_DESCRIPTION` varchar(100) DEFAULT NULL COMMENT '菜肴介绍',
   `DISHES_CATEGORY` int(3) DEFAULT NULL COMMENT '菜系分类(00：热菜、01：冷饮、02：特色、03：其他)',
   `DISHES_IMG` bigint(200) DEFAULT NULL COMMENT '菜肴图片',
@@ -68,16 +68,16 @@ CREATE TABLE `hk_menu_info_t` (
   `MODIFY` varchar(16) DEFAULT NULL COMMENT '修改者',
   `UPDATE_DATE_TIME` datetime DEFAULT NULL COMMENT '修改时间',
   `STATUS` int(1) DEFAULT NULL COMMENT '状态（0：不可用，1：可用）',
-  PRIMARY KEY (`DISHES_ID`,`MENU_ID`)
+  PRIMARY KEY (`DISHES_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of hk_menu_info_t
 -- ----------------------------
-INSERT INTO `hk_menu_info_t` VALUES ('2', '2', '10002', '水煮肉1', '30.35', '0.8', '鱼水肉', '1', '333', '1', '1', '1', '1', 'lidl', '2017-07-18 11:17:26', 'lidongliang', '2017-07-25 10:34:39', '0');
-INSERT INTO `hk_menu_info_t` VALUES ('5', '10001', '10002', '水煮肉', '20.35', '0.8', '鱼水肉', '1', '333', '1', '1', '1', '1', 'lidl', '2017-07-19 21:04:09', 'lidongliang', '2017-07-19 21:04:09', '0');
+INSERT INTO `hk_menu_info_t` VALUES ('2', '2', '10002', '水煮肉1', '111.00', '0.8', '鱼水肉', '1', '333', '1', '1', '1', '1', 'lidl', '2017-07-18 11:17:26', 'lidongliang', '2017-08-15 11:49:37', '0');
+INSERT INTO `hk_menu_info_t` VALUES ('5', '10001', '10002', '水煮肉1111', '22.00', '0.8', '鱼水肉', '2', '333', '1', '1', '1', '1', 'lidl', '2017-07-19 21:04:09', 'lidongliang', '2017-08-15 11:52:35', '0');
 INSERT INTO `hk_menu_info_t` VALUES ('6', '10001', '10002', '水煮肉', '20.35', '0.8', '鱼水肉', '1', '333', '1', '1', '1', '1', 'lidl', '2017-07-24 20:25:10', 'lidongliang', '2017-07-24 20:25:10', '0');
-INSERT INTO `hk_menu_info_t` VALUES ('7', '10001', '10002', '水煮肉', '20.35', '0.8', '鱼水肉', '1', '333', '1', '1', '1', '1', 'lidl', '2017-07-24 20:25:30', 'lidongliang', '2017-07-24 20:25:30', '0');
+INSERT INTO `hk_menu_info_t` VALUES ('7', '10001', '10002', '水煮肉', '20.35', '0.8', '鱼水肉', '2', '333', '1', '1', '1', '1', 'lidl', '2017-07-24 20:25:30', 'lidongliang', '2017-07-24 20:25:30', '0');
 INSERT INTO `hk_menu_info_t` VALUES ('8', '10001', '10002', '水煮肉', '20.35', '0.8', '鱼水肉', '1', '333', '1', '1', '1', '1', 'lidl', '2017-07-24 20:27:45', 'lidongliang', '2017-07-24 20:27:45', '0');
 INSERT INTO `hk_menu_info_t` VALUES ('9', '10001', '10002', '水煮肉', '20.35', '0.8', '鱼水肉', '1', '333', '1', '1', '1', '1', 'lidl', '2017-07-24 20:32:51', 'lidongliang', '2017-07-24 20:32:51', '0');
 INSERT INTO `hk_menu_info_t` VALUES ('10', '10001', '10002', '水煮肉', '20.35', '0.8', '鱼水肉', '1', '333', '1', '1', '1', '1', 'lidl', '2017-07-24 20:57:25', 'lidongliang', '2017-07-24 20:57:25', '0');
@@ -181,13 +181,14 @@ DROP TABLE IF EXISTS `hk_store_img_t`;
 CREATE TABLE `hk_store_img_t` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `STORE_ID` bigint(20) DEFAULT NULL COMMENT '餐厅编号',
-  `IMG_URL` varchar(16) DEFAULT NULL COMMENT '餐厅相片',
+  `IMG_URL` varchar(500) DEFAULT NULL COMMENT '餐厅相片',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of hk_store_img_t
 -- ----------------------------
+INSERT INTO `hk_store_img_t` VALUES ('27', '39', 'api/store/storeImgDown/1502782282170/img.jpg');
 
 -- ----------------------------
 -- Table structure for `hk_store_info_t`
@@ -203,7 +204,6 @@ CREATE TABLE `hk_store_info_t` (
   `STORE_STATUS` int(3) DEFAULT NULL COMMENT '餐厅状态（00：营业，01:未营业）',
   `STORE_LOGO` varchar(100) DEFAULT NULL COMMENT '餐厅LOGO（路径）',
   `STORE_NOTICE` varchar(100) DEFAULT NULL COMMENT '餐厅公告',
-  `STORE_IMG` varchar(200) DEFAULT NULL COMMENT '餐厅相片',
   `STORE_TYPE` int(20) DEFAULT NULL COMMENT '餐厅类型（00：日料，01:韩国，等）',
   `SEAT_COST` float(5,2) DEFAULT NULL COMMENT '茶位费',
   `SERVICE_COST` varchar(3) DEFAULT NULL COMMENT '服务费',
@@ -218,13 +218,12 @@ CREATE TABLE `hk_store_info_t` (
   `UPDATE_DATE_TIME` datetime DEFAULT NULL COMMENT '修改时间',
   `STATUS` int(1) DEFAULT NULL COMMENT '状态（0：不可用，1：可用）',
   PRIMARY KEY (`STORE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of hk_store_info_t
 -- ----------------------------
-INSERT INTO `hk_store_info_t` VALUES ('17', '好利来1', '13478824245', '北京', '李栋梁', '环境优雅', '1', 'D:\\asd', 'aaaa', 'D:\\asd', '1', '22.11', '10%', '06:30', '12:00', '12:00', '23:00', null, '李栋梁', '2017-08-09 14:00:57', '李栋梁', '2017-08-09 14:26:04', '0');
-INSERT INTO `hk_store_info_t` VALUES ('23', 'test1', '1', null, '1', null, '0', null, '1', null, '0', '1.00', '1', '00:00', '00:30', '12:00', '12:00', '1', null, '2017-08-09 15:10:48', null, '2017-08-09 15:10:48', '0');
+INSERT INTO `hk_store_info_t` VALUES ('39', '老板娘烤肉店', null, null, '王凡', null, '0', '1502782242697/img.jpg', '测试', '0', '10.00', '0.1', '06:30', '07:00', '12:00', '20:30', null, null, '2017-08-15 15:31:23', null, '2017-08-15 16:19:34', '0');
 
 -- ----------------------------
 -- Table structure for `hk_sys_dictionary_info_t`
@@ -242,20 +241,14 @@ CREATE TABLE `hk_sys_dictionary_info_t` (
   `UPDATE_DATE_TIME` datetime DEFAULT NULL COMMENT '修改时间',
   `STATUS` int(1) DEFAULT NULL COMMENT '状态（0：不可用，1：可用）',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of hk_sys_dictionary_info_t
 -- ----------------------------
-INSERT INTO `hk_sys_dictionary_info_t` VALUES ('1', '90001', '用户角色', 'admin', '管理员', 'lidongliang', '2017-07-19 13:27:04', 'lidongliang', '2017-07-19 13:27:04', '0');
-INSERT INTO `hk_sys_dictionary_info_t` VALUES ('2', '90001', '用户角色', 'user', '用户', 'lidongliang', '2017-07-19 13:29:05', 'lidongliang', '2017-07-19 13:29:05', '0');
-INSERT INTO `hk_sys_dictionary_info_t` VALUES ('7', '90001', '用户角色2', 'user1', '用户4', 'lidongliang', '2017-07-19 20:27:22', 'lidongliang', '2017-07-19 20:27:22', '0');
-INSERT INTO `hk_sys_dictionary_info_t` VALUES ('8', '90001', '用户角色2', 'user1', '用户4', 'lidongliang', '2017-07-24 20:25:11', 'lidongliang', '2017-07-24 20:25:11', '0');
-INSERT INTO `hk_sys_dictionary_info_t` VALUES ('9', '90001', '用户角色2', 'user1', '用户4', 'lidongliang', '2017-07-24 20:25:30', 'lidongliang', '2017-07-24 20:25:30', '0');
-INSERT INTO `hk_sys_dictionary_info_t` VALUES ('10', '90001', '用户角色2', 'user1', '用户4', 'lidongliang', '2017-07-24 20:27:45', 'lidongliang', '2017-07-24 20:27:45', '0');
-INSERT INTO `hk_sys_dictionary_info_t` VALUES ('11', '90001', '用户角色2', 'user1', '用户4', 'lidongliang', '2017-07-24 20:32:51', 'lidongliang', '2017-07-24 20:32:51', '0');
-INSERT INTO `hk_sys_dictionary_info_t` VALUES ('12', '90001', '用户角色2', 'user1', '用户4', 'lidongliang', '2017-07-24 20:57:26', 'lidongliang', '2017-07-24 20:57:26', '0');
-INSERT INTO `hk_sys_dictionary_info_t` VALUES ('13', '90001', '用户角色2', 'user1', '用户4', 'lidongliang', '2017-07-25 10:34:41', 'lidongliang', '2017-07-25 10:34:41', '0');
+INSERT INTO `hk_sys_dictionary_info_t` VALUES ('12', '9001', '菜肴种类', '1', '特色菜', 'lidongliang', '2017-07-24 20:57:26', 'lidongliang', '2017-07-24 20:57:26', '0');
+INSERT INTO `hk_sys_dictionary_info_t` VALUES ('13', '9001', '菜肴种类', '3', '凉菜', 'lidongliang', '2017-07-25 10:34:41', 'lidongliang', '2017-07-25 10:34:41', '0');
+INSERT INTO `hk_sys_dictionary_info_t` VALUES ('14', '9001', '菜肴种类', '2', '热菜', 'lidongliang', '2017-08-22 13:47:10', 'lidongliang', '2017-08-22 13:47:16', '0');
 
 -- ----------------------------
 -- Table structure for `hk_sys_menu_info_t`
@@ -277,7 +270,7 @@ CREATE TABLE `hk_sys_menu_info_t` (
   `UPDATE_DATE_TIME` datetime DEFAULT NULL,
   `STATUS` int(1) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1036 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1042 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of hk_sys_menu_info_t
@@ -300,8 +293,13 @@ INSERT INTO `hk_sys_menu_info_t` VALUES ('1030', '创建Form', 'form/create', 'e
 INSERT INTO `hk_sys_menu_info_t` VALUES ('1031', 'Tab页签', 'tab/index', 'example/tab/index', null, null, '1', 'develop', '1009', 'admin', '2017-07-26 10:15:43', 'admin', '2017-08-08 14:48:56', '0');
 INSERT INTO `hk_sys_menu_info_t` VALUES ('1032', '编辑门店', 'storeInfo/:storeId', 'store/storeInfo', null, null, '0', 'admin,boss', '1007', 'admin', '2017-07-28 10:33:02', 'admin', '2017-08-08 18:48:36', '0');
 INSERT INTO `hk_sys_menu_info_t` VALUES ('1033', '门店信息', 'storeInfo', 'store/storeInfo', null, null, '1', 'user', '1007', 'admin', '2017-08-08 15:05:31', 'admin', '2017-08-08 15:05:31', '0');
-INSERT INTO `hk_sys_menu_info_t` VALUES ('1034', '菜品管理', 'menuInfo', 'store/menuInfo', null, null, '1', 'user', '1007', 'admin', '2017-08-08 15:06:49', 'admin', '2017-08-08 17:32:58', '0');
 INSERT INTO `hk_sys_menu_info_t` VALUES ('1035', '创建门店', 'storeInfo', 'store/storeInfo', null, null, '0', 'boss', '1007', 'admin', '2017-08-08 18:48:08', 'admin', '2017-08-09 11:21:06', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1036', '菜品管理', 'storeMenu/:storeId', 'store/menu', null, null, '0', 'admin,boss', '1007', 'admin', '2017-08-09 18:03:23', 'admin', '2017-08-15 10:08:16', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1037', '菜品管理', 'storemMenu', 'store/menu', null, null, '1', 'user', '1007', 'admin', '2017-08-09 18:04:04', 'admin', '2017-08-15 10:07:55', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1038', '餐桌管理', 'tableInfo/:storeId', 'store/table', null, null, '0', 'admin,boss', '1007', 'admin', '2017-08-10 15:25:02', 'admin', '2017-08-10 15:25:02', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1039', '餐桌管理', 'tableInfo', 'store/table', null, null, '1', 'user', '1007', 'admin', '2017-08-10 15:25:43', 'admin', '2017-08-14 20:01:19', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1040', '编辑菜品', 'storeMenuInfo/:storeId/:menuId', 'store/menuInfo', null, null, '0', 'admin,boss,user', '1007', 'admin', '2017-08-15 10:10:05', 'admin', '2017-08-15 10:49:24', '0');
+INSERT INTO `hk_sys_menu_info_t` VALUES ('1041', '创建菜品', 'storeMenuInfo/:storeId', 'store/menuInfo', null, null, '0', 'user,boss', '1007', 'admin', '2017-08-15 10:40:20', 'admin', '2017-08-15 10:49:36', '0');
 
 -- ----------------------------
 -- Table structure for `hk_sys_user_info_t`
@@ -323,14 +321,16 @@ CREATE TABLE `hk_sys_user_info_t` (
   `UPDATE_DATE_TIME` datetime DEFAULT NULL COMMENT '修改时间',
   `STATUS` int(1) DEFAULT NULL COMMENT '状态（0：不可用，1：可用）',
   PRIMARY KEY (`USER_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of hk_sys_user_info_t
 -- ----------------------------
 INSERT INTO `hk_sys_user_info_t` VALUES ('1', 'admin', '123456', 'admin,develop', null, '1', null, '0', null, 'admin', '2017-08-08 14:41:30', 'admin', '2017-08-08 14:41:30', '0');
-INSERT INTO `hk_sys_user_info_t` VALUES ('36', 'boss1', '123456', 'boss', '1234', '0', '大连\n', '1', '1', 'admin', '2017-08-08 15:50:57', 'admin', '2017-08-08 15:50:57', '0');
-INSERT INTO `hk_sys_user_info_t` VALUES ('37', 'user1', '123456', 'user', '1234', '1', '大连\n\n', '2', '36', 'boss1', '2017-08-08 15:51:40', 'boss1', '2017-08-08 15:51:40', '0');
+INSERT INTO `hk_sys_user_info_t` VALUES ('2', 'boss1', '123456', 'boss', null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `hk_sys_user_info_t` VALUES ('44', 'boss', '123456', 'boss', '123456789', '1', '大连', '1', '1', 'admin', '2017-08-15 11:06:21', 'admin', '2017-08-15 11:06:21', '0');
+INSERT INTO `hk_sys_user_info_t` VALUES ('49', 'user', '123456', 'user', '12345', '1', null, '2', '44', 'boss', '2017-08-15 15:31:57', 'boss', '2017-08-15 15:53:26', '0');
+INSERT INTO `hk_sys_user_info_t` VALUES ('50', '1223', '123', 'boss', null, '0', null, '1', '1', 'admin', '2017-08-16 11:41:26', 'admin', '2017-08-16 11:41:26', '0');
 
 -- ----------------------------
 -- Table structure for `hk_table_info_t`
@@ -347,12 +347,27 @@ CREATE TABLE `hk_table_info_t` (
   `UPDATE_DATE_TIME` datetime DEFAULT NULL COMMENT '修改时间',
   `STATUS` int(1) DEFAULT NULL COMMENT '状态（0：不可用，1：可用）',
   PRIMARY KEY (`TABLE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of hk_table_info_t
 -- ----------------------------
 INSERT INTO `hk_table_info_t` VALUES ('1', '2', '0', 'a123eaa', null, '2017-07-18 13:24:34', 'xiaomin1g', '2017-07-25 10:34:42', '0');
+INSERT INTO `hk_table_info_t` VALUES ('13', '17', '0', null, 'boss1', '2017-08-14 18:00:59', 'boss1', '2017-08-14 18:00:59', '0');
+INSERT INTO `hk_table_info_t` VALUES ('14', '17', '0', null, 'boss1', '2017-08-14 18:01:22', 'boss1', '2017-08-14 18:01:22', '0');
+INSERT INTO `hk_table_info_t` VALUES ('15', '17', '0', null, 'boss1', '2017-08-14 18:12:24', 'boss1', '2017-08-14 18:12:24', '0');
+INSERT INTO `hk_table_info_t` VALUES ('16', '17', '0', null, 'boss1', '2017-08-14 18:13:52', 'boss1', '2017-08-14 18:13:52', '0');
+INSERT INTO `hk_table_info_t` VALUES ('17', '17', '0', null, 'boss1', '2017-08-14 18:15:27', 'boss1', '2017-08-14 18:15:27', '0');
+INSERT INTO `hk_table_info_t` VALUES ('18', '17', '0', null, 'boss1', '2017-08-14 18:16:42', 'boss1', '2017-08-14 18:16:42', '0');
+INSERT INTO `hk_table_info_t` VALUES ('19', '17', '0', null, 'boss1', '2017-08-14 18:16:54', 'boss1', '2017-08-14 18:16:54', '0');
+INSERT INTO `hk_table_info_t` VALUES ('20', '17', '0', null, 'boss1', '2017-08-14 18:17:41', 'boss1', '2017-08-14 18:17:41', '0');
+INSERT INTO `hk_table_info_t` VALUES ('21', '17', '0', null, 'boss1', '2017-08-14 18:19:18', 'boss1', '2017-08-14 18:19:18', '0');
+INSERT INTO `hk_table_info_t` VALUES ('22', '17', '0', null, 'boss1', '2017-08-14 18:19:35', 'boss1', '2017-08-14 18:19:35', '0');
+INSERT INTO `hk_table_info_t` VALUES ('23', '17', '0', null, 'boss1', '2017-08-14 18:23:03', 'boss', '2017-08-15 16:42:06', '0');
+INSERT INTO `hk_table_info_t` VALUES ('24', '17', '0', null, 'boss1', '2017-08-15 16:41:15', 'boss', '2017-08-15 16:41:15', '0');
+INSERT INTO `hk_table_info_t` VALUES ('27', '39', '0', '2123', 'boss', '2017-08-16 16:26:07', 'boss', '2017-08-16 16:26:07', '0');
+INSERT INTO `hk_table_info_t` VALUES ('28', '39', '0', '3123', 'boss', '2017-08-17 09:01:44', 'boss', '2017-08-17 09:01:44', '0');
+INSERT INTO `hk_table_info_t` VALUES ('29', '39', '0', '3', 'boss', '2017-08-17 09:01:47', 'boss', '2017-08-17 09:01:47', '0');
 
 -- ----------------------------
 -- Table structure for `hk_user_store_info_t`
@@ -367,8 +382,8 @@ CREATE TABLE `hk_user_store_info_t` (
 -- ----------------------------
 -- Records of hk_user_store_info_t
 -- ----------------------------
-INSERT INTO `hk_user_store_info_t` VALUES ('36', '17');
-INSERT INTO `hk_user_store_info_t` VALUES ('36', '23');
+INSERT INTO `hk_user_store_info_t` VALUES ('44', '39');
+INSERT INTO `hk_user_store_info_t` VALUES ('49', '39');
 
 -- ----------------------------
 -- Table structure for `hk_user_sys_menu_info_t`

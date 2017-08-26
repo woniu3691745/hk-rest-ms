@@ -76,6 +76,7 @@ public class MenuInfoControllerImpl implements MenuInfoController {
     @Override
     public List<MenuInfo> addMenuInfo(@RequestBody MenuInfo menuInfo) {
         logger.debug("====>菜肴信息: " + menuInfo.toString());
+        menuInfo.setMenuId(menuInfo.getStoreId());
         return menuInfoService.addMenuInfoService(menuInfo);
     }
 

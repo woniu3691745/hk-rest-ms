@@ -35,7 +35,10 @@
                 DISHES_ID = #{dishesId}
             </if>
             <if test="menuId != null">
-                MENU_ID = #{menuId}
+                AND MENU_ID = #{menuId}
+            </if>
+            <if test="storeId != null">
+                AND STORE_ID = #{storeId}
             </if>
         </where>
         ORDER BY UPDATE_DATE_TIME DESC
@@ -54,7 +57,7 @@
                 DISHES_ID = #{dishesId}
             </if>
             <if test="menuId != null">
-                MENU_ID = #{menuId}
+                AND MENU_ID = #{menuId}
             </if>
         </where>
         <!--<if test="pageNo != null and pageSize != null">

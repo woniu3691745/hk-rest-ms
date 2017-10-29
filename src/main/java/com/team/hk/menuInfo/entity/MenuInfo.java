@@ -19,7 +19,7 @@ public class MenuInfo extends CommonEntity {
     private String dishesPriceNow;      // 菜肴当前价
     private String dishesDescription;   // 菜肴介绍
     private int dishesCategory;         // 菜系分类
-    private Long dishesImg;             // 菜肴图片
+    private String dishesImg;             // 菜肴图片
     private int dishesWaterStatus;      // 饮品
     private int isVegetarian;           // 素食
     private int stock;                  // 库存
@@ -115,11 +115,11 @@ public class MenuInfo extends CommonEntity {
         this.dishesCategory = dishesCategory;
     }
 
-    public Long getDishesImg() {
+    public String getDishesImg() {
         return dishesImg;
     }
 
-    public void setDishesImg(Long dishesImg) {
+    public void setDishesImg(String dishesImg) {
         this.dishesImg = dishesImg;
     }
 

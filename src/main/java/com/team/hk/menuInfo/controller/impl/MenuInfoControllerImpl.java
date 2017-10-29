@@ -1,16 +1,26 @@
 package com.team.hk.menuInfo.controller.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.team.hk.common.MessageInfo;
 import com.team.hk.menuInfo.controller.MenuInfoController;
 import com.team.hk.menuInfo.entity.MenuInfo;
 import com.team.hk.menuInfo.entity.MenuInfoMobile;
 import com.team.hk.menuInfo.service.MenuInfoService;
+import com.team.hk.storeInfo.entity.StoreImg;
+import com.team.hk.storeInfo.entity.StoreInfo;
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +35,25 @@ public class MenuInfoControllerImpl implements MenuInfoController {
 
     private static Logger logger = Logger.getLogger(MenuInfoControllerImpl.class);
 
+    /* class path: "classpath:" */
+    private final ResourceLoader resourceLoader;
+
+
     @Autowired
     private MenuInfoService menuInfoService;
+
+
+    /**
+     * 存放门店logo和门店图片路径
+     */
+    private static final String ROOT_IMG = "dish/img/";
+    private static final String ROOT_LOGO = "dish/logo/";
+
+
+    @Autowired
+    public MenuInfoControllerImpl(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
 
     /**
      * 获得菜单信息（通过分页）
@@ -166,4 +193,62 @@ public class MenuInfoControllerImpl implements MenuInfoController {
 
         return base;
     }
+
+
+
+    /**
+     * 1.获得菜肴图片
+     * 2.新增页面
+     *
+     * @param filename 菜肴图片名字
+     * @param path     图片路径
+     * @return 图片路径
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/add/dishesImgDown/{path}/{filename:.+}")
+    public ResponseEntity<?> doAddStoreLogoDown(@PathVariable String filename,
+                                                @PathVariable String path) {
+        try {
+            logger.debug("====> 菜肴名字: " + resourceLoader.getResource("file:"
+                    + Paths.get(ROOT_LOGO + path, filename).toString()));
+            return ResponseEntity.ok(resourceLoader.getResource("file:"
+                    + Paths.get(ROOT_LOGO + path, filename).toString()));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+    /**
+     * 上传菜肴图片
+     *
+     * @param img 菜肴图片名字
+     * @return 消息结果集
+     */
+    @ResponseBody
+    @RequestMapping(value = "/dishesImgDown/{path}", method = RequestMethod.POST)
+    public MessageInfo doUploadLogoImg(@RequestParam("img") MultipartFile img,
+                                       @PathVariable String path) {
+        MessageInfo messageInfo = new MessageInfo();
+        if (!img.isEmpty()) {
+            try {
+                FileUtils.copyInputStreamToFile(img.getInputStream(),
+                        new File(ROOT_LOGO + path, img.getOriginalFilename()));
+                logger.debug("====> 上传菜肴图片成功: "
+                        + ROOT_LOGO + path + "/" + img.getOriginalFilename());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            messageInfo.setCode(200);
+            messageInfo.setMsg("上传菜肴图片成功.");
+            return messageInfo;
+        }
+        logger.debug("====> 上传失败,文件为空.");
+        messageInfo.setCode(500);
+        messageInfo.setMsg("上传失败,文件为空.");
+        return messageInfo;
+    }
+
+
+
+
 }

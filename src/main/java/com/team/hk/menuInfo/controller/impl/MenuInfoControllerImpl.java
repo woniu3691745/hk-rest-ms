@@ -204,7 +204,7 @@ public class MenuInfoControllerImpl implements MenuInfoController {
      */
     @RequestMapping(method = RequestMethod.GET, value = "/add/dishesImgDown/{path}/{filename:.+}")
     public ResponseEntity<?> doAdDishImgDown(@PathVariable String filename,
-                                                @PathVariable String path) {
+                                             @PathVariable String path) {
         try {
             logger.debug("====> 菜肴名字: " + resourceLoader.getResource("file:"
                     + Paths.get(ROOT_LOGO + path, filename).toString()));
@@ -223,7 +223,7 @@ public class MenuInfoControllerImpl implements MenuInfoController {
      * @return 消息结果集
      */
     @ResponseBody
-    @RequestMapping(value = "/dishesImgDown/{path}", method = RequestMethod.POST)
+    @RequestMapping(value = "/dishesImgUpload/{path}", method = RequestMethod.POST)
     public MessageInfo doUploadDishImg(@RequestParam("img") MultipartFile img,
                                        @PathVariable String path) {
         MessageInfo messageInfo = new MessageInfo();
@@ -252,15 +252,16 @@ public class MenuInfoControllerImpl implements MenuInfoController {
      * 1.通过菜肴ID获得菜肴图片,
      * 给编辑页面
      *
-     * @param dishId 菜肴ID
+     * @param dishesId 菜肴ID
      * @return 图片路径
      */
     @RequestMapping(method = RequestMethod.GET, value = "/edit/dishesImgDown/{dishesId}/{filename:.+}")
-    public ResponseEntity<?> doEditDishImgDown(@PathVariable String dishId) {
+    public ResponseEntity<?> doEditDishImgDown(@PathVariable String dishesId) {
 
         try {
             MenuInfo menuInfo = new MenuInfo();
-            menuInfo.setMenuId(Long.valueOf(dishId));
+            menuInfo.setDishesId(Long.valueOf(dishesId));
+            menuInfo.setDishesCategory(99); // 排除菜肴种类
             List<MenuInfo> allDishInfoService = menuInfoService.getAllMenuInfoService(menuInfo);
             if (allDishInfoService.size() != 0) {
                 if (allDishInfoService.get(0).getDishesImg() != null) {

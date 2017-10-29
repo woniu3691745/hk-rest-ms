@@ -80,7 +80,7 @@
             <if test="storeId != null">
                 AND STORE_ID = #{storeId}
             </if>
-            <if test="dishesCategory != null">
+            <if test="dishesCategory != null and dishesCategory != 99">
                 AND DISHES_CATEGORY = #{dishesCategory}
             </if>
         </where>

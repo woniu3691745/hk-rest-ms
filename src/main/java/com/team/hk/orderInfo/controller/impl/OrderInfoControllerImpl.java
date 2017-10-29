@@ -71,8 +71,9 @@ public class OrderInfoControllerImpl implements OrderInfoController {
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @Override
-    public int addOrderInfo(@RequestBody OrderInfo orderInfo, @RequestBody List<OrderDishInfo> orderDishInfo) {
-        return orderInfoService.addOrderInfoService(orderInfo, orderDishInfo);
+    public int addOrderInfo(@RequestBody OrderInfo orderInfo) {
+        logger.debug("====> 订单信息: " + orderInfo.toString());
+        return orderInfoService.addOrderInfoService(orderInfo, orderInfo.getOrderDishInfo());
     }
 
     /**

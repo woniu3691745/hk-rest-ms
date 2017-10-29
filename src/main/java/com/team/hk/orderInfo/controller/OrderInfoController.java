@@ -36,7 +36,7 @@ public interface OrderInfoController {
      * @param orderInfo 订单实体
      * @return rowsAffected
      */
-    int addOrderInfo(OrderInfo orderInfo, List<OrderDishInfo> orderDishInfo);
+    int addOrderInfo(OrderInfo orderInfo);
 
     /**
      * 修改订单

@@ -4,6 +4,7 @@ import com.team.hk.common.CommonEntity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by lidongliang on 2017/6/27.
@@ -22,6 +23,7 @@ public class OrderInfo extends CommonEntity{
     private String orderCreater;        // 订单创建者
     private int member;                 // 用餐人数
     private String comment;             // 备注
+    private List<OrderDishInfo> orderDishInfo;   // 菜肴信息
 
     public OrderInfo() {
         super();
@@ -103,9 +105,17 @@ public class OrderInfo extends CommonEntity{
         this.comment = comment;
     }
 
+    public List<OrderDishInfo> getOrderDishInfo() {
+        return orderDishInfo;
+    }
+
+    public void setOrderDishInfo(List<OrderDishInfo> orderDishInfo) {
+        this.orderDishInfo = orderDishInfo;
+    }
+
     @Override
     public String toString() {
-        return "OrderInfoController{" +
+        return "OrderInfo{" +
                 "orderId=" + orderId +
                 ", storeId=" + storeId +
                 ", tableId=" + tableId +
@@ -113,9 +123,9 @@ public class OrderInfo extends CommonEntity{
                 ", startDateTime=" + startDateTime +
                 ", orderAmount=" + orderAmount +
                 ", orderCreater='" + orderCreater + '\'' +
-                ", MEMBER=" + member +
+                ", member=" + member +
                 ", comment='" + comment + '\'' +
+                ", orderDishInfo=" + orderDishInfo +
                 '}';
     }
-
 }

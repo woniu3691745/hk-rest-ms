@@ -6,8 +6,6 @@ import com.team.hk.menuInfo.controller.MenuInfoController;
 import com.team.hk.menuInfo.entity.MenuInfo;
 import com.team.hk.menuInfo.entity.MenuInfoMobile;
 import com.team.hk.menuInfo.service.MenuInfoService;
-import com.team.hk.storeInfo.entity.StoreImg;
-import com.team.hk.storeInfo.entity.StoreInfo;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -205,7 +203,7 @@ public class MenuInfoControllerImpl implements MenuInfoController {
      * @return 图片路径
      */
     @RequestMapping(method = RequestMethod.GET, value = "/add/dishesImgDown/{path}/{filename:.+}")
-    public ResponseEntity<?> doAddStoreLogoDown(@PathVariable String filename,
+    public ResponseEntity<?> doAdDishImgDown(@PathVariable String filename,
                                                 @PathVariable String path) {
         try {
             logger.debug("====> 菜肴名字: " + resourceLoader.getResource("file:"
@@ -226,7 +224,7 @@ public class MenuInfoControllerImpl implements MenuInfoController {
      */
     @ResponseBody
     @RequestMapping(value = "/dishesImgDown/{path}", method = RequestMethod.POST)
-    public MessageInfo doUploadLogoImg(@RequestParam("img") MultipartFile img,
+    public MessageInfo doUploadDishImg(@RequestParam("img") MultipartFile img,
                                        @PathVariable String path) {
         MessageInfo messageInfo = new MessageInfo();
         if (!img.isEmpty()) {
@@ -249,6 +247,35 @@ public class MenuInfoControllerImpl implements MenuInfoController {
     }
 
 
+
+    /**
+     * 1.通过菜肴ID获得菜肴图片,
+     * 给编辑页面
+     *
+     * @param dishId 菜肴ID
+     * @return 图片路径
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/edit/dishesImgDown/{dishesId}/{filename:.+}")
+    public ResponseEntity<?> doEditDishImgDown(@PathVariable String dishId) {
+
+        try {
+            MenuInfo menuInfo = new MenuInfo();
+            menuInfo.setMenuId(Long.valueOf(dishId));
+            List<MenuInfo> allDishInfoService = menuInfoService.getAllMenuInfoService(menuInfo);
+            if (allDishInfoService.size() != 0) {
+                if (allDishInfoService.get(0).getDishesImg() != null) {
+                    String dishImgPath;
+                    dishImgPath = allDishInfoService.get(0).getDishesImg();
+                    logger.debug("====> 菜肴图片: "
+                            + resourceLoader.getResource("file:" + ROOT_LOGO + dishImgPath));
+                    return ResponseEntity.ok(resourceLoader.getResource("file:" + ROOT_LOGO + dishImgPath));
+                }
+            }
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 
 }

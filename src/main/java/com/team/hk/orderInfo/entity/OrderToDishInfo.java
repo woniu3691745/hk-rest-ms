@@ -23,7 +23,7 @@ public class OrderToDishInfo extends CommonEntity {
     private int member;                 // 用餐人数
     private String comment;             // 备注
 
-    private List<OrderDishInfo> OrderDishInfo;  // 订单_菜肴实体类
+    private List<OrderDishInfo> orderDishInfos;  // 订单_菜肴实体类
 
     public OrderToDishInfo() {
         super();
@@ -106,11 +106,11 @@ public class OrderToDishInfo extends CommonEntity {
     }
 
     public List<com.team.hk.orderInfo.entity.OrderDishInfo> getOrderDishInfo() {
-        return OrderDishInfo;
+        return orderDishInfos;
     }
 
     public void setOrderDishInfo(List<com.team.hk.orderInfo.entity.OrderDishInfo> orderDishInfo) {
-        OrderDishInfo = orderDishInfo;
+        orderDishInfos = orderDishInfo;
     }
 
     @Override
@@ -125,7 +125,7 @@ public class OrderToDishInfo extends CommonEntity {
                 ", orderCreater='" + orderCreater + '\'' +
                 ", member=" + member +
                 ", comment='" + comment + '\'' +
-                ", OrderDishInfo=" + OrderDishInfo +
+                ", OrderDishInfo=" + orderDishInfos +
                 '}';
     }
 }
